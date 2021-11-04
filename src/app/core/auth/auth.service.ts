@@ -76,7 +76,7 @@ export class AuthService
         }
 
         // 'api/auth/sign-in'
-        return this._httpClient.post(`${environment.apiUrl}/auth/login`, credentials).pipe(
+        return this._httpClient.post(`${environment.apiUrl}/admin/auth/login`, credentials).pipe(
             switchMap((response: any) => {
 
                 // Store the access token in the local storage
