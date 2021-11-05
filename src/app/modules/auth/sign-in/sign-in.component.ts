@@ -42,8 +42,8 @@ export class AuthSignInComponent implements OnInit {
     ngOnInit(): void {
         // Create the form
         this.signInForm = this._formBuilder.group({
-            email: ['hughes.brian@company.com', [Validators.required, Validators.email]],
-            password: ['admin', Validators.required],
+            email: ['setiawanagik@gmail.com', [Validators.required, Validators.email]],
+            password: ['123456', Validators.required],
             rememberMe: ['']
         });
     }
@@ -70,7 +70,7 @@ export class AuthSignInComponent implements OnInit {
         // Sign in
         this._authService.signIn(this.signInForm.value)
             .subscribe(
-                (res) => {
+                (response) => {
                     // alert('aaa');
                     // console.log(res);
 
@@ -84,7 +84,7 @@ export class AuthSignInComponent implements OnInit {
                     this._router.navigateByUrl(redirectURL);
 
                 },
-                (response) => {
+                (error) => {
 
                     // Re-enable the form
                     this.signInForm.enable();

@@ -7,6 +7,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class ExampleComponent
 {
+    accessToken = localStorage.getItem('accessToken');
+    
     /**
      * Constructor
      */

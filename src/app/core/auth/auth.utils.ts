@@ -153,6 +153,7 @@ export class AuthUtils
      */
     private static _decodeToken(token: string): any
     {
+        
         // Return if there is no token
         if ( !token )
         {
