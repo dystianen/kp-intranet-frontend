@@ -15,18 +15,25 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { FuseConfigModule } from '@fuse/services/config';
+import { LayoutModule } from 'app/layout/layout.module';
+
 import { SupplierComponent } from './supplier.component';
 import { Route, RouterModule } from '@angular/router';
 import { AddComponent } from './add/add.component';
 import { ListComponent } from './list/list.component';
+import { SupplierResolver } from './supplier.resolver';
 
 const supplierRoutes: Route[] = [
   {
     path: '',
     component: SupplierComponent,
-    children:[
+    children: [
       {
-        path:'',
+        path: '',
+        resolve: {
+          suppliers: SupplierResolver
+        },
         component: ListComponent
       }
     ]
@@ -43,7 +50,7 @@ const supplierRoutes: Route[] = [
   imports: [
     CommonModule,
     RouterModule.forChild(supplierRoutes),
-     MatButtonModule,
+    MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
@@ -55,7 +62,9 @@ const supplierRoutes: Route[] = [
     MatSortModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    FuseConfigModule,
+    LayoutModule
   ]
 })
 export class SupplierModule { }

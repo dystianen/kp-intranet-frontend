@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SupplierService } from '../supplier.service';
 import { Suppliers } from '../suppliers.types';
 
 @Component({
@@ -13,9 +14,10 @@ export class ListComponent implements OnInit {
 
   suppliers$: Observable<Suppliers[]>
 
-  constructor() { }
+  constructor(private _supplierService: SupplierService) { }
 
   ngOnInit(): void {
+    this.suppliers$ = this._supplierService.suppliers$;
   }
 
 }

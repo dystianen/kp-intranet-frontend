@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { SupplierService } from './supplier.service';
+import { Suppliers } from './suppliers.types';
 
 @Component({
   selector: 'app-supplier',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SupplierComponent implements OnInit {
 
-  constructor() { }
+ 
 
   ngOnInit(): void {
+    
   }
 
 }

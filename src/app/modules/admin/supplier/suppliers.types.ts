@@ -3,5 +3,7 @@ export interface Suppliers {
     supplierName: string;
     supplierCode: string;
     address: string;
+    description: string
+    statusCode: number
 
 }
