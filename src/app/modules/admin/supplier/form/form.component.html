@@ -1,7 +1,7 @@
 <div class="w-100">
     <h1 mat-dialog-title>{{ formAttribute.formTitle }} </h1>
 
-    <form [formGroup]="formProduct" id="formProduct" #f="ngForm" (ngSubmit)="submitForm($event)" novalidate>
+    <form [formGroup]="formProduct" id="formProduct" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
         <div class="flex flex-col w-full">
             <div mat-dialog-content>
                <div class="flex flex-col w-full">
@@ -27,8 +27,7 @@
             <div>
                 <div mat-dialog-actions class="flex justify-center">
                     <button class="bg-gray-400 text-white" mat-button mat-dialog-close>Close</button>
-                    <button class="bg-green-600 text-white" mat-button
-                        onclick="document.getElementById('formProduct').submit()">Submit</button>
+                    <button type="submit" class="bg-green-600 text-white" mat-button>Submit</button>
                 </div>
             </div>
         </div>

@@ -25,9 +25,21 @@ export class FormComponent implements OnInit {
     this.formAttribute = this.data;
   }
 
-  submitForm(e) {
-    e.preventDefault();
-    console.log(this.formProduct);
+  /**
+   * submit form
+   * @param f 
+   * @returns 
+   */
+  submitForm(f: NgForm) {
+    if (!f.valid) {
+      return;
+    }
+    const form = f.value;
+    const create = this.supplierService.createSupplier(form);
+    create.subscribe(function (data) {
+      console.log(data);
+    });
   }
+
 
 }
