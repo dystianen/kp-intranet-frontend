@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SupplierService } from '../supplier.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class FormComponent implements OnInit {
 
   public formAttribute: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private supplierService: SupplierService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef : MatDialogRef<any>, private supplierService: SupplierService) { }
 
   ngOnInit(): void {
     this.formAttribute = this.data;
@@ -31,13 +31,15 @@ export class FormComponent implements OnInit {
    * @returns 
    */
   submitForm(f: NgForm) {
+    const _this = this;
     if (!f.valid) {
       return;
     }
     const form = f.value;
-    const create = this.supplierService.createSupplier(form);
-    create.subscribe(function (data) {
-      console.log(data);
+    this.supplierService.createSupplier(form).subscribe(function (data) {
+      if (data.statusCode == 200) {
+        _this.dialogRef.close()
+      }
     });
   }
 

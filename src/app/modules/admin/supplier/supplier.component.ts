@@ -33,7 +33,6 @@ export class SupplierComponent implements OnInit {
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('dialog closed');
     })
   }
 

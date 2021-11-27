@@ -37,17 +37,24 @@ export class SupplierService {
    * Create Product
    * @returns 
    */
-  createSupplier(dataSupplier: any): Observable<Suppliers> {
+  createSupplier(dataSupplier: any): Observable<any> {
     return this.suppliers$.pipe(
       take(1),
-      switchMap(products => this._httpClient.post<Suppliers>(`${environment.apiUrl}/admin/supplier`, dataSupplier).pipe(
-        map((newProduct) => {
-          // Update the products with the new product
-          this._suppliers.next([newProduct, ...products]);
-          // Return the new product
-          return newProduct;
-        })
-      ))
+      switchMap(products => this._httpClient.post<Suppliers>(`${environment.apiUrl}/admin/supplier`, dataSupplier)
+        .pipe(tap((response: any) => {
+          if (response.statusCode == 200) {
+            return response.data;
+          }
+          return [];
+        }))
+        .pipe(
+          map((newProduct) => {
+            // Update the products with the new product
+            this._suppliers.next([newProduct.data, ...products]);
+            // Return the new product
+            return newProduct;
+          })
+        ))
     );
   }
 

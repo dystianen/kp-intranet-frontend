@@ -4,6 +4,4 @@ export interface Suppliers {
     supplierCode: string;
     address: string;
     description: string
-    statusCode: number
-
 }
