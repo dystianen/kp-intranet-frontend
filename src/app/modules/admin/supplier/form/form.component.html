@@ -1,0 +1,38 @@
+<div class="w-100">
+    <h1 mat-dialog-title>{{ formAttribute.formTitle }} </h1>
+
+    <form [formGroup]="formProduct" id="formProduct" #f="ngForm" (ngSubmit)="submitForm($event)" novalidate>
+        <div class="flex flex-col w-full">
+            <div mat-dialog-content>
+               <div class="flex flex-col w-full">
+                <mat-form-field>
+                    <mat-label>Supplier Name</mat-label>
+                    <input matInput [formControlName]="'supplierName'" required />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Supplier Code</mat-label>
+                    <input matInput [formControlName]="'supplierCode'" required />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <input matInput [formControlName]="'description'" required />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Address</mat-label>
+                    <input matInput [formControlName]="'address'" required />
+                </mat-form-field>
+               </div>
+            </div>
+
+            <div>
+                <div mat-dialog-actions class="flex justify-center">
+                    <button class="bg-gray-400 text-white" mat-button mat-dialog-close>Close</button>
+                    <button class="bg-green-600 text-white" mat-button
+                        onclick="document.getElementById('formProduct').submit()">Submit</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>

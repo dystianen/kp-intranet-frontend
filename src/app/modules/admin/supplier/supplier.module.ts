@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { MatInputModule, } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -18,11 +19,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseConfigModule } from '@fuse/services/config';
 import { LayoutModule } from 'app/layout/layout.module';
 
+//Modal Module
+import {MatDialogModule} from '@angular/material/dialog';
+
 import { SupplierComponent } from './supplier.component';
 import { Route, RouterModule } from '@angular/router';
 import { AddComponent } from './add/add.component';
 import { ListComponent } from './list/list.component';
 import { SupplierResolver } from './supplier.resolver';
+import { FormComponent } from './form/form.component';
 
 const supplierRoutes: Route[] = [
   {
@@ -45,7 +50,8 @@ const supplierRoutes: Route[] = [
   declarations: [
     SupplierComponent,
     AddComponent,
-    ListComponent
+    ListComponent,
+    FormComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +70,10 @@ const supplierRoutes: Route[] = [
     MatSlideToggleModule,
     MatTooltipModule,
     FuseConfigModule,
-    LayoutModule
+    LayoutModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class SupplierModule { }

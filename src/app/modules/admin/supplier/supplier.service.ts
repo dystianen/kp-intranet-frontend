@@ -33,4 +33,22 @@ export class SupplierService {
     }))
   }
 
+  /**
+   * Create Product
+   * @returns 
+   */
+  createSupplier(dataSupplier: any): Observable<Suppliers> {
+    return this.suppliers$.pipe(
+      take(1),
+      switchMap(products => this._httpClient.post<Suppliers>(`${environment.apiUrl}/admin/supplier`, dataSupplier).pipe(
+        map((newProduct) => {
+          // Update the products with the new product
+          this._suppliers.next([newProduct, ...products]);
+          // Return the new product
+          return newProduct;
+        })
+      ))
+    );
+  }
+
 }
