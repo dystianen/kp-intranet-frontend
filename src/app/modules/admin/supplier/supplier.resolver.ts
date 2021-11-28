@@ -19,7 +19,7 @@ export class SupplierResolver implements Resolve<any> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Suppliers[]> {
-    return this._supplierService.getsuppliers();
+    return this._supplierService.getSuppliers();
   }
   
 }

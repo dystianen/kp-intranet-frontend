@@ -11,6 +11,7 @@ import { environment } from 'environments/environment';
 export class SupplierService {
 
   private _suppliers: BehaviorSubject<Suppliers[] | null> = new BehaviorSubject(null);
+  private _supplier: BehaviorSubject<Suppliers | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient) {
 
@@ -20,17 +21,38 @@ export class SupplierService {
     return this._suppliers.asObservable();
   }
 
+  get supplier$(): Observable<Suppliers> {
+    return this._supplier.asObservable();
+  }
+
 
   /**
    * get suppliers
    * @returns 
    */
-  getsuppliers(): Observable<Suppliers[]> {
+  getSuppliers(): Observable<Suppliers[]> {
     return this._httpClient.get<Suppliers[]>(`${environment.apiUrl}/admin/supplier`).pipe(tap((suppliers: any) => {
       if (suppliers.statusCode == 200) {
         this._suppliers.next(suppliers.data);
+        return suppliers.data;
       }
+      return [];
     }))
+  }
+
+  /**
+   * get suppliers
+   * @param id 
+   * @returns 
+   */
+  getSupplier(id): Observable<any> {
+    return this._httpClient.get<Suppliers>(`${environment.apiUrl}/admin/supplier/${id}`).pipe(tap((suppliers: any) => {
+      if (suppliers.statusCode == 200) {
+        this._supplier.next(suppliers.data);
+        return suppliers.data;
+      }
+      return [];
+    }));
   }
 
   /**
@@ -40,7 +62,7 @@ export class SupplierService {
   createSupplier(dataSupplier: any): Observable<any> {
     return this.suppliers$.pipe(
       take(1),
-      switchMap(products => this._httpClient.post<Suppliers>(`${environment.apiUrl}/admin/supplier`, dataSupplier)
+      switchMap(suppliers => this._httpClient.post<Suppliers>(`${environment.apiUrl}/admin/supplier`, dataSupplier)
         .pipe(tap((response: any) => {
           if (response.statusCode == 200) {
             return response.data;
@@ -48,14 +70,28 @@ export class SupplierService {
           return [];
         }))
         .pipe(
-          map((newProduct) => {
-            // Update the products with the new product
-            this._suppliers.next([newProduct.data, ...products]);
+          map((newSupplier) => {
+            // Update the suppliers with the new product
+            this._suppliers.next([newSupplier.data, ...suppliers]);
             // Return the new product
-            return newProduct;
+            return newSupplier;
           })
         ))
     );
+  }
+
+  updateSupplier(id: number, dataSupplier: any): Observable<Suppliers> {
+    return this.suppliers$.pipe(
+      take(1),
+      switchMap(suppliers => this._httpClient.patch<Suppliers>(`${environment.apiUrl}/admin/supplier/${id}`, dataSupplier)
+        .pipe(tap((response: any) => {
+          if (response.statusCode == 200) {
+            return response.data;
+          }
+          return [];
+        }))
+        )
+    )
   }
 
 }

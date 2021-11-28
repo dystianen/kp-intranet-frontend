@@ -23,12 +23,13 @@ export class SupplierComponent implements OnInit {
   }
 
   /**
-   * Open dialog form
+   * Open add dialog form
    */
   addSupplierDialog() {
     const dialogRef = this.dialog.open(FormComponent, {
       data: {
-        formTitle: 'Add Supplier'
+        formTitle: 'Add Supplier',
+        formType:'add'
       },
       autoFocus: false
     });

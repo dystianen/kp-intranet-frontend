@@ -3,8 +3,8 @@
 
     <!-- suppliers list -->
     <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
-        <ng-container *ngIf="(suppliers$ | async) as products">
-            <ng-container *ngIf="products.length > 0; else noProducts">
+        <ng-container *ngIf="(suppliers$ | async) as suppliers">
+            <ng-container *ngIf="suppliers.length > 0; else nosuppliers">
                 <div class="grid">
                     <!-- Header -->
                     <div class="grid-cols-4 z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
@@ -19,35 +19,35 @@
                         <div class="text-right"></div>
                     </div>
                     <!-- Rows -->
-                    <ng-container *ngIf="(suppliers$ | async) as products">
-                        <ng-container *ngFor="let product of products; trackBy: trackByFn">
+                    <ng-container *ngIf="(suppliers$ | async) as suppliers">
+                        <ng-container *ngFor="let supplier of suppliers; trackBy: trackByFn">
                             <div class="grid-cols-4 grid items-center gap-4 py-3 px-6 md:px-8 border-b">
 
                                 <!-- Image -->
 
                                 <!-- SKU -->
                                 <div class="hidden md:block truncate">
-                                    {{product.supplierName}}
+                                    {{supplier.supplierName}}
                                 </div>
 
                                 <!-- Name -->
                                 <div class="truncate">
-                                    {{product.supplierCode}}
+                                    {{supplier.supplierCode}}
                                 </div>
 
                                 <!-- Price -->
                                 <div class="hidden sm:block">
-                                    {{product.address}}
+                                    {{supplier.address}}
                                 </div>
 
                                 <!-- Details button -->
                                 <div class="flex justify-end">
-                                    <button class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" mat-stroked-button>
+                                    <button (click)="editSupplierDialog(supplier.id)" class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" mat-stroked-button>
                                         <span class="material-icons">
                                             edit
                                         </span>
                                     </button>
-                                    <button class="min-w-10 min-h-7 h-7 px-2 leading-6 text-red-800" mat-stroked-button>
+                                    <button (click)="deleteSupplierDialog(supplier.id)" class="min-w-10 min-h-7 h-7 px-2 leading-6 text-red-800" mat-stroked-button>
                                         <span class="material-icons">
                                             delete
                                         </span>
@@ -55,9 +55,9 @@
                                 </div>
                             </div>
                             <!-- <div class="grid">
-                                <ng-container *ngIf="selectedProduct?.id === product.id">
+                                <ng-container *ngIf="selectedsupplier?.id === supplier.id">
                                     <ng-container
-                                        *ngTemplateOutlet="rowDetailsTemplate; context: {$implicit: product}">
+                                        *ngTemplateOutlet="rowDetailsTemplate; context: {$implicit: supplier}">
                                     </ng-container>
                                 </ng-container>
                             </div> -->
@@ -74,9 +74,9 @@
             </ng-container>
         </ng-container>
 
-        <ng-template #noProducts>
+        <ng-template #nosuppliers>
             <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no
-                products!</div>
+                suppliers!</div>
         </ng-template>
 
     </div>
