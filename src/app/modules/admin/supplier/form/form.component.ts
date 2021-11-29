@@ -3,6 +3,7 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SupplierService } from '../supplier.service';
 import { Suppliers } from '../suppliers.types';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form',
@@ -11,13 +12,14 @@ import { Suppliers } from '../suppliers.types';
 })
 export class FormComponent implements OnInit {
 
-  formProduct = new FormGroup({
-    id: new FormControl(''),
+  formSupplier = new FormGroup({
     supplierName: new FormControl(''),
     supplierCode: new FormControl(''),
     address: new FormControl(''),
     description: new FormControl('')
   });
+
+  idSupplier: number;
 
   public formAttribute: any;
 
@@ -29,22 +31,8 @@ export class FormComponent implements OnInit {
     if (this.data.formType == 'edit') {
       if (this._supplierService.supplier$) {
         this._supplierService.supplier$.subscribe(function (data: Suppliers) {
-          _this.formProduct.setValue({
-            id: data.id,
-            supplierName: data.supplierName,
-            supplierCode: data.supplierCode,
-            address: data.address,
-            description: data.description
-          });
-        })
-      }
-    }
-    if (this.data.formType == 'delete') {
-      if (this._supplierService.supplier$) {
-        this._supplierService.supplier$.subscribe(function (data: Suppliers) {
-          console.log(data);
-          _this.formProduct.setValue({
-            id: data.id,
+          _this.idSupplier = data.id;
+          _this.formSupplier.setValue({
             supplierName: data.supplierName,
             supplierCode: data.supplierCode,
             address: data.address,
@@ -76,10 +64,15 @@ export class FormComponent implements OnInit {
       });
     }
     if (this.data.formType == 'edit') {
-      let id = form.id;
+      let id = _this.idSupplier;
       this._supplierService.updateSupplier(id, form).subscribe(function (data) {
         if (data) {
           _this.dialogRef.close()
+          Swal.fire({
+            title: 'Sucess',
+            text: 'Supplier has updated',
+            icon: 'success'
+          })
           _this._supplierService.getSuppliers().subscribe();
         }
       });
