@@ -4,30 +4,30 @@
     <form [formGroup]="formProduct" id="formProduct" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
         <div class="flex flex-col w-full">
             <div mat-dialog-content>
-               <div class="flex flex-col w-full">
-                <mat-form-field>
-                    <mat-label>Supplier Name</mat-label>
-                    <input matInput [formControlName]="'supplierName'" required />
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Supplier Code</mat-label>
-                    <input matInput [formControlName]="'supplierCode'" required />
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Description</mat-label>
-                    <input matInput [formControlName]="'description'" required />
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Address</mat-label>
-                    <input matInput [formControlName]="'address'" required />
-                </mat-form-field>
-               </div>
+                <div class="flex flex-col w-full">
+                    <mat-form-field>
+                        <mat-label>Supplier Name</mat-label>
+                        <input matInput [formControlName]="'supplierName'" required />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Supplier Code</mat-label>
+                        <input matInput [formControlName]="'supplierCode'" required />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Description</mat-label>
+                        <input matInput [formControlName]="'description'" required />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Address</mat-label>
+                        <input matInput [formControlName]="'address'" required />
+                    </mat-form-field>
+                </div>
             </div>
 
             <div>
                 <div mat-dialog-actions class="flex justify-center">
-                    <button class="bg-gray-400 text-white" mat-button mat-dialog-close>Close</button>
-                    <button type="submit" class="bg-green-600 text-white" mat-button>Submit</button>
+                    <button-close></button-close>
+                    <button-submit></button-submit>
                 </div>
             </div>
         </div>

@@ -62,18 +62,16 @@ export class ListComponent implements OnInit {
       allowOutsideClick: false,
     }).then((result) => {
       if (result.isConfirmed) {
-        // const getSupplier = _this._supplierService.getSupplier(id);
-        // getSupplier.subscribe(function (data) {
-        //   const dialogRef = _this.dialog.open(FormComponent, {
-        //     data: {
-        //       formTitle: 'Delete Supplier',
-        //       formType: 'delete'
-        //     },
-        //     autoFocus: false
-        //   });
-        //   dialogRef.afterClosed().subscribe(result => {
-        //   })
-        // });
+        _this._supplierService.deleteSupplier(id).subscribe((data) => {
+          _this._supplierService.getSuppliers().subscribe();
+          if (data) {
+            Swal.fire({
+              title: 'Sucess',
+              text: data.message,
+              icon: 'success'
+            })
+          }
+        })
       }
     })
 

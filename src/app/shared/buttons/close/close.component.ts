@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-close',
+  selector: 'button-close',
   templateUrl: './close.component.html',
   styleUrls: ['./close.component.scss']
 })

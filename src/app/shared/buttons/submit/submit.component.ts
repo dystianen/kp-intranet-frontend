@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-submit',
+  selector: 'button-submit',
   templateUrl: './submit.component.html',
   styleUrls: ['./submit.component.scss']
 })

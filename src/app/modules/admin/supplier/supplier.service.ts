@@ -80,6 +80,12 @@ export class SupplierService {
     );
   }
 
+  /**
+   * update supplier
+   * @param id 
+   * @param dataSupplier 
+   * @returns 
+   */
   updateSupplier(id: number, dataSupplier: any): Observable<Suppliers> {
     return this.suppliers$.pipe(
       take(1),
@@ -90,7 +96,26 @@ export class SupplierService {
           }
           return [];
         }))
-        )
+      )
+    )
+  }
+
+  /**
+   * delete supplier
+   * @param id 
+   * @returns 
+   */
+  deleteSupplier(id: number) {
+    return this.suppliers$.pipe(
+      take(1),
+      switchMap(suppliers => this._httpClient.delete<Suppliers>(`${environment.apiUrl}/admin/supplier/${id}`)
+        .pipe(tap((response: any) => {
+          if (response.statusCode == 200) {
+            return response.data;
+          }
+          return [];
+        }))
+      )
     )
   }
 

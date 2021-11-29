@@ -1,25 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SubmitComponent } from './buttons/submit/submit.component';
-import { DeleteComponent } from './buttons/delete/delete.component';
-import { CloseComponent } from './buttons/close/close.component';
+import { ButtonsModule } from './buttons/buttons.module';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ButtonsModule
     ],
     exports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
-    ],
-    declarations: [
-      SubmitComponent,
-      DeleteComponent,
-      CloseComponent
+        ReactiveFormsModule,
+        ButtonsModule
     ]
 })
 export class SharedModule

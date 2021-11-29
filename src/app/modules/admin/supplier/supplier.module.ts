@@ -28,6 +28,7 @@ import { AddComponent } from './add/add.component';
 import { ListComponent } from './list/list.component';
 import { SupplierResolver } from './supplier.resolver';
 import { FormComponent } from './form/form.component';
+import { SharedModule } from 'app/shared/shared.module';
 
 const supplierRoutes: Route[] = [
   {
@@ -73,7 +74,8 @@ const supplierRoutes: Route[] = [
     LayoutModule,
     MatDialogModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class SupplierModule { }
