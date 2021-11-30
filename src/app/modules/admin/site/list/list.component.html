@@ -1,0 +1,86 @@
+<!-- Main -->
+<div class="flex flex-auto overflow-hidden">
+
+    <!-- sites list -->
+    <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
+        <ng-container *ngIf="(sites$ | async) as sites">
+            <ng-container *ngIf="sites.length > 0; else nosites">
+                <div class="grid">
+                    <!-- Header -->
+                    <div class="grid-cols-4 z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
+                        matSort matSortDisableClear>
+                        <div class="hidden md:block" [mat-sort-header]="'supplierCOde'">
+                            Supplier Code
+                        </div>
+                        <div [mat-sort-header]="'supplierName'">Supplier Name</div>
+                        <div class="hidden sm:block" [mat-sort-header]="'supplierType'">
+                            Type
+                        </div>
+                        <div class="text-right"></div>
+                    </div>
+                    <!-- Rows -->
+                    <ng-container *ngIf="(sites$ | async) as sites">
+                        <ng-container *ngFor="let site of sites; trackBy: trackByFn">
+                            <div class="grid-cols-4 grid items-center gap-4 py-3 px-6 md:px-8 border-b">
+
+                                <!-- Image -->
+
+                                <!-- SKU -->
+                                <div class="hidden md:block truncate">
+                                    {{site.siteCode}}
+                                </div>
+
+                                <!-- Name -->
+                                <div class="truncate">
+                                    {{site.siteName}}
+                                </div>
+
+                                <!-- Price -->
+                                <div class="hidden sm:block">
+                                    {{site.siteType}}
+                                </div>
+
+                                <!-- Details button -->
+                                <div class="flex justify-end">
+                                    <button (click)="editSiteDialog(site.id)"
+                                        class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" mat-stroked-button>
+                                        <span class="material-icons">
+                                            edit
+                                        </span>
+                                    </button>
+                                    <!-- <button (click)="deleteSupplierDialog(site.id)"
+                                        class="min-w-10 min-h-7 h-7 px-2 leading-6 text-red-800" mat-stroked-button>
+                                        <span class="material-icons">
+                                            delete
+                                        </span>
+                                    </button> -->
+                                </div>
+                            </div>
+                            <!-- <div class="grid">
+                                <ng-container *ngIf="selectedsupplier?.id === site.id">
+                                    <ng-container
+                                        *ngTemplateOutlet="rowDetailsTemplate; context: {$implicit: site}">
+                                    </ng-container>
+                                </ng-container>
+                            </div> -->
+                        </ng-container>
+                    </ng-container>
+                </div>
+
+                <!-- <mat-paginator
+                    class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent"
+                    [ngClass]="{'pointer-events-none': isLoading}" [length]="pagination.length"
+                    [pageIndex]="pagination.page" [pageSize]="pagination.size" [pageSizeOptions]="[5, 10, 25, 100]"
+                    [showFirstLastButtons]="true"></mat-paginator> -->
+
+            </ng-container>
+        </ng-container>
+
+        <ng-template #nosites>
+            <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no
+                sites!</div>
+        </ng-template>
+
+    </div>
+
+</div>

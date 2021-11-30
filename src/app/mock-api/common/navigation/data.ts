@@ -76,8 +76,8 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 id: 'apps.supplier',
                 title: 'Suppliers',
                 type: 'basic',
-                icon: 'heroicons_outline:cloud',
-                link: '/apps/suppliers'
+                icon: 'how_to_reg',
+                link: '/supplier'
             }
         ]
     },
@@ -119,28 +119,28 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 id: 'internal.User',
                 title: 'Users',
                 type: 'basic',
-                icon: 'heroicons_outline:menu-alt-2',
+                icon: 'supervisor_account',
                 link: '/internal/users'
             },
             {
                 id: 'internal.courier',
                 title: 'Courier',
                 type: 'basic',
-                icon: 'heroicons_outline:menu-alt-2',
+                icon: 'portrait',
                 link: '/internal/courier'
             },
             {
                 id: 'internal.sites',
                 title: 'Sites',
                 type: 'basic',
-                icon: 'heroicons_outline:menu-alt-2',
-                link: '/internal/sites'
+                icon: 'public',
+                link: '/site'
             },
             {
                 id: 'internal.shippers',
                 title: 'Shippers',
                 type: 'basic',
-                icon: 'heroicons_outline:menu-alt-2',
+                icon: 'local_shipping',
                 link: '/internal/shippers'
             },
         ]
@@ -158,14 +158,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:menu-alt-2',
                 link: '/customer/members'
-            },
-            {
-                id: 'customer.roles',
-                title: 'Roles',
-                type: 'basic',
-                icon: 'heroicons_outline:menu-alt-2',
-                link: '/customer/roles'
-            },
+            }
         ]
     },
     {

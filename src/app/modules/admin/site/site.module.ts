@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { SiteComponent } from './site.component';
+import { ListComponent } from './list/list.component';
+import { FormComponent } from './form/form.component';
+import { Route, RouterModule } from '@angular/router';
+import { SiteResolver } from './site.resolver';
+
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -15,29 +20,19 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatDialogModule} from '@angular/material/dialog';
-
-import { FuseConfigModule } from '@fuse/services/config';
-import { LayoutModule } from 'app/layout/layout.module';
-
-//Modal Module
-
-import { SupplierComponent } from './supplier.component';
-import { Route, RouterModule } from '@angular/router';
-import { ListComponent } from './list/list.component';
-import { SupplierResolver } from './supplier.resolver';
-import { FormComponent } from './form/form.component';
+import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from 'app/shared/shared.module';
 
-const supplierRoutes: Route[] = [
+
+const siteRoutes: Route[] = [
   {
     path: '',
-    component: SupplierComponent,
+    component: SiteComponent,
     children: [
       {
         path: '',
         resolve: {
-          suppliers: SupplierResolver
+          sites: SiteResolver
         },
         component: ListComponent
       }
@@ -45,16 +40,15 @@ const supplierRoutes: Route[] = [
   }
 ];
 
-
 @NgModule({
   declarations: [
-    SupplierComponent,
+    SiteComponent,
     ListComponent,
     FormComponent
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(supplierRoutes),
+    RouterModule.forChild(siteRoutes),
     MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,
@@ -68,12 +62,8 @@ const supplierRoutes: Route[] = [
     MatSelectModule,
     MatSlideToggleModule,
     MatTooltipModule,
-    FuseConfigModule,
-    LayoutModule,
     MatDialogModule,
-    ReactiveFormsModule,
-    FormsModule,
     SharedModule
   ]
 })
-export class SupplierModule { }
+export class SiteModule { }

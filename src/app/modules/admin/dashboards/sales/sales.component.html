@@ -1,0 +1,14 @@
+<div class="w-full p-4">
+    <div>
+        <h2 class="text-3xl font-semibold tracking-tight leading-8">Sales dashboard</h2>
+        <div class="font-medium tracking-tight text-secondary">Keep track of your financial status</div>
+    </div>
+   <div>
+    <div id="chart" class="my-6">
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels"
+            [plotOptions]="chartOptions.plotOptions" [yaxis]="chartOptions.yaxis" [legend]="chartOptions.legend"
+            [fill]="chartOptions.fill" [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip"
+            [xaxis]="chartOptions.xaxis"></apx-chart>
+    </div>
+   </div>
+</div>
