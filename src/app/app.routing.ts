@@ -74,9 +74,9 @@ export const appRoutes: Route[] = [
         },
         children: [
             { path: 'dashboards', loadChildren: () => import('app/modules/admin/dashboards/dashboards.module').then(m => m.DashboardsModule) },
-            // { path: 'example', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule) },
             { path: 'supplier', loadChildren: () => import('app/modules/admin/supplier/supplier.module').then(m => m.SupplierModule) },
             { path: 'site', loadChildren: () => import('app/modules/admin/site/site.module').then(m => m.SiteModule) },
+            { path: 'product', loadChildren: () => import('app/modules/admin/product/product.module').then(m => m.ProductModule) },
         ]
     }
 ];

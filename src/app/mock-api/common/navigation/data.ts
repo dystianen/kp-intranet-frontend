@@ -29,6 +29,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:chart-pie',
                 link: '/dashboards/shipping'
+            },
+            {
+                id: 'dashboards.customers',
+                title: 'Customers',
+                type: 'basic',
+                icon: 'supervisor_account',
+                link: '/dashboards/customers'
             }
         ]
     },
@@ -46,22 +53,22 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'heroicons_outline:shopping-cart',
                 children: [
                     {
-                        id: 'apps.ecommerce.product',
+                        id: 'apps.product',
                         title: 'Product',
                         type: 'basic',
-                        link: '/apps/ecommerce/product'
+                        link: '/product'
                     },
                     {
-                        id: 'apps.ecommerce.category',
+                        id: 'apps.product.category',
                         title: 'Category',
                         type: 'basic',
-                        link: '/apps/ecommerce/category'
+                        link: '/product/category'
                     },
                     {
-                        id: 'apps.ecommerce.category',
+                        id: 'apps.product.category',
                         title: 'Attribute',
                         type: 'basic',
-                        link: '/apps/ecommerce/atteibute'
+                        link: '/product/category'
                     }
                 ]
             },
