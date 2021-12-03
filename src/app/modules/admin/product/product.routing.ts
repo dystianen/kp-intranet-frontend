@@ -15,6 +15,6 @@ export const productRoutes: Route[] = [
                     products: ProductResolver
                 }
             }
-        ]
+        ],
     }
 ];

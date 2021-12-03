@@ -47,7 +47,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:home',
         children: [
             {
-                id: 'apps.ecommerce',
+                id: 'apps.product',
                 title: 'Products',
                 type: 'collapsable',
                 icon: 'heroicons_outline:shopping-cart',
@@ -62,13 +62,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         id: 'apps.product.category',
                         title: 'Category',
                         type: 'basic',
-                        link: '/product/category'
+                        link: '/product-category'
                     },
                     {
-                        id: 'apps.product.category',
+                        id: 'apps.product.attribute',
                         title: 'Attribute',
                         type: 'basic',
-                        link: '/product/category'
+                        link: '/product-attribute'
                     }
                 ]
             },
