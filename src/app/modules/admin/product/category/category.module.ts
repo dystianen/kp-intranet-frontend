@@ -4,12 +4,23 @@ import { FormComponent } from './form/form.component';
 import { ListComponent } from './list/list.component';
 import { Route, RouterModule } from '@angular/router';
 import { CategoryComponent } from './category.component';
+import { CrudModule } from 'app/shared/crud/crud.module';
+import { CategoryResolver } from './category.resolver';
 
 
 const routesCategory: Route[] = [
   {
     path: '',
-    component: CategoryComponent
+    component: CategoryComponent,
+    children: [
+      {
+        path: '',
+        component: ListComponent,
+        resolve: {
+          categories: CategoryResolver
+        }
+      }
+    ]
   }
 ]
 
@@ -22,7 +33,8 @@ const routesCategory: Route[] = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routesCategory)
+    RouterModule.forChild(routesCategory),
+    CrudModule
   ]
 })
 export class CategoryModule { }

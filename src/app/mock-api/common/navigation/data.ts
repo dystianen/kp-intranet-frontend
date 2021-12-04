@@ -20,14 +20,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 id: 'dashboards.payment',
                 title: 'Payments',
                 type: 'basic',
-                icon: 'heroicons_outline:chart-pie',
+                icon: 'payments',
                 link: '/dashboards/payments'
             },
             {
                 id: 'dashboards.shipping',
                 title: 'Shipping',
                 type: 'basic',
-                icon: 'heroicons_outline:chart-pie',
+                icon: 'local_shipping',
                 link: '/dashboards/shipping'
             },
             {
@@ -76,7 +76,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 id: 'apps.orders',
                 title: 'Orders',
                 type: 'basic',
-                icon: 'heroicons_outline:cloud',
+                icon: 'dvr',
                 link: '/apps/orders'
             },
             {

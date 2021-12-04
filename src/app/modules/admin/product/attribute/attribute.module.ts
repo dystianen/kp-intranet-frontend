@@ -1,27 +1,40 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AttributeComponent } from './attribute.component';
 import { ListComponent } from './list/list.component';
 import { FormComponent } from './form/form.component';
+import { AttributeComponent } from './attribute.component';
 import { Route, RouterModule } from '@angular/router';
+import { CrudModule } from 'app/shared/crud/crud.module';
+import { AttributeResolver } from './attribute.resolver';
 
-const routesAttribute: Route[] = [
+
+const routes: Route[] = [
   {
     path: '',
-    component: AttributeComponent
+    component: AttributeComponent,
+    children: [
+      {
+        path: '',
+        component: ListComponent,
+        resolve: {
+          attributes: AttributeResolver
+        }
+      }
+    ]
   }
 ]
 
 
 @NgModule({
   declarations: [
-    AttributeComponent,
     ListComponent,
-    FormComponent
+    FormComponent,
+    AttributeComponent
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routesAttribute)
+    RouterModule.forChild(routes),
+    CrudModule
   ]
 })
 export class AttributeModule { }
