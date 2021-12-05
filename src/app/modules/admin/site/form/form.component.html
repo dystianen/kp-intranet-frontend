@@ -13,10 +13,19 @@
                         <mat-label>Site Code</mat-label>
                         <input matInput [formControlName]="'siteCode'" required />
                     </mat-form-field>
+
                     <mat-form-field>
                         <mat-label>Type</mat-label>
-                        <input matInput [formControlName]="'siteType'" required />
+                        <mat-select matInput [formControlName]="'siteType'" required>
+                            <mat-option [value]="'website'">
+                                Website
+                            </mat-option>
+                            <mat-option [value]="'store'">
+                                Store
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
+
                     <mat-form-field>
                         <mat-label>Description</mat-label>
                         <input matInput [formControlName]="'description'" required />

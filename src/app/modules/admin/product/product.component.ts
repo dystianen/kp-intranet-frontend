@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { FormComponent } from './form/form.component';
 
 
 @Component({
@@ -8,11 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductComponent implements OnInit {
 
-  isLoading: boolean = false;
-  
-  constructor() { }
+  isLoading = false
+
+  constructor(public dialog: MatDialog) {
+
+  }
 
   ngOnInit(): void {
+  }
+
+  /**
+  * Open add dialog form
+  */
+  addDialog() {
+    const dialogRef = this.dialog.open(FormComponent, {
+      data: {
+        formTitle: 'Add New Product',
+        formType: 'add'
+      },
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    })
   }
 
 }

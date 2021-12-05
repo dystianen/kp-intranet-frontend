@@ -133,7 +133,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 id: 'internal.courier',
                 title: 'Courier',
                 type: 'basic',
-                icon: 'portrait',
+                icon: 'local_shipping',
                 link: '/internal/courier'
             },
             {
@@ -147,7 +147,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 id: 'internal.shippers',
                 title: 'Shippers',
                 type: 'basic',
-                icon: 'local_shipping',
+                icon: 'portrait',
                 link: '/internal/shippers'
             },
         ]

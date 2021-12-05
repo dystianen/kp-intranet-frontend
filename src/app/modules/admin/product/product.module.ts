@@ -6,6 +6,7 @@ import { ListComponent } from './list/list.component';
 import { FormComponent } from './form/form.component';
 import { productRoutes } from './product.routing';
 import { CrudModule } from 'app/shared/crud/crud.module';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 
@@ -24,7 +25,8 @@ const routerConfig: ExtraOptions = {
   imports: [
     CommonModule,
     RouterModule.forChild(productRoutes),
-    CrudModule
+    CrudModule,
+    QRCodeModule
   ]
 })
 export class ProductModule { }
