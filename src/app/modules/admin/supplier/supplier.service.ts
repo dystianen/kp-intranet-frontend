@@ -31,7 +31,7 @@ export class SupplierService {
    * @returns 
    */
   getSuppliers(): Observable<Suppliers[]> {
-    return this._httpClient.get<Suppliers[]>(`${environment.apiUrl}/admin/supplier`).pipe(tap((suppliers: any) => {
+    return this._httpClient.get<Suppliers[]>(`${environment.apiUrl}/admin/supplier`).pipe(map((suppliers: any) => {
       if (suppliers.statusCode == 200) {
         this._suppliers.next(suppliers.data);
         return suppliers.data;
@@ -46,7 +46,7 @@ export class SupplierService {
    * @returns 
    */
   getSupplier(id): Observable<any> {
-    return this._httpClient.get<Suppliers>(`${environment.apiUrl}/admin/supplier/${id}`).pipe(tap((suppliers: any) => {
+    return this._httpClient.get<Suppliers>(`${environment.apiUrl}/admin/supplier/${id}`).pipe(map((suppliers: any) => {
       if (suppliers.statusCode == 200) {
         this._supplier.next(suppliers.data);
         return suppliers.data;

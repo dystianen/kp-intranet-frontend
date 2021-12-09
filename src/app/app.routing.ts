@@ -79,6 +79,8 @@ export const appRoutes: Route[] = [
             { path: 'product', loadChildren: () => import('app/modules/admin/product/product.module').then(m => m.ProductModule) },
             { path: 'product-category', loadChildren: () => import('app/modules/admin/product/category/category.module').then(m => m.CategoryModule) },
             { path: 'product-attribute', loadChildren: () => import('app/modules/admin/product/attribute/attribute.module').then(m => m.AttributeModule) },
+
+            { path: 'user', loadChildren: () => import('app/modules/admin/user/user.module').then(m => m.UserModule) },
         ]
     }
 ];

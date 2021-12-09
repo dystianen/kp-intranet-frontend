@@ -127,7 +127,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Users',
                 type: 'basic',
                 icon: 'supervisor_account',
-                link: '/internal/users'
+                link: '/user'
             },
             {
                 id: 'internal.courier',
@@ -142,14 +142,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'public',
                 link: '/site'
-            },
-            {
-                id: 'internal.shippers',
-                title: 'Shippers',
-                type: 'basic',
-                icon: 'portrait',
-                link: '/internal/shippers'
-            },
+            }
         ]
     },
     {
