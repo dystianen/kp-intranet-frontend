@@ -134,7 +134,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Courier',
                 type: 'basic',
                 icon: 'local_shipping',
-                link: '/internal/courier'
+                link: '/courier'
             },
             {
                 id: 'internal.sites',
@@ -180,7 +180,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Roles',
                 type: 'basic',
                 icon: 'heroicons_outline:menu-alt-2',
-                link: '/permission/roles'
+                link: '/role'
             },
         ]
     }

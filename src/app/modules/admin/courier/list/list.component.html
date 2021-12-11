@@ -1,0 +1,67 @@
+<!-- Main -->
+<div class="flex flex-auto overflow-hidden">
+
+    <!-- couriers list -->
+    <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
+        <ng-container *ngIf="(couriers$ | async) as couriers">
+            <ng-container *ngIf="couriers.length > 0; else nocouriers">
+                <div class="grid">
+                    <!-- Header -->
+                    <div class="grid-cols-4 z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
+                        matSort matSortDisableClear>
+                        <div class="hidden md:block" [mat-sort-header]="'courierName'">
+                            Courier Name
+                        </div>
+                        <div [mat-sort-header]="'supplierName'">Phone</div>
+                        <div class="hidden sm:block" [mat-sort-header]="'courierAddress'">
+                            Address
+                        </div>
+                        <div class="text-right"></div>
+                    </div>
+                    <!-- Rows -->
+                    <ng-container *ngIf="(couriers$ | async) as couriers">
+                        <ng-container *ngFor="let courier of couriers; trackBy: trackByFn">
+                            <div class="grid-cols-4 grid items-center gap-4 py-3 px-6 md:px-8 border-b">
+
+                                <!-- Image -->
+
+                                <!-- SKU -->
+                                <div class="hidden md:block truncate">
+                                    {{courier.courierName}}
+                                </div>
+
+                                <!-- Name -->
+                                <div class="truncate">
+                                    {{courier.courierPhone}}
+                                </div>
+
+                                <!-- Price -->
+                                <div class="hidden sm:block">
+                                    {{courier.courierAddress}}
+                                </div>
+
+                                <!-- Details button -->
+                                <div class="flex justify-end">
+                                    <button (click)="editDialog(courier.id)"
+                                        class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" mat-stroked-button>
+                                        <span class="material-icons">
+                                            edit
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+
+            </ng-container>
+        </ng-container>
+
+        <ng-template #nocouriers>
+            <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no
+                couriers!</div>
+        </ng-template>
+
+    </div>
+
+</div>

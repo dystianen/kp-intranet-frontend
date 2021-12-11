@@ -1,0 +1,34 @@
+<div class="w-100">
+    <h1 mat-dialog-title>{{ formAttribute.formTitle }} </h1>
+
+    <form [formGroup]="formApp" id="formSite" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
+        <div class="flex flex-col w-full">
+            <div mat-dialog-content>
+                <div class="flex flex-col w-full">
+                    <mat-form-field>
+                        <mat-label>Courier Name</mat-label>
+                        <input matInput [formControlName]="'courierName'" required />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Phone</mat-label>
+                        <input matInput [formControlName]="'courierPhone'" required />
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Address</mat-label>
+                        <input matInput [formControlName]="'courierAddress'" required />
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div>
+                <div mat-dialog-actions class="flex justify-center">
+                    <button-close></button-close>
+                    <button-submit></button-submit>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
