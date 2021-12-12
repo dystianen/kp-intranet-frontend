@@ -153,11 +153,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:document',
         children: [
             {
-                id: 'customer.members',
-                title: 'Members',
+                id: 'customer.account',
+                title: 'Account',
                 type: 'basic',
                 icon: 'heroicons_outline:menu-alt-2',
-                link: '/customer/members'
+                link: '/customer/account'
             }
         ]
     },
@@ -173,13 +173,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Menu',
                 type: 'basic',
                 icon: 'heroicons_outline:menu-alt-2',
-                link: '/permission/users'
+                link: '/menu'
             },
             {
                 id: 'permission.roles',
                 title: 'Roles',
                 type: 'basic',
-                icon: 'heroicons_outline:menu-alt-2',
+                icon: 'vpn_lock',
                 link: '/role'
             },
         ]

@@ -32,12 +32,7 @@ export class FormComponent implements OnInit {
       if (this._siteService.sites$) {
         this._siteService.site$.subscribe(function (data: Site) {
           _this.idSite = data.id;
-          _this.formSite.setValue({
-            siteName: data.siteName,
-            siteCode: data.siteCode,
-            siteType: data.siteType,
-            description: data.description
-          });
+          _this.formSite.patchValue(data);
         })
       }
     }
