@@ -6,6 +6,9 @@ import { ListComponent } from './list/list.component';
 import { Route, RouterModule } from '@angular/router';
 import { MenuResolver } from './menu.resolver';
 import { CrudModule } from 'app/shared/crud/crud.module';
+import { TreeComponent } from './tree/tree.component';
+import {CdkTreeModule} from '@angular/cdk/tree'; 
+import { MatTreeModule } from '@angular/material/tree';
 
 const routes: Route[] = [
   {
@@ -27,12 +30,15 @@ const routes: Route[] = [
   declarations: [
     MenuComponent,
     FormComponent,
-    ListComponent
+    ListComponent,
+    TreeComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    CrudModule
+    CrudModule,
+    CdkTreeModule,
+    MatTreeModule
   ]
 })
 export class MenuModule { }

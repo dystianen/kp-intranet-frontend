@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { MenuService } from '../menu.service';
 import { Menu } from '../menu.types';
@@ -18,11 +19,14 @@ export class FormComponent implements OnInit {
     description: new FormControl(),
     path: new FormControl(),
     icon: new FormControl(),
+    parentId: new FormControl()
   })
 
   public formAttribute: any
 
   ID: number;
+
+  menus$: Observable<Menu[]>;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _service: MenuService, public dialog: MatDialogRef<any>) { }
 
@@ -30,6 +34,9 @@ export class FormComponent implements OnInit {
     const _this = this;
 
     this.formAttribute = this.data;
+    // this._service.getMenus();
+    this.menus$ = this._service.menus$;
+    
 
     if (this.data.formType == 'edit') {
       if (this._service.menus$) {
@@ -41,6 +48,7 @@ export class FormComponent implements OnInit {
     }
 
   }
+
 
   submitForm(f: NgForm) {
     const _this = this;

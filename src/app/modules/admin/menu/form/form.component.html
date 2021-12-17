@@ -25,6 +25,16 @@
                         <mat-label>Description</mat-label>
                         <input matInput [formControlName]="'description'" required />
                     </mat-form-field>
+                    <ng-container *ngIf="(menus$ | async) as menus">
+                        <mat-form-field>
+                            <mat-label>Parent Menu</mat-label>
+                            <mat-select matInput [formControlName]="'parentId'">
+                                <mat-option *ngFor="let menu of menus" [value]="menu.id">
+                                    {{menu.menuName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
                 </div>
             </div>
 
