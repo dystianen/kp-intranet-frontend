@@ -7,7 +7,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         title: 'Dashboards',
         subtitle: 'All dashboards',
         type: 'group',
-        icon: 'heroicons_outline:home',
+        icon: '',
         children: [
             {
                 id: 'dashboards.sales',

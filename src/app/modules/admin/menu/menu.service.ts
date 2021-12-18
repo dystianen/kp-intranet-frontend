@@ -4,6 +4,7 @@ import { environment } from 'environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { Menu } from './menu.types';
+import { arrayToTree } from 'performant-array-to-tree';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,16 @@ import { Menu } from './menu.types';
 export class MenuService {
 
   private _menus: BehaviorSubject<Menu[] | null> = new BehaviorSubject(null);
+  private _menusTree: BehaviorSubject<Menu[] | null> = new BehaviorSubject(null);
   private _menu: BehaviorSubject<Menu | null> = new BehaviorSubject(null);
   constructor(private _httpClient: HttpClient) { }
 
   get menus$() {
     return this._menus.asObservable();
+  }
+
+  get menusTree$() {
+    return this._menusTree.asObservable();
   }
 
   get menu$() {
@@ -30,6 +36,13 @@ export class MenuService {
     return this._httpClient.get<Menu[]>(`${environment.apiUrl}/admin/menu`).pipe(map((menus: any) => {
       if (menus.statusCode == 200) {
         this._menus.next(menus.data);
+        const menuTree = menus.data.map(function (item) {
+          item.name = item.menuName;
+          return item;
+        })
+        this._menusTree.next(arrayToTree(menuTree, {
+          id: 'id', parentId: 'parentId', childrenField: 'children', dataField: null
+        }) as any);
         return menus.data;
       }
       return [];

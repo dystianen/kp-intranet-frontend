@@ -39,6 +39,7 @@ const routes: Route[] = [
     CrudModule,
     CdkTreeModule,
     MatTreeModule
-  ]
+  ],
+  providers:[]
 })
 export class MenuModule { }

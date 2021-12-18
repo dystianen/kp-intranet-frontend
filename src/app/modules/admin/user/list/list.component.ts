@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { FormComponent } from '../form/form.component';
+import { RoleComponent } from '../role/role.component';
 import { UserService } from '../user.service';
 import { User } from '../user.types';
 
@@ -34,6 +35,20 @@ export class ListComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
       })
     });
+  }
+
+  roleDialog(userId: number) {
+    const _this = this;
+    const dialogRef = _this.dialog.open(RoleComponent, {
+      data: {
+        formTitle: 'Edit Role',
+        formType: 'role',
+        selectedUserId: userId
+      },
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    })
   }
 
 }

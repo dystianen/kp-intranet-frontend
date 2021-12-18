@@ -1,17 +1,42 @@
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <!-- This is the tree node template for leaf nodes -->
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <!-- use a disabled button to provide padding for tree leaf -->
-        <button mat-icon-button disabled></button>
-        {{node.name}}
-    </mat-tree-node>
-    <!-- This is the tree node template for expandable nodes -->
-    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-            <mat-icon class="mat-icon-rtl-mirror">
-                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-            </mat-icon>
-        </button>
-        {{node.name}}
-    </mat-tree-node>
-</mat-tree>
+<div>
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+            <!-- use a disabled button to provide padding for tree leaf -->
+           
+            <span class="w-full bg-gray-200 my-1 flex items-center">
+                <button mat-icon-button disabled></button>
+                {{node.name}} <button class="text-blue-800 px-2" (click)="editDialog(node.id)">
+                    <span class="material-icons text-xl hover:opacity-70">
+                        edit
+                    </span>
+                </button>
+                <button class="leading-6 text-blue-800" (click)="addDialog(node.id)">
+                    <span class="material-icons text-xl hover:opacity-70">
+                        add
+                    </span>
+                </button>
+            </span>
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+            <span class="w-full bg-gray-200 my-1 flex items-center">
+                <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                    </mat-icon>
+                </button>
+                {{node.name}} <button class="text-blue-800 px-2" (click)="editDialog(node.id)">
+                    <span class="material-icons text-xl hover:opacity-70">
+                        edit
+                    </span>
+                </button>
+                <button class="leading-6 text-blue-800" (click)="addDialog(node.id)">
+                    <span class="material-icons text-xl hover:opacity-70">
+                        add
+                    </span>
+                </button>
+            </span>
+        </mat-tree-node>
+    </mat-tree>
+</div>

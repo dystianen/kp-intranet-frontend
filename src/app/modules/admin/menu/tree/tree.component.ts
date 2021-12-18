@@ -1,36 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { MenuService } from '../menu.service';
+import { Observable } from 'rxjs';
+import { Menu } from '../menu.types';
+import { toArray } from 'rxjs/operators';
+import { FormComponent } from '../form/form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 /**
  * Food data with nested structure.
  * Each node has a name and an optional list of children.
  */
- interface FoodNode {
+interface FoodNode {
   name: string;
+  id: number;
   children?: FoodNode[];
 }
-
-const TREE_DATA: FoodNode[] = [
-  {
-    name: 'Fruit',
-    children: [{name: 'Apple'}, {name: 'Banana'}, {name: 'Fruit loops'}],
-  },
-  {
-    name: 'Vegetables',
-    children: [
-      {
-        name: 'Green',
-        children: [{name: 'Broccoli'}, {name: 'Brussels sprouts'}],
-      },
-      {
-        name: 'Orange',
-        children: [{name: 'Pumpkins'}, {name: 'Carrots'}],
-      },
-    ],
-  },
-];
 
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
@@ -51,6 +38,7 @@ export class TreeComponent implements OnInit {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
       level: level,
+      id: node.id
     };
   };
 
@@ -68,13 +56,57 @@ export class TreeComponent implements OnInit {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor() {
-    this.dataSource.data = TREE_DATA;
+  menusTree$: Observable<Menu[]>
+
+  constructor(private _service: MenuService,public dialog: MatDialog) {
+
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
-  
+
   ngOnInit(): void {
+    const _this = this;
+    this.menusTree$ = this._service.menusTree$;
+    this.menusTree$.subscribe(function (data: []) {
+      _this.dataSource.data = data;
+    })
+
   }
+
+  editDialog(id: number) {
+    const _this = this;
+    this._service.getMenu(id).subscribe(function (data) {
+      const dialogRef = _this.dialog.open(FormComponent, {
+        data: {
+          formTitle: 'Edit Menu',
+          formType: 'edit'
+        },
+        autoFocus: false
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+
+      })
+    })
+  }
+
+  addDialog(id: number) {
+    const _this = this;
+    this._service.getMenu(id).subscribe(function (data) {
+      const dialogRef = _this.dialog.open(FormComponent, {
+        data: {
+          formTitle: 'Add New Menu',
+          formType: 'add',
+          parentId: id
+        },
+        autoFocus: false
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+
+      })
+    })
+  }
+
 
 }

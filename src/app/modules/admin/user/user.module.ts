@@ -6,11 +6,16 @@ import { ListComponent } from './list/list.component';
 import { Route, RouterModule } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { UserResolver } from './user.resolver';
+import { RoleComponent } from './role/role.component';
+import { RoleResolver } from '../role/role.resolver';
 
 const routes: Route[] = [
   {
     path: '',
     component: UserComponent,
+    resolve:{
+      roles: RoleResolver
+    },
     children: [
       {
         path: '',
@@ -27,7 +32,8 @@ const routes: Route[] = [
   declarations: [
     UserComponent,
     FormComponent,
-    ListComponent
+    ListComponent,
+    RoleComponent
   ],
   imports: [
     CommonModule,

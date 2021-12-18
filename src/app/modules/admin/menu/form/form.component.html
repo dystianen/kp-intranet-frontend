@@ -15,15 +15,15 @@
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Icon</mat-label>
-                        <input matInput [formControlName]="'icon'" required />
+                        <input matInput [formControlName]="'icon'" />
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Path</mat-label>
-                        <input matInput [formControlName]="'path'" required />
+                        <input matInput [formControlName]="'path'" />
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Description</mat-label>
-                        <input matInput [formControlName]="'description'" required />
+                        <input matInput [formControlName]="'description'" />
                     </mat-form-field>
                     <ng-container *ngIf="(menus$ | async) as menus">
                         <mat-form-field>
