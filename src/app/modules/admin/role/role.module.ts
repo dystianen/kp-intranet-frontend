@@ -7,6 +7,10 @@ import { Route, RouterModule } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { RoleResolver } from './role.resolver';
 import { MenuComponent } from './menu/menu.component';
+import { MenuModule } from '../menu/menu.module';
+import { MatTreeModule } from '@angular/material/tree';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { MenuResolver } from '../menu/menu.resolver';
 
 
 const routes: Route[] = [
@@ -18,7 +22,8 @@ const routes: Route[] = [
         path: '',
         component: ListComponent,
         resolve: {
-          roles: RoleResolver
+          roles: RoleResolver,
+          menus: MenuResolver
         }
       }
     ]
@@ -31,12 +36,14 @@ const routes: Route[] = [
     RoleComponent,
     FormComponent,
     ListComponent,
-    MenuComponent
+    MenuComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    CrudModule
+    CrudModule,
+    MatTreeModule,
+    CdkTreeModule
   ]
 })
 export class RoleModule { }

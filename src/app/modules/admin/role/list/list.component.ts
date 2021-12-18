@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { FormComponent } from '../form/form.component';
+import { MenuComponent } from '../menu/menu.component';
 import { RoleService } from '../role.service';
 import { Role } from '../role.types';
 
@@ -36,4 +37,22 @@ export class ListComponent implements OnInit {
       })
     })
   }
+
+  menuDialog(id: number) {
+    const _this = this;
+    const dialogRef = _this.dialog.open(MenuComponent, {
+      panelClass:['w-1/3','sm:w-1/3'],
+      data: {
+        formTitle: 'Edit Menu',
+        formType: 'menu',
+        roleId: id
+      },
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    })
+  }
+
 }

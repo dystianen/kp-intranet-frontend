@@ -12,6 +12,8 @@ export class RoleService {
 
   private _roles: BehaviorSubject<Role[] | null> = new BehaviorSubject(null);
   private _role: BehaviorSubject<Role | null> = new BehaviorSubject(null);
+  private _menus: BehaviorSubject<[] | null> = new BehaviorSubject(null);
+
   constructor(private _httpClient: HttpClient) { }
 
   get roles$() {
@@ -20,6 +22,10 @@ export class RoleService {
 
   get role$() {
     return this._role.asObservable();
+  }
+
+  get menus$() {
+    return this._menus.asObservable();
   }
 
   /**
@@ -95,4 +101,32 @@ export class RoleService {
       )
     )
   }
+
+  /**
+   * add menu
+   * @param roleId 
+   * @param menuId 
+   * @param type 
+   * @returns 
+   */
+  addMenu(roleId: number, menuId: number, type: string) {
+    return this._httpClient.put(`${environment.apiUrl}/admin/role/add-menu/${roleId}/${menuId}/${type}`, {})
+      .pipe(map((response: any) => {
+        if (response.statusCode == 200) {
+          return response;
+        }
+        return [];
+      }))
+  }
+
+  getMenu(roleId): Observable<any> {
+    return this._httpClient.get<Role>(`${environment.apiUrl}/admin/role/menu/${roleId}`).pipe(map((menu: any) => {
+      if (menu.statusCode == 200) {
+        this._menus.next(menu.data);
+        return menu.data;
+      }
+      return [];
+    }));
+  }
+
 }
