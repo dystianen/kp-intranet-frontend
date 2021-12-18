@@ -6,6 +6,7 @@ import { ListComponent } from './list/list.component';
 import { Route, RouterModule } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { RoleResolver } from './role.resolver';
+import { MenuComponent } from './menu/menu.component';
 
 
 const routes: Route[] = [
@@ -29,7 +30,8 @@ const routes: Route[] = [
   declarations: [
     RoleComponent,
     FormComponent,
-    ListComponent
+    ListComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,

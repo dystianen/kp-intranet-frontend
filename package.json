@@ -45,6 +45,7 @@
         "ng-apexcharts": "1.5.12",
         "ngx-markdown": "12.0.1",
         "ngx-quill": "14.1.1",
+        "ngx-toastr": "^14.2.1",
         "perfect-scrollbar": "1.5.1",
         "performant-array-to-tree": "^1.9.1",
         "quill": "1.3.7",

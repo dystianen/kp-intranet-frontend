@@ -7,6 +7,8 @@ import { RoleService as RoleService2 } from './role.service';
 import { Role } from '../../role/role.types';
 import Swal from 'sweetalert2';
 import * as _ from 'lodash';
+import { UserService } from '../user.service';
+import { ToastService } from 'app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-role',
@@ -22,7 +24,7 @@ export class RoleComponent implements OnInit {
   selectedUserId: number;
   userHasRole: []
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _roleService: RoleService, private _roleService2: RoleService2, private formBuilder: FormBuilder, public dialogRef: MatDialogRef<any>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _roleService: RoleService, private _roleService2: RoleService2, private formBuilder: FormBuilder, public dialogRef: MatDialogRef<any>, private _userService: UserService, private _toastService: ToastService) { }
 
   ngOnInit(): void {
 
@@ -41,7 +43,7 @@ export class RoleComponent implements OnInit {
         _this.userHasRole = userRole;
         _this.userHasRole.forEach(function (_userHasRole: any) {
           const indexSelected = _.findIndex(_this.roles$, function (o: any) {
-            return o.id == _userHasRole.id
+            return o.id == _userHasRole.roleId
           })
           controls[indexSelected].setValue(true);
         })
@@ -63,11 +65,14 @@ export class RoleComponent implements OnInit {
     const _this = this;
     this._roleService2.updateRole(this.selectedUserId, roleId).subscribe(function (data) {
       // _this.dialogRef.close()
-      Swal.fire({
-        title: 'Sucess',
-        text: 'Role has updated',
-        icon: 'success'
-      })
+      _this._userService.getUsers().subscribe();
+      _this._toastService.message="Success, Role has updated"
+      _this._toastService.open();
+      // Swal.fire({
+      //   title: 'Sucess',
+      //   text: 'Role has updated',
+      //   icon: 'success'
+      // })
     });
     // console.log(this.selectedUserId,roleId);
   }
