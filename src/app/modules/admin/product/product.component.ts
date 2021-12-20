@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { FormComponent } from './form/form.component';
+import { ProductService } from './product.service';
 
 
 @Component({
@@ -11,13 +13,19 @@ import { FormComponent } from './form/form.component';
 export class ProductComponent implements OnInit {
 
   isLoading = false
+  showBackButton$ = false
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private _productService: ProductService) {
 
   }
 
   ngOnInit(): void {
+    let _this = this;
+    this._productService.showBackButton$.subscribe(function (data) {
+      _this.showBackButton$ = data;
+    });
   }
+
 
   /**
   * Open add dialog form

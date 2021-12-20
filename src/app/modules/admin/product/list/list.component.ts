@@ -14,7 +14,9 @@ export class ListComponent implements OnInit {
 
   products$: Observable<Product[]>
 
-  constructor(private _service: ProductService, public dialog: MatDialog) { }
+  constructor(private _service: ProductService, public dialog: MatDialog) {
+    this._service.setShowBackButton(false);
+  }
 
   ngOnInit(): void {
     this.products$ = this._service.products$;
