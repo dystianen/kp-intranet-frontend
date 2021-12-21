@@ -1,1 +1,24 @@
-<p>site works!</p>
+<div class="w-100">
+    <h1 mat-dialog-title>{{ formAttribute.formTitle }} </h1>
+
+    <form [formGroup]="formApp" id="formApp" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
+        <div class="flex flex-col w-full">
+            <div mat-dialog-content>
+                <div class="flex flex-col w-full">
+                    <label for="" formArrayName="sites" *ngFor="let role of sitesFormArray.controls; let i = index">
+                        <mat-checkbox cheked [formControlName]="i" (change)="changeSite(sites$[i].id,$event.checked)">{{sites$[i].siteName}}
+                        </mat-checkbox>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <div mat-dialog-actions class="flex justify-center">
+                    <button-close></button-close>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
