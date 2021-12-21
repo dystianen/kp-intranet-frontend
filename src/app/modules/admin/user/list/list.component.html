@@ -7,8 +7,7 @@
             <ng-container *ngIf="users.length > 0; else nousers">
                 <div class="grid">
                     <!-- Header -->
-                    <div class="grid-cols-5 z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
-                        matSort matSortDisableClear>
+                    <div class="grid-cols-5 z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5" matSort matSortDisableClear>
                         <div class="hidden md:block" [mat-sort-header]="'sku'">
                             Name
                         </div>
@@ -50,14 +49,17 @@
 
                                 <!-- Details button -->
                                 <div class="flex justify-end">
-                                    <button class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" mat-stroked-button
-                                        (click)="roleDialog(user.id)">
+                                    <button class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" mat-stroked-button (click)="roleDialog(user.id)">
                                         <span class="material-icons">
                                             lock_open
                                         </span>
                                     </button>
-                                    <button class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" mat-stroked-button
-                                        (click)="editDialog(user.id)">
+                                    <button class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" mat-stroked-button (click)="siteDialog(user.id)">
+                                        <span class="material-icons">
+                                            public
+                                        </span>
+                                    </button>
+                                    <button class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" mat-stroked-button (click)="editDialog(user.id)">
                                         <span class="material-icons">
                                             edit
                                         </span>
@@ -77,8 +79,8 @@
         </ng-container>
 
         <ng-template #nousers>
-            <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no
-                users!</div>
+            <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no users!
+            </div>
         </ng-template>
 
     </div>

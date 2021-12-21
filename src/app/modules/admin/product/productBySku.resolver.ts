@@ -14,9 +14,7 @@ import { Product } from './product.types';
 export class ProductBySkuResolver implements Resolve<Product> {
   constructor(private _productServices: ProductService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Product> {
-    // return this._productServices.getProducts();
     const sku = route.params.sku;
-    console.log(sku);
-    return;
+    return this._productServices.getProductBySku(sku);
   }
 }

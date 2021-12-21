@@ -13,9 +13,10 @@ import { Product } from '../product.types';
 export class ListComponent implements OnInit {
 
   products$: Observable<Product[]>
+  isLoading = false
 
   constructor(private _service: ProductService, public dialog: MatDialog) {
-    this._service.setShowBackButton(false);
+
   }
 
   ngOnInit(): void {
@@ -40,6 +41,21 @@ export class ListComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
       })
     });
+  }
+
+  /**
+  * Open add dialog form
+  */
+   addDialog() {
+    const dialogRef = this.dialog.open(FormComponent, {
+      data: {
+        formTitle: 'Add New Product',
+        formType: 'add'
+      },
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    })
   }
 
 }

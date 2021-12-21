@@ -1,1 +1,28 @@
-<p>detail works!</p>
+<div class="w-full">
+    <div class="relative w-full flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+        <div class="text-3xl font-extrabold tracking-tight">{{product$.productName}} <span class="text-gray-700">({{product$.priceDefault | currency:'JPY'}})</span></div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <a [routerLink]="'/product'" class="ml-4" mat-flat-button [color]="'primary'">
+                <span class="material-icons">
+                arrow_back
+            </span>
+            </a>
+        </div>
+    </div>
+    <div class="py-8 px-6">
+        <div class="flex">
+            <div class="w-1/2">
+                <img [src]="product$.thumbnailPath" alt="{{product$.productName}}">
+            </div>
+            <div class="px-5 w-auto">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores explicabo enim deleniti, ullam debitis atque? Vitae, laudantium veniam unde sapiente quo aliquid? Eaque doloribus ad ducimus, quaerat esse nostrum voluptatibus?
+            </div>
+        </div>
+        <div class="border-b pt-4 pb-2">
+            <h4 class="text-2xl font-extrabold">Pricing Settings</h4>
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Product } from '../product.types';
 
 
 @Component({
@@ -10,13 +12,17 @@ import { Output, EventEmitter } from '@angular/core';
 })
 export class DetailComponent implements OnInit {
 
+  product$: Product
 
-  constructor(private _productService: ProductService) { 
-    this._productService.setShowBackButton(true);
+  constructor(private _productService: ProductService) {
+    const _this = this;
+    this._productService.product$.subscribe(function (product: Product) {
+      _this.product$ = product;
+    });
   }
 
   ngOnInit(): void {
-    
+
   }
 
 }
