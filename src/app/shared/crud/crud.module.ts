@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from 'app/shared/shared.module';
 import {MatTableModule} from '@angular/material/table'; 
+import { FuseScrollbarModule } from '@fuse/directives/scrollbar';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {MatTableModule} from '@angular/material/table';
     MatTooltipModule,
     MatDialogModule,
     SharedModule,
-    MatTableModule
+    MatTableModule,
+    FuseScrollbarModule
   ],
   exports: [
     MatButtonModule,
@@ -55,7 +57,8 @@ import {MatTableModule} from '@angular/material/table';
     MatTooltipModule,
     MatDialogModule,
     SharedModule,
-    MatTableModule
+    MatTableModule,
+    FuseScrollbarModule
   ]
 })
 export class CrudModule { }
