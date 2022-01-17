@@ -15,6 +15,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from 'app/shared/shared.module';
+import {MatTableModule} from '@angular/material/table'; 
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { SharedModule } from 'app/shared/shared.module';
     MatSlideToggleModule,
     MatTooltipModule,
     MatDialogModule,
-    SharedModule
+    SharedModule,
+    MatTableModule
   ],
   exports: [
     MatButtonModule,
@@ -52,7 +54,8 @@ import { SharedModule } from 'app/shared/shared.module';
     MatSlideToggleModule,
     MatTooltipModule,
     MatDialogModule,
-    SharedModule
+    SharedModule,
+    MatTableModule
   ]
 })
 export class CrudModule { }

@@ -8,6 +8,10 @@ import { productRoutes } from './product.routing';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { QRCodeModule } from 'angularx-qrcode';
 import { DetailComponent } from './detail/detail.component';
+import { PricingComponent } from './detail/pricing/pricing.component';
+import { ProductCategoryComponent } from './detail/product-category/product-category.component';
+import { ProductAttributeComponent } from './detail/product-attribute/product-attribute.component';
+import { PricingFormComponent } from './detail/pricing/pricing-form/pricing-form.component';
 
 
 
@@ -22,7 +26,11 @@ const routerConfig: ExtraOptions = {
     ProductComponent,
     ListComponent,
     FormComponent,
-    DetailComponent
+    DetailComponent,
+    PricingComponent,
+    ProductCategoryComponent,
+    ProductAttributeComponent,
+    PricingFormComponent
   ],
   imports: [
     CommonModule,
