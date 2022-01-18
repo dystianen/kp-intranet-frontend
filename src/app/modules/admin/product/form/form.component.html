@@ -23,25 +23,25 @@
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Purchase Price</mat-label>
-                        <input name="buyPricePerUnit" type="number" matInput [formControlName]="'buyPricePerUnit'"
-                            required />
+                        <input name="buyPricePerUnit" type="number" matInput [formControlName]="'buyPricePerUnit'" required />
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Supplier</mat-label>
-                        <mat-select *ngIf="suppliers.length >= 1" matInput
-                            [formControlName]="'supplierId'" required>
+                        <mat-select *ngIf="suppliers.length >= 1" matInput [formControlName]="'supplierId'" required>
                             <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">
                                 {{supplier.supplierName}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Description</mat-label>
+                        <textarea name="productDescription" matInput [formControlName]="'productDescription'" required></textarea>
+                    </mat-form-field>
                     <div>
                         <mat-label>Thumbnail</mat-label>
                         <div>
-                            <img id="thumbnailPreview" #thumbnailPreview src="https://via.placeholder.com/250x150"
-                                alt="" class="cursor-pointer" (click)="fileInput.click()">
-                            <input name="thumbnail" id="thumbnail" type="file" [formControlName]="'thumbnail'" class="hidden" #fileInput
-                                (change)="onChangeThumbnail($event)" />
+                            <img id="thumbnailPreview" #thumbnailPreview src="https://via.placeholder.com/250x150" alt="" class="cursor-pointer" (click)="fileInput.click()">
+                            <input name="thumbnail" id="thumbnail" type="file" [formControlName]="'thumbnail'" class="hidden" #fileInput (change)="onChangeThumbnail($event)" />
                         </div>
                     </div>
                 </div>

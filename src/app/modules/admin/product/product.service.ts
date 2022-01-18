@@ -29,7 +29,7 @@ export class ProductService {
    * @returns 
    */
   getProducts(): Observable<Product[]> {
-    return this._httpClient.get<Product[]>(`${environment.apiUrl}/admin/product`).pipe(map((products: any) => {
+    return this._httpClient.get<Product[]>(`${environment.apiUrl}/admin/product/product`).pipe(map((products: any) => {
       if (products.statusCode == 200) {
         this._products.next(products.data);
         return products.data;
@@ -44,7 +44,7 @@ export class ProductService {
   * @returns 
   */
   getProduct(id: number): Observable<any> {
-    return this._httpClient.get<Product>(`${environment.apiUrl}/admin/product/${id}`).pipe(map((product: any) => {
+    return this._httpClient.get<Product>(`${environment.apiUrl}/admin/product/product/${id}`).pipe(map((product: any) => {
       if (product.statusCode == 200) {
         this._product.next(product.data);
         return product.data;
@@ -54,7 +54,7 @@ export class ProductService {
   }
 
   getProductBySku(sku: string): Observable<any> {
-    return this._httpClient.get<Product>(`${environment.apiUrl}/admin/product/sku/${sku}`).pipe(map((product: any) => {
+    return this._httpClient.get<Product>(`${environment.apiUrl}/admin/product/product/sku/${sku}`).pipe(map((product: any) => {
       if (product.statusCode == 200) {
         this._product.next(product.data);
         return product.data;
@@ -70,7 +70,7 @@ export class ProductService {
   createProduct(dataProduct: any): Observable<any> {
     return this.products$.pipe(
       take(1),
-      switchMap(products => this._httpClient.post<Product>(`${environment.apiUrl}/admin/product`, dataProduct)
+      switchMap(products => this._httpClient.post<Product>(`${environment.apiUrl}/admin/product/product`, dataProduct)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;
@@ -97,7 +97,7 @@ export class ProductService {
   updateProduct(id: number, dataProduct: any): Observable<Product> {
     return this.products$.pipe(
       take(1),
-      switchMap(products => this._httpClient.patch<Product>(`${environment.apiUrl}/admin/product/${id}`, dataProduct)
+      switchMap(products => this._httpClient.patch<Product>(`${environment.apiUrl}/admin/product/product/${id}`, dataProduct)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;
