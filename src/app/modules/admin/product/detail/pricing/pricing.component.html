@@ -18,19 +18,19 @@
 
         <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef> Price </th>
-            <td mat-cell *matCellDef="let element">
+            <td mat-cell *matCellDef="let element; let i = index;">
                 <span class="material-icons text-sm">
-                    currency_yuan
-                    </span> <input matInput type="number" class="border">
+                    currency_yuan {{index}}
+                    </span> <input matInput type="number" class="border" [(ngModel)]="pricing[element.id]">
             </td>
         </ng-container>
 
         <ng-container matColumnDef="option">
             <th mat-header-cell *matHeaderCellDef> Save </th>
-            <td mat-cell *matCellDef="let element">
-                <button type="submit" class="text-blue-600 hover:opacity-50">
+            <td mat-cell *matCellDef="let element, let i = index;">
+                <button type="submit" class="text-blue-600 hover:opacity-50" (click)="addPricing(element.id,pricing[element.id])">
                     <span class="material-icons">
-                        save
+                        save 
                         </span>
                 </button>
             </td>

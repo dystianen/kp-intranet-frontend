@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { User } from 'app/core/user/user.types';
 import { environment } from 'environments/environment';
@@ -10,6 +10,7 @@ import { environment } from 'environments/environment';
 })
 export class UserService {
     private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
+    private _sites: BehaviorSubject<any> = new BehaviorSubject(null);
 
     /**
      * Constructor
@@ -33,6 +34,10 @@ export class UserService {
 
     get user$(): Observable<User> {
         return this._user.asObservable();
+    }
+
+    get sites$(): Observable<any> {
+        return this._sites.asObservable();
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -61,6 +66,23 @@ export class UserService {
         return this._httpClient.patch<User>('api/common/user', { user }).pipe(
             map((response) => {
                 this._user.next(response);
+            })
+        );
+    }
+
+    /**
+     * 
+     * @returns get sites based user
+     */
+    sites(): Observable<any> {
+        return this._httpClient.get(`${environment.apiUrl}/admin/common/sites`).pipe(
+            tap((sites) => {
+                if (sites.statusCode == 200) {
+                    const data = sites.data.map(function (item: any) {
+                        return item.site ?? {};
+                    })
+                    this._sites.next(data);
+                }
             })
         );
     }

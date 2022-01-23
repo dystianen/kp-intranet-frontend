@@ -33,6 +33,7 @@
         "@fullcalendar/rrule": "4.4.2",
         "@fullcalendar/timegrid": "4.4.2",
         "@ngneat/transloco": "2.21.0",
+        "@ngxs/store": "^3.7.3",
         "@sweetalert2/ngx-sweetalert2": "^10.0.0",
         "add": "^2.0.6",
         "angularx-qrcode": "^11.0.0",

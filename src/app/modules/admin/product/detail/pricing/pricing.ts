@@ -1,5 +1,6 @@
 export interface Pricing {
-    siteName: string;
-    siteCode: string;
-    price: number;
+    id: number;
+    productId: number;
+    sellPrice: number;
+    siteId: number;
 }
