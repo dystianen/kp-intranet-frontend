@@ -19,7 +19,7 @@ export class FormComponent implements OnInit {
   protected Id: number;
   formAttribute: any;
   suppliers: Suppliers[]
-  thumbnailPreview: any
+  thumbnailPreview: any = ""
 
 
   formApp = new FormGroup({
@@ -53,8 +53,6 @@ export class FormComponent implements OnInit {
         this._changeDetectorRef.markForCheck()
       });
 
-
-
     if (this.data.formType == 'edit') {
       if (this._service.products$) {
         this._service.product$.subscribe(function (data: Product) {
@@ -69,9 +67,20 @@ export class FormComponent implements OnInit {
             supplierId: data.supplierId,
             thumbnail: data.thumbnail
           });
-
           const thumbnailPreview = document.getElementById("thumbnailPreview") as HTMLImageElement;
-          thumbnailPreview.src = data.thumbnailPath
+          if (data.thumbnailPath !== null) {
+            try {
+
+              thumbnailPreview.src = data.thumbnailPath
+            } catch (error) {
+
+            }
+          } else {
+            thumbnailPreview.src = "https://via.placeholder.com/250x150"
+
+          }
+
+
         })
       }
     }

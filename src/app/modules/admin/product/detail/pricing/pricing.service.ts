@@ -25,6 +25,7 @@ export class PricingService {
    * @returns 
    */
   getPricings(id: number): Observable<Pricing[]> {
+    this._pricings.next([]);
     return this.httpClient.get<Pricing[]>(`${environment.apiUrl}/admin/product/pricing/${id}`).pipe(map((pricing: any) => {
       if (pricing.statusCode == 200) {
         this._pricings.next(pricing.data);
