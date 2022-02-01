@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { FormComponent } from '../form/form.component';
+import { ProductStockComponent } from '../product-stock/product-stock.component';
 import { ProductService } from '../product.service';
 import { Product } from '../product.types';
 
@@ -46,7 +47,7 @@ export class ListComponent implements OnInit {
   /**
   * Open add dialog form
   */
-   addDialog() {
+  addDialog() {
     const dialogRef = this.dialog.open(FormComponent, {
       data: {
         formTitle: 'Add New Product',
@@ -56,6 +57,28 @@ export class ListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
     })
+  }
+
+  addStockDialog(productId: number) {
+    this.dialog.open(ProductStockComponent, {
+      data: {
+        formTitle: 'Add Stock',
+        formType: 'add_stock',
+        productId
+      },
+      autoFocus: false
+    });
+  }
+
+  removeStockDialog(productId: number) {
+    this.dialog.open(ProductStockComponent, {
+      data: {
+        formTitle: 'Remove Stock',
+        formType: 'remove_stock',
+        productId
+      },
+      autoFocus: false
+    });
   }
 
 }

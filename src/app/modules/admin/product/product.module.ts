@@ -12,6 +12,7 @@ import { PricingComponent } from './detail/pricing/pricing.component';
 import { ProductCategoryComponent } from './detail/product-category/product-category.component';
 import { ProductAttributeComponent } from './detail/product-attribute/product-attribute.component';
 import { PricingFormComponent } from './detail/pricing/pricing-form/pricing-form.component';
+import { ProductStockComponent } from './product-stock/product-stock.component';
 
 
 
@@ -30,7 +31,8 @@ const routerConfig: ExtraOptions = {
     PricingComponent,
     ProductCategoryComponent,
     ProductAttributeComponent,
-    PricingFormComponent
+    PricingFormComponent,
+    ProductStockComponent
   ],
   imports: [
     CommonModule,
