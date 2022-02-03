@@ -1,0 +1,53 @@
+<div class="px-6 py-4" *ngIf="(product$ |async) as product">
+    <div>
+        <div class="text-2xl font-extrabold tracking-tight">{{product.productName}} ({{product.productSku}})</div>
+
+        <ng-container *ngIf="product.input_stock?.length > 0; else nohistory">
+            <div class="grid my-3">
+                <!-- Header -->
+                <div class="grid-cols-4 z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
+                    matSort matSortDisableClear>
+                    <div>
+                        Type
+                    </div>
+                    <div>
+                        Additional/Remove
+                    </div>
+                    <div>
+                        Note
+                    </div>
+                    <div>
+                        Updated By
+                    </div>
+                </div>
+                <!-- Rows -->
+                <ng-container *ngIf="product.input_stock?.length>0">
+                    <ng-container *ngFor="let history of product.input_stock;">
+                        <div class="grid-cols-4 grid items-center gap-4 py-3 px-6 md:px-8 border-b">
+                            <div>
+                                Additional
+                            </div>
+                            <div>
+                                {{history.additional_stock}}
+                            </div>
+                            <div>
+                                {{history.note}}
+                            </div>
+                            <div>
+                                {{history.admins?.name}}
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+
+        </ng-container>
+
+    </div>
+</div>
+
+<ng-template #nohistory>
+    <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no
+        history!
+    </div>
+</ng-template>
