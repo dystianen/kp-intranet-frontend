@@ -35,13 +35,13 @@ export class NavigationService {
     /**
      * Get all navigation data
      */
-    get(): Observable<Navigation> {
-        return this._httpClient.get<Navigation>(`${environment.apiUrl}/admin/common/navigation`).pipe(
-            tap((navigation) => {
-                this._navigation.next(navigation);
-            })
-        );
-    }
+    // get(): Observable<Navigation> {
+    //     return this._httpClient.get<Navigation>(`${environment.apiUrl}/admin/common/navigation`).pipe(
+    //         tap((navigation) => {
+    //             this._navigation.next(navigation);
+    //         })
+    //     );
+    // }
 
     getNavigation(): Observable<Navigation> {
         return this._httpClient.get<Navigation>(`${environment.apiUrl}/admin/common/navigation`).pipe(
@@ -51,12 +51,12 @@ export class NavigationService {
         );
     }
 
-    // get(): Observable<Navigation>
-    // {
-    //     return this._httpClient.get<Navigation>('api/common/navigation').pipe(
-    //         tap((navigation) => {
-    //             this._navigation.next(navigation);
-    //         })
-    //     );
-    // }
+    get(): Observable<Navigation>
+    {
+        return this._httpClient.get<Navigation>('api/common/navigation').pipe(
+            tap((navigation) => {
+                this._navigation.next(navigation);
+            })
+        );
+    }
 }
