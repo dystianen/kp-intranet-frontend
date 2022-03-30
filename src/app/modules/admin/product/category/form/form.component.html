@@ -7,12 +7,21 @@
                 <div class="flex flex-col w-full">
                     <mat-form-field>
                         <mat-label>Category Name</mat-label>
-                        <input matInput [formControlName]="'category'" required />
+                        <input matInput [formControlName]="'category'" required name="category"/>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Description</mat-label>
-                        <input matInput [formControlName]="'description'" required />
+                        <input matInput [formControlName]="'description'" required name="description"/>
                     </mat-form-field>
+                    <div>
+                        <mat-label>Thumbnail</mat-label>
+                        <div>
+                            <img id="thumbnailPreview" src="https://via.placeholder.com/250x150" alt=""
+                                class="cursor-pointer" (click)="fileInput.click()">
+                            <input name="thumbnail" id="thumbnail" type="file" [formControlName]="'thumbnail'"
+                                class="hidden" #fileInput (change)="onChangeThumbnail($event)" />
+                        </div>
+                    </div>
                 </div>
             </div>
 

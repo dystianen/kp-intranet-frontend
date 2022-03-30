@@ -17,7 +17,8 @@ export class FormComponent implements OnInit {
 
   formApp = new FormGroup({
     category: new FormControl(''),
-    description: new FormControl('')
+    description: new FormControl(''),
+    thumbnail: new FormControl('')
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<any>, private _service: CategoryService) { }
@@ -30,14 +31,33 @@ export class FormComponent implements OnInit {
       if (this._service.categories$) {
         this._service.category$.subscribe(function (data: Category) {
           _this.Id = data.id;
-          _this.formApp.setValue({
-            category: data.category,
-            description: data.description
-          });
+          _this.formApp.patchValue(data);
+
+          const thumbnailPreview = document.getElementById("thumbnailPreview") as HTMLImageElement;
+          if (data.thumbnailPublic !== null) {
+            try {
+
+              thumbnailPreview.src = data.thumbnailPublic
+            } catch (error) {
+
+            }
+          } else {
+            thumbnailPreview.src = "https://via.placeholder.com/250x150"
+
+          }
+
         })
       }
     }
 
+  }
+
+  onChangeThumbnail(e) {
+    const thumbnailPreview = document.getElementById("thumbnailPreview") as HTMLImageElement;
+    const file = e.target.files[0];
+    if (file) {
+      thumbnailPreview.src = URL.createObjectURL(file);
+    }
   }
 
   /**
@@ -51,9 +71,10 @@ export class FormComponent implements OnInit {
       return;
     }
     const form = f.value;
+    const formData = new FormData(<HTMLFormElement>document.getElementById('formApp'));
 
     if (this.data.formType == 'add') {
-      this._service.createCategory(form).subscribe(function (data) {
+      this._service.createCategory(formData).subscribe(function (data) {
         if (data) {
           _this.dialogRef.close()
           Swal.fire({
@@ -67,7 +88,7 @@ export class FormComponent implements OnInit {
     }
     if (this.data.formType == 'edit') {
       let id = _this.Id;
-      this._service.updateCategory(id, form).subscribe(function (data) {
+      this._service.updateCategory(id, formData).subscribe(function (data) {
         if (data) {
           _this.dialogRef.close()
           Swal.fire({
