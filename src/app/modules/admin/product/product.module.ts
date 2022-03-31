@@ -13,6 +13,9 @@ import { ProductCategoryComponent } from './detail/product-category/product-cate
 import { ProductAttributeComponent } from './detail/product-attribute/product-attribute.component';
 import { PricingFormComponent } from './detail/pricing/pricing-form/pricing-form.component';
 import { ProductStockComponent } from './product-stock/product-stock.component';
+import { ProductGalleryComponent } from './detail/product-gallery/product-gallery.component';
+import { FormProductGalleryComponent } from './detail/product-gallery/form-product-gallery/form-product-gallery.component';
+import { SharedFormModule } from 'app/shared/shared-form/shared-form.module';
 
 
 
@@ -32,13 +35,15 @@ const routerConfig: ExtraOptions = {
     ProductCategoryComponent,
     ProductAttributeComponent,
     PricingFormComponent,
-    ProductStockComponent
+    ProductStockComponent,
+    ProductGalleryComponent,
+    FormProductGalleryComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(productRoutes),
     CrudModule,
-    QRCodeModule
+    SharedFormModule
   ]
 })
 export class ProductModule { }
