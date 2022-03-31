@@ -1,13 +1,13 @@
 <div>
-    <form [formGroup]="formApp" #f="ngForm">
+    <form [formGroup]="formApp" #f="ngForm" (ngSubmit)="submitForm(f)" id="formApp">
         <div class="flex flex-col w-full">
             <div mat-dialog-content class="py-6">
                 <mat-form-field class="w-full">
                     <mat-label>Gallery Name</mat-label>
-                    <input matInput [formControlName]="'galleryName'" [required]="true"/>
+                    <input matInput [formControlName]="'description'" [required]="true" name="description"/>
                 </mat-form-field>
                 <div id="imgUpload">
-                    <shared-form-upload-image (fileUpload)="changeImageUpload($event)"></shared-form-upload-image>
+                    <shared-form-upload-image (fileUpload)="changeImageUpload($event)" name="path" [preview]="imgPreview"></shared-form-upload-image>
                 </div>
             </div>
             <div>

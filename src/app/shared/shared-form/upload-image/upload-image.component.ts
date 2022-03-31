@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'shared-form-upload-image',
@@ -9,6 +9,8 @@ export class UploadImageComponent implements OnInit {
 
 
   @Output() fileUpload = new EventEmitter<File>();
+  @Input() name: string = "photo"
+  @Input() preview: string
 
   constructor() { }
 
