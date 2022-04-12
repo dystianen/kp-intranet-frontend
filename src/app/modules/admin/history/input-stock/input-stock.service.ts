@@ -29,10 +29,10 @@ export class InputStockService {
     }))
   }
 
-  findProductBySku(productSku: any): Observable<any> {
+  findProductBySku(sku: any): Observable<any> {
     return this.input_stocks$.pipe(
       map((item) => {
-        return _.find(item, { productSku: productSku })??{}
+        return _.find(item, { sku: sku })??{}
       })
     )
   }

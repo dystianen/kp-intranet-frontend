@@ -23,10 +23,10 @@ export class FormComponent implements OnInit {
 
 
   formApp = new FormGroup({
-    productName: new FormControl(''),
-    productSku: new FormControl(''),
-    productBarcode: new FormControl(''),
-    productDescription: new FormControl(''),
+    name: new FormControl(''),
+    sku: new FormControl(''),
+    barcode: new FormControl(''),
+    description: new FormControl(''),
     priceDefault: new FormControl(''),
     buyPricePerUnit: new FormControl(''),
     supplierId: new FormControl(''),
@@ -58,10 +58,10 @@ export class FormComponent implements OnInit {
         this._service.product$.subscribe(function (data: Product) {
           _this.Id = data.id;
           _this.formApp.setValue({
-            productName: data.productName,
-            productSku: data.productSku,
-            productBarcode: data.productBarcode,
-            productDescription: data.productDescription,
+            name: data.name,
+            sku: data.sku,
+            barcode: data.barcode,
+            description: data.description,
             priceDefault: data.priceDefault,
             buyPricePerUnit: data.buyPricePerUnit,
             supplierId: data.supplierId,

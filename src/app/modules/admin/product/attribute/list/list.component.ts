@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AttributeModel } from 'app/model/attribute.model';
 import { Observable } from 'rxjs';
 import { AttributeService } from '../attribute.service';
-import { Attribute } from '../attribute.types';
 import { FormComponent } from '../form/form.component';
 
 @Component({
@@ -12,7 +12,7 @@ import { FormComponent } from '../form/form.component';
 })
 export class ListComponent implements OnInit {
 
-  attributes$: Observable<Attribute[]>
+  attributes$: Observable<AttributeModel[]>
 
   constructor(private _service: AttributeService, public dialog: MatDialog) { }
 

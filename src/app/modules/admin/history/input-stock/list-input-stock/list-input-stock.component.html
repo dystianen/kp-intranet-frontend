@@ -15,7 +15,7 @@
                             <div class="hidden md:block" [mat-sort-header]="'supplierCOde'">
                                 SKU
                             </div>
-                            <div [mat-sort-header]="'productName'">Name</div>
+                            <div [mat-sort-header]="'name'">Name</div>
                             <div [mat-sort-header]="'buyPricePerUnit'">Buy Price</div>
                             <div [mat-sort-header]="'priceDefault'">Price Default</div>
                             <div class="hidden sm:block" [mat-sort-header]="'supplierType'">
@@ -40,12 +40,12 @@
 
                                     <!-- SKU -->
                                     <div class="hidden md:block truncate">
-                                        {{product.productSku}}
+                                        {{product.sku}}
                                     </div>
 
                                     <!-- Name -->
                                     <div class="truncate">
-                                        {{product.productName}}
+                                        {{product.name}}
                                     </div>
 
                                     <div class="truncate flex items-center">
@@ -67,7 +67,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <a [routerLink]="['/history/input-stock',product.productSku]"><mat-icon aria-hidden="false">dvr</mat-icon></a>
+                                        <a [routerLink]="['/history/input-stock',product.sku]"><mat-icon aria-hidden="false">dvr</mat-icon></a>
                                     </div>
                                 </div>
                             </ng-container>

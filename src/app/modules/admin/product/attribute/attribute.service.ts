@@ -1,30 +1,30 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AttributeModel } from 'app/model/attribute.model';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
-import { Attribute } from './attribute.types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttributeService {
 
-  private _attributes: BehaviorSubject<Attribute[] | null> = new BehaviorSubject(null);
-  private _attribute: BehaviorSubject<Attribute | null> = new BehaviorSubject(null);
+  private _attributes: BehaviorSubject<AttributeModel[] | null> = new BehaviorSubject(null);
+  private _attribute: BehaviorSubject<AttributeModel | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient) { }
 
-  get attributes$(): Observable<Attribute[]> {
+  get attributes$(): Observable<AttributeModel[]> {
     return this._attributes.asObservable()
   }
 
-  get attribute$(): Observable<Attribute> {
+  get attribute$(): Observable<AttributeModel> {
     return this._attribute.asObservable()
   }
 
-  getAttributes(): Observable<Attribute[]> {
-    return this._httpClient.get<Attribute[]>(`${environment.apiUrl}/admin/product-attribute`).pipe(map((response: any) => {
+  getAttributes(): Observable<AttributeModel[]> {
+    return this._httpClient.get<AttributeModel[]>(`${environment.apiUrl}/admin/product-attribute`).pipe(map((response: any) => {
       if (response.statusCode == 200) {
         this._attributes.next(response.data);
         return response.data;
@@ -33,8 +33,8 @@ export class AttributeService {
     }))
   }
 
-  getAttribute(id: number): Observable<Attribute> {
-    return this._httpClient.get<Attribute>(`${environment.apiUrl}/admin/product-attribute/${id}`).pipe(map((response: any) => {
+  getAttribute(id: number): Observable<AttributeModel> {
+    return this._httpClient.get<AttributeModel>(`${environment.apiUrl}/admin/product-attribute/${id}`).pipe(map((response: any) => {
       if (response.statusCode == 200) {
         this._attribute.next(response.data);
         return response.data;
@@ -47,10 +47,10 @@ export class AttributeService {
      * Create Product
      * @returns 
      */
-  createAttribute(dataAttribute: any): Observable<Attribute> {
+  createAttribute(dataAttribute: any): Observable<AttributeModel> {
     return this.attributes$.pipe(
       take(1),
-      switchMap(attributes => this._httpClient.post<Attribute>(`${environment.apiUrl}/admin/product-attribute`, dataAttribute)
+      switchMap(attributes => this._httpClient.post<AttributeModel>(`${environment.apiUrl}/admin/product-attribute`, dataAttribute)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;
@@ -74,10 +74,10 @@ export class AttributeService {
    * @param dataAttribute 
    * @returns 
    */
-  updateAttribute(id: number, dataAttribute: any): Observable<Attribute> {
+  updateAttribute(id: number, dataAttribute: any): Observable<AttributeModel> {
     return this.attributes$.pipe(
       take(1),
-      switchMap(attributes => this._httpClient.patch<Attribute>(`${environment.apiUrl}/admin/product-attribute/${id}`, dataAttribute)
+      switchMap(attributes => this._httpClient.patch<AttributeModel>(`${environment.apiUrl}/admin/product-attribute/${id}`, dataAttribute)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;

@@ -7,15 +7,15 @@
                 <div class="flex flex-col w-full">
                     <mat-form-field>
                         <mat-label>Product Name</mat-label>
-                        <input name="productName" matInput [formControlName]="'productName'" required />
+                        <input name="name" matInput [formControlName]="'name'" required />
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>SKU</mat-label>
-                        <input name="productSku" matInput [formControlName]="'productSku'" required />
+                        <input name="sku" matInput [formControlName]="'sku'" required />
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Barcode Number</mat-label>
-                        <input name="productBarcode" matInput [formControlName]="'productBarcode'" required />
+                        <input name="barcode" matInput [formControlName]="'barcode'" required />
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Price Default</mat-label>
@@ -35,7 +35,7 @@
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Description</mat-label>
-                        <textarea name="productDescription" matInput [formControlName]="'productDescription'" required></textarea>
+                        <textarea name="description" matInput [formControlName]="'description'" required></textarea>
                     </mat-form-field>
                     <div>
                         <mat-label>Thumbnail</mat-label>

@@ -4,16 +4,16 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
+import { AttributeModel } from 'app/model/attribute.model';
 import { Observable, of } from 'rxjs';
 import { AttributeService } from './attribute.service';
-import { Attribute } from './attribute.types';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AttributeResolver implements Resolve<Attribute[]> {
+export class AttributeResolver implements Resolve<AttributeModel[]> {
   constructor(private _service: AttributeService) { }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Attribute[]> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AttributeModel[]> {
     return this._service.getAttributes();
   }
 }

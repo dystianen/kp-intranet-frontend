@@ -1,4 +1,6 @@
-export interface Product {
+import { SupplierModel } from "./supplier.model";
+
+export interface ProductModel {
     id?: number;
     name?: string
     sku?: string
@@ -9,5 +11,5 @@ export interface Product {
     supplierId?: number
     thumbnail?: string
     thumbnailPath?: string
-    supplier?: {}
+    supplier?: SupplierModel
 }

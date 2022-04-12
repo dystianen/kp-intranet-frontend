@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AttributeModel } from 'app/model/attribute.model';
 import Swal from 'sweetalert2';
 import { AttributeService } from '../attribute.service';
-import { Attribute } from '../attribute.types';
 
 @Component({
   selector: 'app-form',
@@ -18,7 +18,8 @@ export class FormComponent implements OnInit {
   formApp = new FormGroup({
     attribute: new FormControl(''),
     attributeCode: new FormControl(''),
-    description: new FormControl('')
+    description: new FormControl(''),
+    unit: new FormControl(''),
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<any>, private _service: AttributeService) { }
@@ -29,13 +30,9 @@ export class FormComponent implements OnInit {
 
     if (this.data.formType == 'edit') {
       if (this._service.attributes$) {
-        this._service.attribute$.subscribe(function (data: Attribute) {
+        this._service.attribute$.subscribe(function (data: AttributeModel) {
           _this.Id = data.id;
-          _this.formApp.setValue({
-            attribute: data.attribute,
-            attributeCode: data.attributeCode,
-            description: data.description
-          });
+          _this.formApp.patchValue(data);
         })
       }
     }

@@ -1,6 +1,6 @@
 <div class="px-6 py-4" *ngIf="(product$ |async) as product">
     <div>
-        <div class="text-2xl font-extrabold tracking-tight">{{product.productName}} ({{product.productSku}})</div>
+        <div class="text-2xl font-extrabold tracking-tight">{{product.name}} ({{product.sku}})</div>
 
         <ng-container *ngIf="product.input_stock?.length > 0; else nohistory">
             <div class="grid my-3">
