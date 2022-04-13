@@ -1,0 +1,33 @@
+<div class="w-full">
+    <h1 mat-dialog-title>Attribute Form</h1>
+    <form [formGroup]="formApp" #f="ngForm" id="formApp" (ngSubmit)="submitForm(f)">
+        <div class="flex flex-col w-full">
+            <div mat-dialog-content class="py-6">
+                <ng-container *ngIf="(attributes$ | async) as attributes">
+                    <ng-container *ngIf="attributes.length>=1">
+                        <mat-form-field class="w-full">
+                            <mat-label>Attribute</mat-label>
+                            <mat-select *ngIf="attributes.length >= 1" matInput [formControlName]="'productAttributeId'"
+                                required>
+                                <mat-option *ngFor="let attribute of attributes" [value]="attribute.id">
+                                    {{attribute.attribute}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+                </ng-container>
+                <mat-form-field class="w-full">
+                    <mat-label>Attribute Value</mat-label>
+                    <input matInput [formControlName]="'value'" name="value" />
+                </mat-form-field>
+            </div>
+            <div>
+                <div mat-dialog-actions class="flex justify-center">
+                    <button-close></button-close>
+                    <button-submit></button-submit>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

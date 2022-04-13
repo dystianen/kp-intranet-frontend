@@ -16,6 +16,7 @@ import { ProductStockComponent } from './product-stock/product-stock.component';
 import { ProductGalleryComponent } from './detail/product-gallery/product-gallery.component';
 import { FormProductGalleryComponent } from './detail/product-gallery/form-product-gallery/form-product-gallery.component';
 import { SharedFormModule } from 'app/shared/shared-form/shared-form.module';
+import { FormProductAttributeComponent } from './detail/product-attribute/form-product-attribute/form-product-attribute.component';
 
 
 
@@ -37,7 +38,8 @@ const routerConfig: ExtraOptions = {
     PricingFormComponent,
     ProductStockComponent,
     ProductGalleryComponent,
-    FormProductGalleryComponent
+    FormProductGalleryComponent,
+    FormProductAttributeComponent
   ],
   imports: [
     CommonModule,
