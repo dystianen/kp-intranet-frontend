@@ -20,6 +20,8 @@ export class FormComponent implements OnInit {
   formAttribute: any;
   suppliers: Suppliers[]
   thumbnailPreview: any = ""
+  uploadFile: File;
+  imgPreview: string = ""
 
 
   formApp = new FormGroup({
@@ -57,34 +59,18 @@ export class FormComponent implements OnInit {
       if (this._service.products$) {
         this._service.product$.subscribe(function (data: Product) {
           _this.Id = data.id;
-          _this.formApp.setValue({
-            name: data.name,
-            sku: data.sku,
-            barcode: data.barcode,
-            description: data.description,
-            priceDefault: data.priceDefault,
-            buyPricePerUnit: data.buyPricePerUnit,
-            supplierId: data.supplierId,
-            thumbnail: data.thumbnail
-          });
-          const thumbnailPreview = document.getElementById("thumbnailPreview") as HTMLImageElement;
-          if (data.thumbnailPath !== null) {
-            try {
-
-              thumbnailPreview.src = data.thumbnailPath
-            } catch (error) {
-
-            }
-          } else {
-            thumbnailPreview.src = "https://via.placeholder.com/250x150"
-
+          _this.formApp.patchValue(data);
+          if (data.thumbnailPath) {
+            _this.imgPreview = data.thumbnailPath;
           }
-
-
         })
       }
     }
 
+  }
+
+  changeImageUpload(uploadFile: File) {
+    this.uploadFile = uploadFile;
   }
 
   onChangeThumbnail(e) {
