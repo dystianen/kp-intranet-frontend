@@ -3,7 +3,7 @@
 
     <div class="my-2">
         <input [name]="name" id="thumbnail" type="file" #fileInput (change)="onChangeThumbnail($event)" />
-        <ng-container *ngIf="preview!==''">
+        <ng-container *ngIf="preview">
             <img id="thumbnailPreview"
                 [src]="preview!==''?preview+ '?tr=h-'+height:'https://via.placeholder.com/'+width+'/'+height" alt=""
                 class="cursor-pointer my-2" [width]="width" [height]="height">

@@ -14,12 +14,14 @@
                         <input matInput [formControlName]="'description'" required name="description"/>
                     </mat-form-field>
                     <div>
-                        <mat-label>Thumbnail</mat-label>
                         <div>
-                            <img id="thumbnailPreview" src="https://via.placeholder.com/250x150" alt=""
+                            <div>
+                                <shared-form-upload-image (fileUpload)="onChangeThumbnail($event)" name="thumbnail"></shared-form-upload-image>
+                            </div>
+                            <!-- <img id="thumbnailPreview" src="https://via.placeholder.com/250x150" alt=""
                                 class="cursor-pointer" (click)="fileInput.click()">
                             <input name="thumbnail" id="thumbnail" type="file" [formControlName]="'thumbnail'"
-                                class="hidden" #fileInput (change)="onChangeThumbnail($event)" />
+                                class="hidden" #fileInput (change)="onChangeThumbnail($event)" /> -->
                         </div>
                     </div>
                 </div>

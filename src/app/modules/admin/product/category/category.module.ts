@@ -6,6 +6,7 @@ import { Route, RouterModule } from '@angular/router';
 import { CategoryComponent } from './category.component';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { CategoryResolver } from './category.resolver';
+import { SharedFormModule } from 'app/shared/shared-form/shared-form.module';
 
 
 const routesCategory: Route[] = [
@@ -34,7 +35,8 @@ const routesCategory: Route[] = [
   imports: [
     CommonModule,
     RouterModule.forChild(routesCategory),
-    CrudModule
+    CrudModule,
+    SharedFormModule
   ]
 })
 export class CategoryModule { }
