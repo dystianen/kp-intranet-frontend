@@ -6,6 +6,7 @@ import { FormComponent } from './form/form.component';
 import { Route, RouterModule } from '@angular/router';
 import { SiteResolver } from './site.resolver';
 import { CrudModule } from 'app/shared/crud/crud.module';
+import { SharedFormModule } from 'app/shared/shared-form/shared-form.module';
 
 
 const siteRoutes: Route[] = [
@@ -33,7 +34,8 @@ const siteRoutes: Route[] = [
   imports: [
     CommonModule,
     RouterModule.forChild(siteRoutes),
-    CrudModule
+    CrudModule,
+    SharedFormModule
   ]
 })
 export class SiteModule { }

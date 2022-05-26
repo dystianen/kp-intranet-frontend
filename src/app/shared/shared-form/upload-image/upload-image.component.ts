@@ -10,7 +10,10 @@ export class UploadImageComponent implements OnInit {
 
   @Output() fileUpload = new EventEmitter<File>();
   @Input() name: string = "photo"
+  @Input() title: string = "Thumbnail"
   @Input() preview: string
+  @Input() width: number = 250;
+  @Input() height: number = 150;
 
   constructor() { }
 

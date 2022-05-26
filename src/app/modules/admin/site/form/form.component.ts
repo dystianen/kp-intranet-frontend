@@ -19,6 +19,8 @@ export class FormComponent implements OnInit {
     description: new FormControl('')
   });
 
+  logoPreview: string = ""
+
   idSite: number;
 
   public formAttribute: any;
@@ -50,9 +52,10 @@ export class FormComponent implements OnInit {
       return;
     }
     const form = f.value;
+    const formData = new FormData(<HTMLFormElement>document.getElementById('formSite'));
 
     if (this.data.formType == 'add') {
-      this._siteService.createSite(form).subscribe(function (data) {
+      this._siteService.createSite(formData).subscribe(function (data) {
         if (data) {
           _this.dialogRef.close()
           Swal.fire({
@@ -66,7 +69,7 @@ export class FormComponent implements OnInit {
     }
     if (this.data.formType == 'edit') {
       let id = _this.idSite;
-      this._siteService.updateSite(id, form).subscribe(function (data) {
+      this._siteService.updateSite(id, formData).subscribe(function (data) {
         if (data) {
           _this.dialogRef.close()
           Swal.fire({
@@ -78,6 +81,10 @@ export class FormComponent implements OnInit {
         }
       });
     }
+  }
+
+  changeImageUpload(e){
+    
   }
 
 

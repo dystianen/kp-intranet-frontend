@@ -1,12 +1,12 @@
 <div>
-    <mat-label>Thumbnail</mat-label>
-   
-    <div>
-        <input [name]="name" id="thumbnail" type="file" #fileInput
-            (change)="onChangeThumbnail($event)" />
-            <img id="thumbnailPreview" [src]="preview!==''?preview+ '?tr=h-300':'https://via.placeholder.com/250x150'" alt=""
-            class="cursor-pointer my-2">
-        <!-- <img id="thumbnailPreview" [src]="preview!==''?preview:'https://via.placeholder.com/250x150'" alt=""
-            class="cursor-pointer" (click)="fileInput.click()"> -->
+    <mat-label>{{title}}</mat-label>
+
+    <div class="my-2">
+        <input [name]="name" id="thumbnail" type="file" #fileInput (change)="onChangeThumbnail($event)" />
+        <ng-container *ngIf="preview!==''">
+            <img id="thumbnailPreview"
+                [src]="preview!==''?preview+ '?tr=h-'+height:'https://via.placeholder.com/'+width+'/'+height" alt=""
+                class="cursor-pointer my-2" [width]="width" [height]="height">
+        </ng-container>
     </div>
 </div>
