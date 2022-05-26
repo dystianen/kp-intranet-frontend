@@ -31,6 +31,11 @@
                         <input matInput [formControlName]="'description'" required name="description"/>
                     </mat-form-field>
 
+                    <mat-form-field>
+                        <mat-label>Contact</mat-label>
+                        <input matInput [formControlName]="'contact'" name="contact"/>
+                    </mat-form-field>
+
                     <div>
                         <shared-form-upload-image (fileUpload)="changeImageUpload($event)" name="logo" [preview]="logoPreview" title="Logo"></shared-form-upload-image>
                     </div>

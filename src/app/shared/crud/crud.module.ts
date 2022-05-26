@@ -39,7 +39,8 @@ import { FuseScrollbarModule } from '@fuse/directives/scrollbar';
     MatDialogModule,
     SharedModule,
     MatTableModule,
-    FuseScrollbarModule
+    FuseScrollbarModule,
+    MatPaginatorModule
   ],
   exports: [
     MatButtonModule,
@@ -58,7 +59,8 @@ import { FuseScrollbarModule } from '@fuse/directives/scrollbar';
     MatDialogModule,
     SharedModule,
     MatTableModule,
-    FuseScrollbarModule
+    FuseScrollbarModule,
+    MatPaginatorModule
   ]
 })
 export class CrudModule { }

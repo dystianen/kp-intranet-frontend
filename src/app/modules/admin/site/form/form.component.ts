@@ -16,7 +16,8 @@ export class FormComponent implements OnInit {
     siteName: new FormControl(''),
     siteCode: new FormControl(''),
     siteType: new FormControl(''),
-    description: new FormControl('')
+    description: new FormControl(''),
+    contact: new FormControl(''),
   });
 
   logoPreview: string = ""
