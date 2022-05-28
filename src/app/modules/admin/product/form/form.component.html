@@ -34,15 +34,33 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+
                     <mat-form-field>
-                        <mat-label>Description</mat-label>
-                        <textarea name="description" matInput [formControlName]="'description'" required></textarea>
+                        <mat-label>Sort Description</mat-label>
+                        <textarea name="sortDescription" matInput [formControlName]="'sortDescription'"
+                            required></textarea>
                     </mat-form-field>
                     <div>
-                        <!-- <mat-label>Thumbnail</mat-label> -->
+
+                        <div class="my-2">
+                            <label for="" class="text-gray-800"><b>Description</b></label>
+                            <div class="my-2">
+                                <app-editor [value]="formApp.value.description" (setValue)="setDescription($event)"
+                                    name="description">
+                                </app-editor>
+                            </div>
+                        </div>
+
+                        <div class="my-2">
+                            <label for="" class="text-gray-800"><b>Additional Info</b></label>
+                            <div class="my-2">
+                                <app-editor [value]="formApp.value.additionalInfo" (setValue)="setAdditionalInfo($event)"
+                                    name="additionalInfo">
+                                </app-editor>
+                            </div>
+                        </div>
+
                         <div>
-                            <!-- <img id="thumbnailPreview" src="https://via.placeholder.com/250x150" alt="" class="cursor-pointer" (click)="fileInput.click()">
-                            <input name="thumbnail" id="thumbnail" type="file" [formControlName]="'thumbnail'" class="hidden" #fileInput (change)="onChangeThumbnail($event)" /> -->
                             <shared-form-upload-image (fileUpload)="changeImageUpload($event)" name="thumbnail"
                                 [preview]="imgPreview"></shared-form-upload-image>
                         </div>

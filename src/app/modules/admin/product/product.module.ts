@@ -17,6 +17,7 @@ import { ProductGalleryComponent } from './detail/product-gallery/product-galler
 import { FormProductGalleryComponent } from './detail/product-gallery/form-product-gallery/form-product-gallery.component';
 import { SharedFormModule } from 'app/shared/shared-form/shared-form.module';
 import { FormProductAttributeComponent } from './detail/product-attribute/form-product-attribute/form-product-attribute.component';
+import { EditorModule } from 'app/shared/editor/editor.module';
 
 
 
@@ -45,7 +46,8 @@ const routerConfig: ExtraOptions = {
     CommonModule,
     RouterModule.forChild(productRoutes),
     CrudModule,
-    SharedFormModule
+    SharedFormModule,
+    EditorModule
   ]
 })
 export class ProductModule { }

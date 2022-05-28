@@ -29,6 +29,8 @@ export class FormComponent implements OnInit {
     sku: new FormControl(''),
     barcode: new FormControl(''),
     description: new FormControl(''),
+    sortDescription: new FormControl(''),
+    additionalInfo: new FormControl(''),
     priceDefault: new FormControl(''),
     buyPricePerUnit: new FormControl(''),
     supplierId: new FormControl(''),
@@ -80,6 +82,12 @@ export class FormComponent implements OnInit {
       thumbnailPreview.src = URL.createObjectURL(file);
     }
   }
+  setDescription(description){
+    this.formApp.patchValue({description:description});
+  }
+  setAdditionalInfo(additionalInfo){
+    this.formApp.patchValue({additionalInfo:additionalInfo});
+  }
 
   /**
   * submit form
@@ -94,6 +102,8 @@ export class FormComponent implements OnInit {
     const form = f.value;
     const formData = new FormData(<HTMLFormElement>document.getElementById('formApp'));
     formData.append('supplierId', form.supplierId);
+    formData.append('description', form.description);
+    formData.append('additionalInfo', form.additionalInfo);
 
 
     if (this.data.formType == 'add') {

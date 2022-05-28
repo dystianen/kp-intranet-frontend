@@ -1377,6 +1377,13 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.7.0"
 
+"@kolkov/angular-editor@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@kolkov/angular-editor/-/angular-editor-2.0.0.tgz#bddd07097f59da57e1be69dda54a03317a165ccd"
+  integrity sha512-61Kxfd5LCiX8NmuT78o4VipaL5mfgKcd6bh5KRbMAMMBrmXH1ANRBeoalfjnd2G9MWVMxV5LBSrMrNp5mXERjA==
+  dependencies:
+    tslib "^2.3.0"
+
 "@ngneat/transloco-utils@^1.0.6":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@ngneat/transloco-utils/-/transloco-utils-1.1.2.tgz#d542de59842071b991638eb45b365c6256cf6a3b"
@@ -6358,12 +6365,12 @@ ngx-markdown@12.0.1:
     prismjs "^1.23.0"
     tslib "^2.1.0"
 
-ngx-quill@14.1.1:
-  version "14.1.1"
-  resolved "https://registry.yarnpkg.com/ngx-quill/-/ngx-quill-14.1.1.tgz#5a8116faa0bc35e3a31f410fbafc9086c0d27200"
-  integrity sha512-b5tsfzH6mZEa3Gkbe9Rw/EWlsWrwVzu7xTrdt8Ut2FqJAmKjwxHF+k0ArHkyu3QWRgIWIDqxFThDjit2oD1GDg==
+ngx-quill@^16.2.1:
+  version "16.2.1"
+  resolved "https://registry.yarnpkg.com/ngx-quill/-/ngx-quill-16.2.1.tgz#85897a3f5f5d5093b12f13436d75658fda1df548"
+  integrity sha512-gEw9iE6rFmyNMVC+Q3xjbB+GQxfy7F8aqwPoWNPLsbl/UNb187XudlUwV7OjUZdN7rc78oSHZwCYzeEQGtYgrQ==
   dependencies:
-    tslib "^2.1.0"
+    tslib "^2.3.0"
 
 ngx-toastr@^14.2.1:
   version "14.2.1"
