@@ -3,8 +3,22 @@ import { CommonModule } from '@angular/common';
 import { DestinationComponent } from './destination.component';
 import { ListDestinationComponent } from './list-destination/list-destination.component';
 import { FormDestinationComponent } from './form-destination/form-destination.component';
+import { Route, RouterModule } from '@angular/router';
+import { CrudModule } from 'app/shared/crud/crud.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
+const destinationRoutes: Route[] = [
+  {
+    path: '',
+    component: DestinationComponent,
+    children: [
+      {
+        path: '',
+        component: ListDestinationComponent
+      }
+    ]
+  }
+]
 
 @NgModule({
   declarations: [
@@ -13,7 +27,11 @@ import { FormDestinationComponent } from './form-destination/form-destination.co
     FormDestinationComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild(destinationRoutes),
+    CrudModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class DestinationModule { }
