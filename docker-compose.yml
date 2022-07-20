@@ -8,24 +8,24 @@ services:
       - ./:/var/www
     networks:
       - network_database_mysql
-    command: yarn start
     ports:
       - 4200:4200
+    command: bash -c "yarn install && yarn start"
 
-  nginx_fe:
-    image: nginx
-    volumes:
-      - ./:/var/www
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-    ports:
-      - 80:80
-    networks:
-      - network_database_mysql
-    depends_on:
-      - app_fe
+  # nginx_fe:
+  #   image: nginx
+  #   volumes:
+  #     - ./:/var/www
+  #     - ./nginx.conf:/etc/nginx/conf.d/default.conf
+  #   ports:
+  #     - 81:80
+  #   networks:
+  #     - network_database_mysql
+  #   depends_on:
+  #     - app_fe
 
 
 networks:
   network_database_mysql:
-    external:
-      name: mysql_database
+    external: true
+    name: project
