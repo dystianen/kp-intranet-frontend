@@ -6,6 +6,7 @@ import { FormDestinationComponent } from './form-destination/form-destination.co
 import { Route, RouterModule } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DestinationResolver } from './destination.resolver';
 
 const destinationRoutes: Route[] = [
   {
@@ -14,7 +15,10 @@ const destinationRoutes: Route[] = [
     children: [
       {
         path: '',
-        component: ListDestinationComponent
+        component: ListDestinationComponent,
+        resolve: {
+          destinations: DestinationResolver
+        }
       }
     ]
   }
