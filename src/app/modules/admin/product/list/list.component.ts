@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
 import { FormComponent } from '../form/form.component';
 import { ProductStockComponent } from '../product-stock/product-stock.component';
+import { ProductType, ProductTypeFactory } from '../product-type-factory';
 import { ProductService } from '../product.service';
 import { Product } from '../product.types';
 
@@ -15,13 +17,19 @@ export class ListComponent implements OnInit {
 
   products$: Observable<Product[]>
   isLoading = false
+  title: string = "Products"
+  component$: Subject<boolean> = new Subject();
+  productType: ProductType;
 
-  constructor(private _service: ProductService, public dialog: MatDialog) {
+  constructor(private _service: ProductService, public dialog: MatDialog,private router:Router) {
 
   }
 
   ngOnInit(): void {
+
+    const productTypeFactory = new ProductTypeFactory(this.router.url);
     this.products$ = this._service.products$;
+    this.productType = productTypeFactory.getType();
   }
 
   /**
@@ -39,8 +47,6 @@ export class ListComponent implements OnInit {
         },
         autoFocus: false
       });
-      dialogRef.afterClosed().subscribe(result => {
-      })
     });
   }
 
@@ -55,8 +61,6 @@ export class ListComponent implements OnInit {
       },
       autoFocus: false
     });
-    dialogRef.afterClosed().subscribe(result => {
-    })
   }
 
   addStockDialog(productId: number) {
@@ -79,6 +83,11 @@ export class ListComponent implements OnInit {
       },
       autoFocus: false
     });
+  }
+
+  ngOnDestroy() {
+    this.component$.next(true);
+    this.component$.complete();
   }
 
 }

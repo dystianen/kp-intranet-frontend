@@ -18,6 +18,7 @@ import { FormProductGalleryComponent } from './detail/product-gallery/form-produ
 import { SharedFormModule } from 'app/shared/shared-form/shared-form.module';
 import { FormProductAttributeComponent } from './detail/product-attribute/form-product-attribute/form-product-attribute.component';
 import { EditorModule } from 'app/shared/editor/editor.module';
+import { ProductTypeFactory } from './product-type-factory';
 
 
 

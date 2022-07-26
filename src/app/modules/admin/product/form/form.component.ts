@@ -1,11 +1,15 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ProductVariant } from 'app/model/product-variant.model';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { filter, map, takeUntil, toArray } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { SupplierService } from '../../supplier/supplier.service';
 import { Suppliers } from '../../supplier/suppliers.types';
+import { ProductType, ProductTypeFactory } from '../product-type-factory';
+import { ProductVariantService } from '../product-variant.service';
 import { ProductService } from '../product.service';
 import { Product } from '../product.types';
 
@@ -22,6 +26,8 @@ export class FormComponent implements OnInit {
   thumbnailPreview: any = ""
   uploadFile: File;
   imgPreview: string = ""
+  variants$: Observable<ProductVariant[]>
+  productType: ProductType
 
 
   formApp = new FormGroup({
@@ -34,7 +40,8 @@ export class FormComponent implements OnInit {
     priceDefault: new FormControl(''),
     buyPricePerUnit: new FormControl(''),
     supplierId: new FormControl(''),
-    thumbnail: new FormControl('')
+    thumbnail: new FormControl(''),
+    product_variant_id: new FormControl('')
   });
 
   private _unsubscribeAll: Subject<any> = new Subject<any>()
@@ -44,18 +51,30 @@ export class FormComponent implements OnInit {
     public dialogRef: MatDialogRef<any>,
     private _changeDetectorRef: ChangeDetectorRef,
     private _service: ProductService,
-    private _supplierService: SupplierService
+    private _supplierService: SupplierService,
+    private vartiantService: ProductVariantService,
+    private router : Router
   ) { }
 
   ngOnInit(): void {
     const _this = this;
     this.formAttribute = this.data;
 
+    const productTypeFactory = new ProductTypeFactory(this.router.url);
+    this.productType = productTypeFactory.getType();
+
     this._supplierService.suppliers$.pipe(takeUntil(this._unsubscribeAll))
       .subscribe((suppliers: Suppliers[]) => {
         this.suppliers = suppliers;
         this._changeDetectorRef.markForCheck()
       });
+
+      if(this.router.url=='/product'){
+        this.variants$ = this.vartiantService.$productVariants.pipe(map((item)=>{return item.filter((data)=>data.id!=='bundling')}));
+      }else{
+        this.variants$ = this.vartiantService.$productVariants.pipe(map((item)=>{return item.filter((data)=>data.id=='bundling')}));
+      }
+    
 
     if (this.data.formType == 'edit') {
       if (this._service.products$) {
@@ -82,11 +101,11 @@ export class FormComponent implements OnInit {
       thumbnailPreview.src = URL.createObjectURL(file);
     }
   }
-  setDescription(description){
-    this.formApp.patchValue({description:description});
+  setDescription(description) {
+    this.formApp.patchValue({ description: description });
   }
-  setAdditionalInfo(additionalInfo){
-    this.formApp.patchValue({additionalInfo:additionalInfo});
+  setAdditionalInfo(additionalInfo) {
+    this.formApp.patchValue({ additionalInfo: additionalInfo });
   }
 
   /**
@@ -104,6 +123,7 @@ export class FormComponent implements OnInit {
     formData.append('supplierId', form.supplierId);
     formData.append('description', form.description);
     formData.append('additionalInfo', form.additionalInfo);
+    formData.append('product_variant_id', form.product_variant_id);
 
 
     if (this.data.formType == 'add') {
@@ -115,7 +135,7 @@ export class FormComponent implements OnInit {
             text: 'Product has created',
             icon: 'success'
           })
-          _this._service.getProducts().subscribe();
+          _this._service.getProducts(_this.productType.type).subscribe();
         }
       });
     }
@@ -129,7 +149,7 @@ export class FormComponent implements OnInit {
             text: 'Product has updated',
             icon: 'success'
           })
-          _this._service.getProducts().subscribe();
+          _this._service.getProducts(_this.productType.type).subscribe();
         }
       });
     }

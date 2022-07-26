@@ -7,7 +7,7 @@
             <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
         </div>
         <!-- Title -->
-        <div class="text-4xl font-extrabold tracking-tight">Products</div>
+        <div class="text-4xl font-extrabold tracking-tight">{{productType.title}}</div>
         <!-- Actions -->
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
             <button class="ml-4" mat-flat-button [color]="'primary'" (click)="addDialog()">
@@ -31,13 +31,14 @@
                 <ng-container *ngIf="products.length > 0; else noproducts">
                     <div class="grid">
                         <!-- Header -->
-                        <div class="grid-cols-9 z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
+                        <div class="grid-cols-10 z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
                             matSort matSortDisableClear>
                             <div>#</div>
                             <div class="hidden md:block" [mat-sort-header]="'supplierCOde'">
                                 SKU
                             </div>
                             <div [mat-sort-header]="'name'">Name</div>
+                            <div [mat-sort-header]="'product_variant_id'">Variant</div>
                             <div [mat-sort-header]="'buyPricePerUnit'">Buy Price</div>
                             <div [mat-sort-header]="'priceDefault'">Price Default</div>
                             <div class="hidden sm:block" [mat-sort-header]="'supplierType'">
@@ -51,7 +52,7 @@
                         <!-- Rows -->
                         <ng-container *ngIf="(products$ | async) as products">
                             <ng-container *ngFor="let product of products; trackBy: trackByFn">
-                                <div class="grid-cols-9 grid items-center gap-4 py-3 px-6 md:px-8 border-b">
+                                <div class="grid-cols-10 grid items-center gap-4 py-3 px-6 md:px-8 border-b">
 
                                     <!-- Image -->
 
@@ -68,6 +69,10 @@
                                     <!-- Name -->
                                     <div class="truncate">
                                         {{product.name}}
+                                    </div>
+
+                                    <div class="truncate">
+                                        {{product.product_variant_id}}
                                     </div>
 
                                     <div class="truncate flex items-center">

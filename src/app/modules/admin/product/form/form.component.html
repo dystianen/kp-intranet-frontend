@@ -36,6 +36,15 @@
                     </mat-form-field>
 
                     <mat-form-field>
+                        <mat-label>Variant</mat-label>
+                        <mat-select *ngIf="(variants$ | async ) as variants" matInput [formControlName]="'product_variant_id'" required>
+                            <mat-option *ngFor="let variant of variants" [value]="variant.id">
+                                {{variant.variant}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field>
                         <mat-label>Sort Description</mat-label>
                         <textarea name="sortDescription" matInput [formControlName]="'sortDescription'"
                             required></textarea>

@@ -28,8 +28,8 @@ export class ProductService {
    * get products
    * @returns 
    */
-  getProducts(): Observable<ProductModel[]> {
-    return this._httpClient.get<ProductModel[]>(`${environment.apiUrl}/admin/product/product`).pipe(map((products: any) => {
+  getProducts(type="satuan"): Observable<ProductModel[]> {
+    return this._httpClient.get<ProductModel[]>(`${environment.apiUrl}/admin/product/product?type=${type??''}`).pipe(map((products: any) => {
       if (products.statusCode == 200) {
         this._products.next(products.data);
         return products.data;

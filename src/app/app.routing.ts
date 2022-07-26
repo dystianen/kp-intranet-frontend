@@ -78,6 +78,7 @@ export const appRoutes: Route[] = [
             { path: 'site', loadChildren: () => import('app/modules/admin/site/site.module').then(m => m.SiteModule) },
             { path: 'destination', loadChildren: () => import('app/modules/admin/destination/destination.module').then(m => m.DestinationModule) },
             { path: 'product', loadChildren: () => import('app/modules/admin/product/product.module').then(m => m.ProductModule) },
+            { path: 'product-bundling', loadChildren: () => import('app/modules/admin/product/product.module').then(m => m.ProductModule) },
             { path: 'product-category', loadChildren: () => import('app/modules/admin/product/category/category.module').then(m => m.CategoryModule) },
             { path: 'product-attribute', loadChildren: () => import('app/modules/admin/product/attribute/attribute.module').then(m => m.AttributeModule) },
 
