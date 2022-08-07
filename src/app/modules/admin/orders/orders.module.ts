@@ -6,6 +6,8 @@ import { OrdersComponent } from './orders.component';
 import { Route, RouterModule } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { OrderResolver } from './order.resolver';
+import { DetailOrderComponent } from './detail-order/detail-order.component';
+import { ProcessOrderComponent } from './process-order/process-order.component';
 
 const routes: Route[] = [
   {
@@ -27,7 +29,9 @@ const routes: Route[] = [
   declarations: [
     ListOrderComponent,
     FormModifyComponent,
-    OrdersComponent
+    OrdersComponent,
+    DetailOrderComponent,
+    ProcessOrderComponent
   ],
   imports: [
     CommonModule,

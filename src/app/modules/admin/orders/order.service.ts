@@ -12,29 +12,40 @@ import { map } from 'rxjs/operators';
 export class OrderService {
 
   private _orders: BehaviorSubject<OrderModel[] | null> = new BehaviorSubject(null);
-  private _order: BehaviorSubject<OrderModel | null> = new BehaviorSubject(null);
+
+  public order: BehaviorSubject<OrderModel | null> = new BehaviorSubject(null);
+
+  public status: BehaviorSubject<string> = new BehaviorSubject(null);
   constructor(private httpClient: HttpClient) { }
 
   get orders$() {
     return this._orders.asObservable();
   }
 
-  get order$() {
-    return this._order.asObservable();
-  }
 
   /**
    * get orders
    * @returns 
    */
-  getOrders(): Observable<OrderModel[]> {
-    return this.httpClient.get<OrderModel[]>(`${environment.apiUrl}${API.ADMIN_ORDERS}`).pipe(map((orders: any) => {
+  getOrders(status: any = null): Observable<OrderModel[]> {
+    return this.httpClient.get<OrderModel[]>(`${environment.apiUrl}${API.ADMIN_ORDERS}`, { params: { status } }).pipe(map((orders: any) => {
       if (orders.statusCode == 200) {
+        if (orders.status) {
+          this.status.next(orders.status);
+        }
         this._orders.next(orders.data);
         return orders.data;
       }
       return [];
     }))
+  }
+
+  /**
+   * Set Order
+   * @param order 
+   */
+  setOrder(order) {
+    this.order.next(order);
   }
 
 }

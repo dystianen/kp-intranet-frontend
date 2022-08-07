@@ -16,7 +16,9 @@ export class OrderResolver implements Resolve<OrderModel[]> {
   constructor(private orderService: OrderService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<OrderModel[]> {
-    return this.orderService.getOrders();
+    const {id} = route.params;
+
+    return this.orderService.getOrders(id);
   }
   
 }

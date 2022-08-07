@@ -88,7 +88,7 @@ export const appRoutes: Route[] = [
             { path: 'menu', loadChildren: () => import('app/modules/admin/menu/menu.module').then(m => m.MenuModule) },
             { path: 'history/input-stock', loadChildren: () => import('app/modules/admin/history/input-stock/input-stock.module').then(m => m.InputStockModule) },
 
-            { path: 'orders', loadChildren: () => import('app/modules/admin/orders/orders.module').then(m => m.OrdersModule) },
+            { path: 'orders/:id', loadChildren: () => import('app/modules/admin/orders/orders.module').then(m => m.OrdersModule) },
 
 
             { path: 'member', loadChildren: () => import('app/modules/admin/member/member.module').then(m => m.MemberModule) },
