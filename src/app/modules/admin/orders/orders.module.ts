@@ -8,6 +8,7 @@ import { CrudModule } from 'app/shared/crud/crud.module';
 import { OrderResolver } from './order.resolver';
 import { DetailOrderComponent } from './detail-order/detail-order.component';
 import { ProcessOrderComponent } from './process-order/process-order.component';
+import { CourierResolver } from '../courier/courier.resolver';
 
 const routes: Route[] = [
   {
@@ -18,7 +19,8 @@ const routes: Route[] = [
         path: '',
         component: ListOrderComponent,
         resolve:{
-          orders: OrderResolver
+          orders: OrderResolver,
+          couriers: CourierResolver
         }
       }
     ]

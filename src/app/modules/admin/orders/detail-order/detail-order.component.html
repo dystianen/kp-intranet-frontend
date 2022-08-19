@@ -1,6 +1,9 @@
 <ng-container *ngIf="(order$ | async) as order">
    <div class="w-full">
-      <h3 mat-dialog-title>Detail Order #{{ order.orderNumber }}</h3>
+      <h3 mat-dialog-title>Order #{{ order.orderNumber }}</h3>
+
+      <h3 class="text-lg my-4"><b>Status</b> : {{order.order_status.status}}</h3>
+
       <h3 class="text-lg"><b>Items</b></h3>
       <div>
          <table mat-table [dataSource]="dataSourcePricing" class="w-full text-left">
@@ -48,9 +51,12 @@
          <p><b>Destination</b> : {{order.shipping.shipping_destination.destination}}</p>
          <p><b>Name</b> : {{order.shipping.receiveName}}</p>
          <p><b>Phone</b> : {{order.shipping.receivePhone}}</p>
-         <p><b>Email</b> : {{order.shipping.receiveEmail}}</p>
+         <p><b>Email</b> : {{order.shipping.receiveMail}}</p>
          <p><b>Address</b> : {{order.shipping.receiveAddress}}</p>
          <p><b>Address Detail</b> : {{order.shipping.receiveAddressDetail}}</p>
+         <hr>
+         <p><b>Shipping Number</b> : {{order?.shipping?.courier?.courierName}} - {{order?.shipping?.courier?.courierPhone}}</p>
+         <p><b>Courier Name</b> : {{order?.shipping?.shippingNumber}}</p>
       </div>
       <h3 class="text-lg my-4"><b>Payment</b></h3>
       <table class="table-auto w-100">

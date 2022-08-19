@@ -4,7 +4,7 @@ import API from 'api/API';
 import { OrderModel } from 'app/model/order.model';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +38,25 @@ export class OrderService {
       }
       return [];
     }))
+  }
+
+  /**
+   * Update order
+   * @param oderNumber 
+   * @param params 
+   * @returns 
+   */
+  updateOrder(oderNumber, params): Observable<OrderModel> {
+    return this.order.pipe(
+      switchMap(products => this.httpClient.patch<OrderModel>(`${environment.apiUrl}/admin/orders/${oderNumber}`, params)
+        .pipe(map((response: any) => {
+          if (response.statusCode == 200) {
+            return response.data;
+          }
+          return {};
+        }))
+      )
+    )
   }
 
   /**

@@ -17,7 +17,6 @@ export class OrderResolver implements Resolve<OrderModel[]> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<OrderModel[]> {
     const {id} = route.params;
-
     return this.orderService.getOrders(id);
   }
   

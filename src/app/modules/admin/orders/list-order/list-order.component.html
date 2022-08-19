@@ -43,7 +43,9 @@
                             <mat-label>Options</mat-label>
                             <mat-select disableRipple>
                                 <mat-option value="1" (click)="detailOrder(element)">Detail Order</mat-option>
-                                <mat-option value="2" (click)="processOrder(element)">Process Order</mat-option>
+                                <ng-container *ngIf="element.orderStatusId != 200">
+                                    <mat-option value="2" (click)="processOrder(element)">Process Order</mat-option>
+                                </ng-container>
                             </mat-select>
                         </mat-form-field>
 

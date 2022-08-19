@@ -44,7 +44,8 @@ export class ListOrderComponent implements OnInit {
     this.orderService.setOrder(order);
     this.dialog.open(DetailOrderComponent, {
       autoFocus: false,
-      minWidth: 500
+      minWidth: 500,
+      maxHeight:'90vh'
     })
   }
 
