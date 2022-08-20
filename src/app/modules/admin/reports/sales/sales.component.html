@@ -7,7 +7,17 @@
         <div class="text-4xl font-extrabold tracking-tight">Report Sales</div>
         <!-- Actions -->
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-
+            <ng-container *ngIf="dataSource.data.length>=1">
+                <button class="ml-4 bg-green-600 text-white" mat-flat-button (click)="exportExcel()">
+                    <mat-icon svgIcon="heroicons_outline:arrow-circle-down"></mat-icon>
+                    <span class="ml-2 mr-1">Export Excel</span>
+                </button>
+            </ng-container>
+            <!-- <a [routerLink]="'/product'" class="ml-4" mat-flat-button [color]="'primary'">
+            <span class="material-icons">
+                arrow_back
+            </span>
+        </a> -->
         </div>
     </div>
 

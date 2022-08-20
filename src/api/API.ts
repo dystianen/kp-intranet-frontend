@@ -8,6 +8,7 @@ const API = {
     DASHBOARDS_SALES:'/admin/dashboards/sales',
     DASHBOARDS_USERS:'/admin/dashboards/users',
     REPORT_SALES:'/admin/reports/sales/orders',
+    REPORT_INPUT_STOCKS:'/admin/reports/input-stocks',
 }
 
 export default API;

@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 export class ReportsService {
 
   #sales_ : BehaviorSubject<any[] | null> = new BehaviorSubject(null);
+  #stocks_ : BehaviorSubject<any[] | null> = new BehaviorSubject(null);
 
   constructor(private httpClient: HttpClient) { }
 
@@ -18,11 +19,25 @@ export class ReportsService {
     return this.#sales_.asObservable();
   }
 
+  get stocks$():Observable<any[]>{
+    return this.#stocks_.asObservable();
+  }
+
   getSales():Observable<any[]>{
     return this.httpClient.get<any[]>(`${environment.apiUrl}${API.REPORT_SALES}`).pipe(map((sales: any) => {
       if (sales.statusCode == 200) {
         this.#sales_.next(sales.data);
         return sales.data;
+      }
+      return [];
+    }))
+  }
+
+  getStocks():Observable<any[]>{
+    return this.httpClient.get<any[]>(`${environment.apiUrl}${API.REPORT_INPUT_STOCKS}`).pipe(map((stocks: any) => {
+      if (stocks.statusCode == 200) {
+        this.#stocks_.next(stocks.data);
+        return stocks.data;
       }
       return [];
     }))

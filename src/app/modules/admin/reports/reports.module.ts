@@ -6,6 +6,7 @@ import { ReportsComponent } from './reports.component';
 import { Route, RouterModule } from '@angular/router';
 import { SalesResolver } from './sales.resolver';
 import { CrudModule } from 'app/shared/crud/crud.module';
+import { StocksResolver } from './stocks.resolver';
 
 const reporsRoute : Route[]=[
   {
@@ -17,6 +18,13 @@ const reporsRoute : Route[]=[
         component: SalesComponent,
         resolve:{
           sales: SalesResolver
+        }
+      },
+      {
+        path:'input-stocks',
+        component: StocksComponent,
+        resolve:{
+          sales: StocksResolver
         }
       }
     ]
