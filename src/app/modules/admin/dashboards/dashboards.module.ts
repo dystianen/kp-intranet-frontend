@@ -4,6 +4,9 @@ import { DashboardsComponent } from './dashboards.component';
 import { SalesComponent } from './sales/sales.component';
 import { Route, RouterModule } from '@angular/router';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { SalesResolver } from './sales.resolver';
+import { CustomersComponent } from './customers/customers.component';
+import { UsersResolver } from './users.resolver';
 
 
 const dashboardsRoutes: Route[] = [
@@ -17,7 +20,17 @@ const dashboardsRoutes: Route[] = [
       },
       {
         path: 'sales',
-        component: SalesComponent
+        component: SalesComponent,
+        resolve: {
+          sales: SalesResolver
+        }
+      },
+      {
+        path: 'customers',
+        component: CustomersComponent,
+        resolve: {
+          sales: UsersResolver
+        }
       }
     ]
   }
@@ -27,7 +40,8 @@ const dashboardsRoutes: Route[] = [
 @NgModule({
   declarations: [
     DashboardsComponent,
-    SalesComponent
+    SalesComponent,
+    CustomersComponent
   ],
   imports: [
     CommonModule,

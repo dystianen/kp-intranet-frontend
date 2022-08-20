@@ -92,6 +92,7 @@ export const appRoutes: Route[] = [
 
 
             { path: 'member', loadChildren: () => import('app/modules/admin/member/member.module').then(m => m.MemberModule) },
+            { path: 'reports', loadChildren: () => import('app/modules/admin/reports/reports.module').then(m => m.ReportsModule) },
         ]
     }
 ];

@@ -28,12 +28,12 @@ export type ChartOptions = {
 };
 
 @Component({
-  selector: 'app-sales',
-  templateUrl: './sales.component.html',
-  styleUrls: ['./sales.component.scss']
+  selector: 'app-customers',
+  templateUrl: './customers.component.html',
+  styleUrls: ['./customers.component.scss']
 })
 
-export class SalesComponent implements OnInit {
+export class CustomersComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
@@ -43,7 +43,7 @@ export class SalesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.dashboardService.sales$.subscribe((res: any) => {
+    this.dashboardService.customers$.subscribe((res: any) => {
       this.chartOptions = {
         series: res.series,
         chart: {
@@ -69,7 +69,7 @@ export class SalesComponent implements OnInit {
         },
         yaxis: {
           title: {
-            text: "Jumlah Item terjual"
+            text: "Jumlah Pengguna"
           }
         },
         fill: {
@@ -78,7 +78,7 @@ export class SalesComponent implements OnInit {
         tooltip: {
           y: {
             formatter: function (val) {
-              return val + " Item";
+              return val + " Pengguna";
             }
           }
         }
