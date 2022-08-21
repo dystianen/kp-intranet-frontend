@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { OrderModel } from 'app/model/order.model';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -20,8 +22,11 @@ export class ProcessOrderComponent implements OnInit {
 
   formApp: FormGroup
 
+  alert_title = "";
 
-  constructor(private orderService: OrderService, private dialogRef: MatDialogRef<any>, private courierService: CourierService, private formBuilder: FormBuilder) { }
+  @ViewChild('notifAlert') public readonly notifAlert: SwalComponent;
+
+  constructor(private orderService: OrderService, private dialogRef: MatDialogRef<any>, private courierService: CourierService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.order$ = this.orderService.order;
@@ -32,6 +37,20 @@ export class ProcessOrderComponent implements OnInit {
       shippingNumber: '',
       notes: '',
     })
+  }
+
+  testSwal() {
+    this.notifAlert.fire()
+  }
+
+  processOrderConfirm() {
+    this.notifAlert.close();
+  }
+
+  reloadRoute() {
+    // const currentUrl = this.router.url;
+    // this.router.navigate([currentUrl]);
+    // document.location.href = "";
   }
 
   /**
@@ -54,13 +73,17 @@ export class ProcessOrderComponent implements OnInit {
             orderStatusId: 202
           }
         }).subscribe((res) => {
-          this.orderService.getOrders(201).subscribe()
-          this.dialogRef.close();
-          Swal.fire(
-            'Berhasil',
-            'Order berhasil di update',
-            'success'
-          )
+          if (res.orderStatusId === 201) {
+            this.orderService.getOrders(201).subscribe()
+            this.dialogRef.close();
+            Swal.fire(
+              'Berhasil',
+              'Order berhasil di update',
+              'success'
+            )
+            this.reloadRoute();
+          }
+
         })
       }
     })
@@ -86,13 +109,17 @@ export class ProcessOrderComponent implements OnInit {
             orderStatusId: 203
           }
         }).subscribe((res) => {
-          this.orderService.getOrders(203).subscribe()
-          this.dialogRef.close();
-          Swal.fire(
-            'Berhasil',
-            'Order berhasil di update',
-            'success'
-          )
+          if (res.orderStatusId === 202) {
+            this.orderService.getOrders(202).subscribe()
+            this.dialogRef.close();
+            Swal.fire(
+              'Berhasil',
+              'Order berhasil di update',
+              'success'
+            )
+            this.reloadRoute();
+          }
+
         })
       }
     })
@@ -118,13 +145,17 @@ export class ProcessOrderComponent implements OnInit {
             orderStatusId: 204
           }
         }).subscribe((res) => {
-          this.orderService.getOrders(203).subscribe()
-          this.dialogRef.close();
-          Swal.fire(
-            'Berhasil',
-            'Order berhasil di update',
-            'success'
-          )
+          if (res.orderStatusId === 203) {
+            this.orderService.getOrders(203).subscribe()
+            this.dialogRef.close();
+            Swal.fire(
+              'Berhasil',
+              'Order berhasil di update',
+              'success'
+            )
+            this.reloadRoute();
+          }
+
         })
       }
     })
@@ -151,13 +182,18 @@ export class ProcessOrderComponent implements OnInit {
           },
           shipping: { ...f.value, shippingStatusId: 202 }
         }).subscribe((res) => {
-          this.orderService.getOrders(204).subscribe()
-          this.dialogRef.close();
-          Swal.fire(
-            'Berhasil',
-            'Order berhasil di update',
-            'success'
-          )
+
+          if (res.orderStatusId === 204) {
+            this.orderService.getOrders(204).subscribe()
+            this.dialogRef.close();
+            Swal.fire(
+              'Berhasil',
+              'Order berhasil di update',
+              'success'
+            )
+            this.reloadRoute();
+          }
+
         })
       }
     })
@@ -182,17 +218,22 @@ export class ProcessOrderComponent implements OnInit {
           order: {
             orderStatusId: 200
           },
-          shipping:{
+          shipping: {
             shippingStatusId: 200
           }
         }).subscribe((res) => {
-          this.orderService.getOrders(203).subscribe()
-          this.dialogRef.close();
-          Swal.fire(
-            'Berhasil',
-            'Order berhasil di update',
-            'success'
-          )
+
+          if (res.orderStatusId === 205) {
+            this.orderService.getOrders(205).subscribe()
+            this.dialogRef.close();
+            Swal.fire(
+              'Berhasil',
+              'Order berhasil di update',
+              'success'
+            )
+            this.reloadRoute();
+          }
+
         })
       }
     })

@@ -1,4 +1,9 @@
 <ng-container *ngIf="(order$ | async) as order">
+
+   <swal #notifAlert title="{{alert_title}}" text="{{alert_title}}" icon="question" [showCancelButton]="true"
+      [focusCancel]="true" (confirm)="processOrderConfirm(order)">
+   </swal>
+
    <div class="w-full">
       <h3 mat-dialog-title>Process Order #{{ order.orderNumber }}</h3>
       <div>

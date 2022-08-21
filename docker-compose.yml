@@ -10,7 +10,7 @@ services:
       - network_database_mysql
     ports:
       - 4200:4200
-    command: bash -c "yarn install && yarn start"
+    command: bash -c "yarn build"
 
   # nginx_fe:
   #   image: nginx

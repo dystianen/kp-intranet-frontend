@@ -1506,10 +1506,10 @@
     "@angular-devkit/schematics" "12.2.12"
     jsonc-parser "3.0.0"
 
-"@sweetalert2/ngx-sweetalert2@^10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@sweetalert2/ngx-sweetalert2/-/ngx-sweetalert2-10.0.0.tgz#b04f41305e28c1ed150dffd3781b1dcff214ced3"
-  integrity sha512-PyqrlgWioN+mVd9FtZDM0cMKMV7jfD1T5Klic0F+znQN0OZypYsx5F4KRh+P+eDr+eLAR4m2LOgS5CpAgdlWEQ==
+"@sweetalert2/ngx-sweetalert2@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@sweetalert2/ngx-sweetalert2/-/ngx-sweetalert2-11.0.0.tgz#7fe051bde0a147347f2cfde446b77a50ccf4e87a"
+  integrity sha512-xbote4s9dkwzyXb+ymhbh0FnT5GtUtk5poEWJzkaRVt+4Nuwyv+E3OgthdcH79l1QwWYWkob8cxMbL31ub5Wcw==
   dependencies:
     tslib "^2.0.0"
 

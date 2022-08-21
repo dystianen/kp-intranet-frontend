@@ -16,7 +16,7 @@ export class StocksComponent implements OnInit {
 
   dataSource = new MatTableDataSource<OrderModel>([])
 
-  displayedColumns: string[] = ['product', 'input_stock', 'note', 'input_date'];
+  displayedColumns: string[] = ['product', 'input_stock', 'note', 'input_date','created'];
   ngOnInit(): void {
     this.reportService.stocks$.subscribe((res) => {
       this.dataSource.data = res;
