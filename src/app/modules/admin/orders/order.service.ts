@@ -60,6 +60,15 @@ export class OrderService {
   }
 
   /**
+   * Confirm payment
+   * @param oderNumber 
+   * @returns 
+   */
+  confirmPayment(oderNumber) {
+    return this.httpClient.post<any>(`${environment.apiUrl}/admin/orders/confirm-payment/${oderNumber}`, {});
+  }
+
+  /**
    * Set Order
    * @param order 
    */

@@ -55,7 +55,8 @@
          <p><b>Address</b> : {{order.shipping.receiveAddress}}</p>
          <p><b>Address Detail</b> : {{order.shipping.receiveAddressDetail}}</p>
          <hr>
-         <p><b>Shipping Number</b> : {{order?.shipping?.courier?.courierName}} - {{order?.shipping?.courier?.courierPhone}}</p>
+         <p><b>Shipping Number</b> : {{order?.shipping?.courier?.courierName}} -
+            {{order?.shipping?.courier?.courierPhone}}</p>
          <p><b>Courier Name</b> : {{order?.shipping?.shippingNumber}}</p>
       </div>
       <h3 class="text-lg my-4"><b>Payment</b></h3>
@@ -64,7 +65,9 @@
             <tr>
                <th>Bukti Pembayaran</th>
                <td>
-                  <button class="bg-blue-500 p-2 px-4 rounded text-white">Download</button>
+                  <ng-container *ngIf="order.payment.paymentFile">
+                     <a [href]="order.payment.paymentFile" target="_blank" class="bg-blue-500 p-2 px-4 rounded text-white">Download</a>
+                  </ng-container>
                </td>
             </tr>
          </thead>
