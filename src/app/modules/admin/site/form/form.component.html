@@ -36,6 +36,12 @@
                         <input matInput [formControlName]="'contact'" name="contact"/>
                     </mat-form-field>
 
+                    <mat-form-field>
+                        <mat-label>Site Footer</mat-label>
+                        <textarea name="siteFooter" matInput [formControlName]="'siteFooter'"
+                            required></textarea>
+                    </mat-form-field>
+
                     <div>
                         <shared-form-upload-image (fileUpload)="changeImageUpload($event)" name="logo" [preview]="logoPreview" title="Logo"></shared-form-upload-image>
                     </div>
