@@ -55,6 +55,7 @@ export class FormComponent implements OnInit {
     }
     const form = f.value;
     const formData = new FormData(<HTMLFormElement>document.getElementById('formSite'));
+    formData.append('siteType',form.siteType)
 
     if (this.data.formType == 'add') {
       this._siteService.createSite(formData).subscribe(function (data) {
