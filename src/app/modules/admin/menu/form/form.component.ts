@@ -20,6 +20,7 @@ export class FormComponent implements OnInit {
     description: new FormControl(),
     path: new FormControl(),
     icon: new FormControl(),
+    order: new FormControl(),
     parentId: new FormControl()
   })
 

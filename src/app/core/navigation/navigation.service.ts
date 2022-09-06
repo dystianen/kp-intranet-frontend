@@ -39,6 +39,7 @@ export class NavigationService {
         return this._httpClient.get<Navigation>(`${environment.apiUrl}/admin/common/navigation`).pipe(
             tap((navigation) => {
                 this._navigation.next(navigation);
+                console.log('abc',navigation)
             })
         );
     }
@@ -47,6 +48,7 @@ export class NavigationService {
         return this._httpClient.get<Navigation>(`${environment.apiUrl}/admin/common/navigation`).pipe(
             tap((navigation) => {
                 this._navigation.next(navigation);
+                
             })
         );
     }
