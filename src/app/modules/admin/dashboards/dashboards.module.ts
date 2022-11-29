@@ -22,14 +22,14 @@ const dashboardsRoutes: Route[] = [
         path: 'sales',
         component: SalesComponent,
         resolve: {
-          sales: SalesResolver
+          // sales: SalesResolver
         }
       },
       {
         path: 'customers',
         component: CustomersComponent,
         resolve: {
-          sales: UsersResolver
+          // sales: UsersResolver
         }
       }
     ]

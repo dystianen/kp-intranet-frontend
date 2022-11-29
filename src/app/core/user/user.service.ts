@@ -48,7 +48,7 @@ export class UserService {
      * Get the current logged in user data
      */
     get(): Observable<any> {
-        return this._httpClient.get(`${environment.apiUrl}/admin/auth/profile`).pipe(
+        return this._httpClient.get(`${environment.apiUrl}/user/auth/profile`).pipe(
             tap((user) => {
                 if (user.statusCode == 200) {
                     this._user.next(user.data);

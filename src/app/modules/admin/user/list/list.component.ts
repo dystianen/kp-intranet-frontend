@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { FormComponent } from '../form/form.component';
 import { RoleComponent } from '../role/role.component';
-import { SiteComponent } from '../site/site.component';
 import { UserService } from '../user.service';
 import { User } from '../user.types';
 
@@ -54,16 +53,6 @@ export class ListComponent implements OnInit {
 
   siteDialog(userId: number) {
     const _this = this;
-    const dialogRef = _this.dialog.open(SiteComponent, {
-      data: {
-        formTitle: 'Site Setting',
-        formType: 'site',
-        selectedUserId: userId
-      },
-      autoFocus: false
-    });
-    dialogRef.afterClosed().subscribe(result => {
-    })
   }
 
 }

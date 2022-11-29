@@ -73,27 +73,11 @@ export const appRoutes: Route[] = [
             initialData: InitialDataResolver,
         },
         children: [
+            {path: 'example', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule)},
             { path: 'dashboards', loadChildren: () => import('app/modules/admin/dashboards/dashboards.module').then(m => m.DashboardsModule) },
-            { path: 'supplier', loadChildren: () => import('app/modules/admin/supplier/supplier.module').then(m => m.SupplierModule) },
-            { path: 'site', loadChildren: () => import('app/modules/admin/site/site.module').then(m => m.SiteModule) },
-            { path: 'destination', loadChildren: () => import('app/modules/admin/destination/destination.module').then(m => m.DestinationModule) },
-            { path: 'product', loadChildren: () => import('app/modules/admin/product/product.module').then(m => m.ProductModule) },
-            { path: 'product-bundling', loadChildren: () => import('app/modules/admin/product/product.module').then(m => m.ProductModule) },
-            { path: 'product-category', loadChildren: () => import('app/modules/admin/product/category/category.module').then(m => m.CategoryModule) },
-            { path: 'product-attribute', loadChildren: () => import('app/modules/admin/product/attribute/attribute.module').then(m => m.AttributeModule) },
-
             { path: 'user', loadChildren: () => import('app/modules/admin/user/user.module').then(m => m.UserModule) },
-            { path: 'courier', loadChildren: () => import('app/modules/admin/courier/courier.module').then(m => m.CourierModule) },
             { path: 'role', loadChildren: () => import('app/modules/admin/role/role.module').then(m => m.RoleModule) },
             { path: 'menu', loadChildren: () => import('app/modules/admin/menu/menu.module').then(m => m.MenuModule) },
-            { path: 'history/input-stock', loadChildren: () => import('app/modules/admin/history/input-stock/input-stock.module').then(m => m.InputStockModule) },
-
-            { path: 'orders/:id', loadChildren: () => import('app/modules/admin/orders/orders.module').then(m => m.OrdersModule) },
-            { path: 'store/sales-offline', loadChildren: () => import('app/modules/admin/order-offline/order-offline.module').then(m => m.OrderOfflineModule) },
-
-
-            { path: 'member', loadChildren: () => import('app/modules/admin/member/member.module').then(m => m.MemberModule) },
-            { path: 'reports', loadChildren: () => import('app/modules/admin/reports/reports.module').then(m => m.ReportsModule) },
         ]
     }
 ];

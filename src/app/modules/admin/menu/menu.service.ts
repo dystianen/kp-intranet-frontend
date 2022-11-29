@@ -33,7 +33,7 @@ export class MenuService {
    * @returns 
    */
   getMenus(): Observable<Menu[]> {
-    return this._httpClient.get<Menu[]>(`${environment.apiUrl}/admin/menu`).pipe(map((menus: any) => {
+    return this._httpClient.get<Menu[]>(`${environment.apiUrl}/mainapp/menu`).pipe(map((menus: any) => {
       if (menus.statusCode == 200) {
         this._menus.next(menus.data);
         const menuTree = menus.data.map(function (item) {
@@ -55,7 +55,7 @@ export class MenuService {
   * @returns 
   */
   getMenu(id): Observable<any> {
-    return this._httpClient.get<Menu>(`${environment.apiUrl}/admin/menu/${id}`).pipe(map((menu: any) => {
+    return this._httpClient.get<Menu>(`${environment.apiUrl}/mainapp/menu/${id}`).pipe(map((menu: any) => {
       if (menu.statusCode == 200) {
         this._menu.next(menu.data);
         return menu.data;
@@ -71,7 +71,7 @@ export class MenuService {
   createMenu(dataMenu: any): Observable<any> {
     return this.menus$.pipe(
       take(1),
-      switchMap(menus => this._httpClient.post<Menu>(`${environment.apiUrl}/admin/menu`, dataMenu)
+      switchMap(menus => this._httpClient.post<Menu>(`${environment.apiUrl}/mainapp/menu`, dataMenu)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;
@@ -95,7 +95,7 @@ export class MenuService {
   updateMenu(id: number, dataMenu: any): Observable<Menu> {
     return this.menus$.pipe(
       take(1),
-      switchMap(menus => this._httpClient.patch<Menu>(`${environment.apiUrl}/admin/menu/${id}`, dataMenu)
+      switchMap(menus => this._httpClient.patch<Menu>(`${environment.apiUrl}/mainapp/menu/${id}`, dataMenu)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;

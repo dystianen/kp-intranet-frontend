@@ -70,18 +70,18 @@ export class AuthService {
         }
 
         // 'api/auth/sign-in'
-        return this._httpClient.post(`${environment.apiUrl}/admin/auth/login`, credentials).pipe(
+        return this._httpClient.post(`${environment.apiUrl}/user/auth/login`, credentials).pipe(
             switchMap((response: any) => {
 
                 if (response.statusCode == 200) {
                     // Store the access token in the local storage
-                    this.accessToken = response.accessToken;
+                    this.accessToken = response.data.accessToken;
 
                     // Set the authenticated flag to true
                     this._authenticated = true;
 
                     // Store the user on the user service
-                    this._userService.user = response.user;
+                    this._userService.user = response.data.user;
 
                     // Return a new observable with the response
                     return of(response);
@@ -97,7 +97,7 @@ export class AuthService {
     signInUsingToken(): Observable<any> {
         // Renew token
         // 'api/auth/refresh-access-token'
-        return this._httpClient.post(`${environment.apiUrl}/admin/auth/refresh-access-token`, {
+        return this._httpClient.post(`${environment.apiUrl}/user/auth/refresh-access-token`, {
             accessToken: this.accessToken
         }).pipe(
             catchError(() =>
@@ -109,13 +109,13 @@ export class AuthService {
 
                 if (response.statusCode == 200) {
                     // Store the access token in the local storage
-                    this.accessToken = response.accessToken;
+                    this.accessToken = response.data.accessToken;
 
                     // Set the authenticated flag to true
                     this._authenticated = true;
 
                     // Store the user on the user service
-                    this._userService.user = response.user;
+                    this._userService.user = response.data.user;
 
                     // Return true
                     return of(true);

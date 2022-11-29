@@ -33,7 +33,7 @@ export class RoleService {
    * @returns 
    */
   getRoles(): Observable<Role[]> {
-    return this._httpClient.get<Role[]>(`${environment.apiUrl}/admin/role`).pipe(map((roles: any) => {
+    return this._httpClient.get<Role[]>(`${environment.apiUrl}/mainapp/role`).pipe(map((roles: any) => {
       if (roles.statusCode == 200) {
         this._roles.next(roles.data);
         return roles.data;

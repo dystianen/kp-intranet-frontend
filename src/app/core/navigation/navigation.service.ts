@@ -36,7 +36,7 @@ export class NavigationService {
      * Get all navigation data
      */
     get(): Observable<Navigation> {
-        return this._httpClient.get<Navigation>(`${environment.apiUrl}/admin/common/navigation`).pipe(
+        return this._httpClient.get<Navigation>(`${environment.apiUrl}/mainapp/navigation/navigation`).pipe(
             tap((navigation) => {
                 this._navigation.next(navigation);
                 console.log('abc',navigation)
@@ -45,7 +45,7 @@ export class NavigationService {
     }
 
     getNavigation(): Observable<Navigation> {
-        return this._httpClient.get<Navigation>(`${environment.apiUrl}/admin/common/navigation`).pipe(
+        return this._httpClient.get<Navigation>(`${environment.apiUrl}/mainapp/navigation/navigation`).pipe(
             tap((navigation) => {
                 this._navigation.next(navigation);
                 

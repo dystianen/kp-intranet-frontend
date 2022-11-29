@@ -8,16 +8,13 @@ import { CrudModule } from 'app/shared/crud/crud.module';
 import { UserResolver } from './user.resolver';
 import { RoleComponent } from './role/role.component';
 import { RoleResolver } from '../role/role.resolver';
-import { SiteComponent } from './site/site.component';
-import { SiteResolver } from '../site/site.resolver';
 
 const routes: Route[] = [
   {
     path: '',
     component: UserComponent,
     resolve:{
-      roles: RoleResolver,
-      sites: SiteResolver
+      roles: RoleResolver
     },
     children: [
       {
@@ -36,8 +33,7 @@ const routes: Route[] = [
     UserComponent,
     FormComponent,
     ListComponent,
-    RoleComponent,
-    SiteComponent
+    RoleComponent
   ],
   imports: [
     CommonModule,
