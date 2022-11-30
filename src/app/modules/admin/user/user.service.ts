@@ -24,7 +24,7 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    return this._httpClient.get<User[]>(`${environment.apiUrl}/admin/user`).pipe(
+    return this._httpClient.get<User[]>(`${environment.apiUrl}/user/user`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._users.next(response.data);
@@ -36,7 +36,7 @@ export class UserService {
   }
 
   getUser(id: number): Observable<User> {
-    return this._httpClient.get<User[]>(`${environment.apiUrl}/admin/user/${id}`).pipe(
+    return this._httpClient.get<User[]>(`${environment.apiUrl}/user/user/${id}`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._user.next(response.data);
@@ -55,7 +55,7 @@ export class UserService {
   createUser(dataUser: any): Observable<any> {
     return this.users$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.post<User>(`${environment.apiUrl}/admin/user`, dataUser)
+      switchMap(sites => this._httpClient.post<User>(`${environment.apiUrl}/user/user`, dataUser)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;
@@ -79,7 +79,7 @@ export class UserService {
   updateUser(id: number, dataUser: any): Observable<User> {
     return this.users$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.patch<User>(`${environment.apiUrl}/admin/user/${id}`, dataUser)
+      switchMap(sites => this._httpClient.patch<User>(`${environment.apiUrl}/user/user/${id}`, dataUser)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;

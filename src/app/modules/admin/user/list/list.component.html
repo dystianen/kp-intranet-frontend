@@ -18,9 +18,6 @@
                         <div class="hidden sm:block">
                             Role
                         </div>
-                        <div class="hidden sm:block">
-                            Site
-                        </div>
                         <div class="text-right"></div>
                     </div>
                     <!-- Rows -->
@@ -45,13 +42,8 @@
                                     {{user.phone}}
                                 </div>
                                 <div>
-                                    <span class="mr-1" *ngFor="let hasRole of user.admin_has_role">
+                                    <span class="mr-1" *ngFor="let hasRole of user.user_has_role">
                                         <span>{{hasRole.roles.roleName}} | </span>
-                                    </span>
-                                </div>
-                                <div>
-                                    <span class="mr-1" *ngFor="let hasSite of user.admin_has_site">
-                                        <span>{{hasSite.site.siteName}} | </span>
                                     </span>
                                 </div>
 
@@ -60,11 +52,6 @@
                                     <button class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" mat-stroked-button (click)="roleDialog(user.id)">
                                         <span class="material-icons">
                                             lock_open
-                                        </span>
-                                    </button>
-                                    <button class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" mat-stroked-button (click)="siteDialog(user.id)">
-                                        <span class="material-icons">
-                                            public
                                         </span>
                                     </button>
                                     <button class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" mat-stroked-button (click)="editDialog(user.id)">
