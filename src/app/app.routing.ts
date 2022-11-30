@@ -78,6 +78,7 @@ export const appRoutes: Route[] = [
             { path: 'user', loadChildren: () => import('app/modules/admin/user/user.module').then(m => m.UserModule) },
             { path: 'role', loadChildren: () => import('app/modules/admin/role/role.module').then(m => m.RoleModule) },
             { path: 'menu', loadChildren: () => import('app/modules/admin/menu/menu.module').then(m => m.MenuModule) },
+            { path: 'utilities/zoom/bull-worker', loadChildren: () => import('app/modules/admin/utilities/zoom/bull-worker/bull-worker.module').then(m => m.BullWorkerModule) },
         ]
     }
 ];

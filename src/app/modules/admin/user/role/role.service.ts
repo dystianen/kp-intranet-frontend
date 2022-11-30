@@ -18,7 +18,7 @@ export class RoleService {
   updateRole(adminId: number, roleId: number): Observable<[]> {
     return this.userHasRoles$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.put<[]>(`${environment.apiUrl}/admin/user/add-role/${adminId}/${roleId}`, {})
+      switchMap(sites => this._httpClient.put<[]>(`${environment.apiUrl}/user/user/add-role/${adminId}/${roleId}`, {})
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;
@@ -30,7 +30,7 @@ export class RoleService {
   }
 
   getRoleByUser(adminId: number): Observable<[]> {
-    return this._httpClient.get<[]>(`${environment.apiUrl}/admin/user/role/${adminId}`).pipe(map((roles: any) => {
+    return this._httpClient.get<[]>(`${environment.apiUrl}/user/user/role/${adminId}`).pipe(map((roles: any) => {
       if (roles.statusCode == 200) {
         this._userHasRoles.next(roles.data);
         return roles.data;
