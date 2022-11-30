@@ -48,7 +48,7 @@ export class RoleService {
   * @returns 
   */
   getRole(id): Observable<any> {
-    return this._httpClient.get<Role>(`${environment.apiUrl}/admin/role/${id}`).pipe(map((role: any) => {
+    return this._httpClient.get<Role>(`${environment.apiUrl}/mainapp/role/${id}`).pipe(map((role: any) => {
       if (role.statusCode == 200) {
         this._role.next(role.data);
         return role.data;
@@ -64,7 +64,7 @@ export class RoleService {
   createRole(dataRole: any): Observable<any> {
     return this.roles$.pipe(
       take(1),
-      switchMap(roles => this._httpClient.post<Role>(`${environment.apiUrl}/admin/role`, dataRole)
+      switchMap(roles => this._httpClient.post<Role>(`${environment.apiUrl}/mainapp/role`, dataRole)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;
@@ -91,7 +91,7 @@ export class RoleService {
   updateRole(id: number, dataRole: any): Observable<Role> {
     return this.roles$.pipe(
       take(1),
-      switchMap(roles => this._httpClient.patch<Role>(`${environment.apiUrl}/admin/role/${id}`, dataRole)
+      switchMap(roles => this._httpClient.patch<Role>(`${environment.apiUrl}/mainapp/role/${id}`, dataRole)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;
@@ -110,7 +110,7 @@ export class RoleService {
    * @returns 
    */
   addMenu(roleId: number, menuId: number, type: string) {
-    return this._httpClient.put(`${environment.apiUrl}/admin/role/add-menu/${roleId}/${menuId}/${type}`, {})
+    return this._httpClient.put(`${environment.apiUrl}/mainapp/role/add-menu/${roleId}/${menuId}/${type}`, {})
       .pipe(map((response: any) => {
         if (response.statusCode == 200) {
           return response;
@@ -120,7 +120,7 @@ export class RoleService {
   }
 
   getMenu(roleId): Observable<any> {
-    return this._httpClient.get<Role>(`${environment.apiUrl}/admin/role/menu/${roleId}`).pipe(map((menu: any) => {
+    return this._httpClient.get<Role>(`${environment.apiUrl}/mainapp/role/menu/${roleId}`).pipe(map((menu: any) => {
       if (menu.statusCode == 200) {
         this._menus.next(menu.data);
         return menu.data;
