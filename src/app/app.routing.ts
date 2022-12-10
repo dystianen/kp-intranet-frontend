@@ -74,12 +74,13 @@ export const appRoutes: Route[] = [
             initialData: InitialDataResolver,
         },
         children: [
-            {path: 'example', canActivate:[AuthorizedGuard], loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule)},
-            { path: 'dashboards', canActivate:[AuthorizedGuard], loadChildren: () => import('app/modules/admin/dashboards/dashboards.module').then(m => m.DashboardsModule) },
-            { path: 'user',canActivate:[AuthorizedGuard], loadChildren: () => import('app/modules/admin/user/user.module').then(m => m.UserModule) },
-            { path: 'role',canActivate:[AuthorizedGuard], loadChildren: () => import('app/modules/admin/role/role.module').then(m => m.RoleModule) },
-            { path: 'menu',canActivate:[AuthorizedGuard], loadChildren: () => import('app/modules/admin/menu/menu.module').then(m => m.MenuModule) },
-            { path: 'utilities/zoom/bull-worker',canActivate:[AuthorizedGuard], loadChildren: () => import('app/modules/admin/utilities/zoom/bull-worker/bull-worker.module').then(m => m.BullWorkerModule) },
+            { path: 'example', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule) },
+            { path: 'dashboards', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/dashboards/dashboards.module').then(m => m.DashboardsModule) },
+            { path: 'user', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/user/user.module').then(m => m.UserModule) },
+            { path: 'role', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/role/role.module').then(m => m.RoleModule) },
+            { path: 'menu', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/menu/menu.module').then(m => m.MenuModule) },
+            { path: 'utilities/zoom/bull-worker', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/utilities/zoom/bull-worker/bull-worker.module').then(m => m.BullWorkerModule) },
+            { path: 'sbmptn/module', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/module/module.module').then(m => m.ModuleModule) },
         ]
     }
 ];
