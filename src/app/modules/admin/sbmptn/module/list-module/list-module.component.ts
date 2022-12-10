@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormModuleComponent } from '../form-module/form-module.component';
+import { ModuleService } from '../module.service';
 
 @Component({
   selector: 'app-list-module',
@@ -10,13 +11,19 @@ import { FormModuleComponent } from '../form-module/form-module.component';
 })
 export class ListModuleComponent implements OnInit {
 
-  destinations: any[] = [];
+  modules: any[] = [];
   dataSource: MatTableDataSource<any>
-  displayedColumns: string[] = ["destination", "cost", "options"];
+  displayedColumns: string[] = ["code", "name","description", "options"];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private _moduleService: ModuleService) { }
 
   ngOnInit(): void {
+
+    this._moduleService.modules$.subscribe((data) => {
+      this.modules = data;
+      this.dataSource = new MatTableDataSource(data);
+    })
+
   }
 
   /**

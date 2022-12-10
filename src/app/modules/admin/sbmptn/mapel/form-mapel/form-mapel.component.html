@@ -6,13 +6,23 @@
             <div mat-dialog-content>
                 <div class="flex flex-col w-full">
                     <mat-form-field>
-                        <mat-label>Kode</mat-label>
-                        <input matInput [formControlName]="'code'" required />
+                        <mat-label>Nama Mapel</mat-label>
+                        <input matInput [formControlName]="'mapel_name'" required />
                     </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Nama Module</mat-label>
+                    <!-- <mat-form-field>
+                        <mat-label>Pilih Module</mat-label>
                         <input matInput [formControlName]="'name'" required />
-                    </mat-form-field>
+                    </mat-form-field> -->
+                    <ng-container *ngIf="(modules$ | async) as modules">
+                        <mat-form-field>
+                            <mat-label>Module</mat-label>
+                            <mat-select matInput [formControlName]="'module_id'">
+                                <mat-option *ngFor="let module of modules" [value]="module.id">
+                                    {{module.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
                     <mat-form-field>
                         <mat-label>Deskripsi</mat-label>
                         <textarea matInput [formControlName]="'description'"></textarea>

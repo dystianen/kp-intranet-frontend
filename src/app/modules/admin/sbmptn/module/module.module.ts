@@ -5,6 +5,7 @@ import { ListModuleComponent } from './list-module/list-module.component';
 import { FormModuleComponent } from './form-module/form-module.component';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
+import { ModuleResolver } from './module.resolver';
 
 const routes: Routes = [
   {
@@ -13,7 +14,10 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ListModuleComponent
+        component: ListModuleComponent,
+        resolve:{
+          modules: ModuleResolver
+        }
       }
     ]
   }

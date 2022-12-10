@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModuleService } from '../module.service';
 
 @Component({
   selector: 'app-form-module',
@@ -7,9 +10,54 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormModuleComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public dialogData: any, private dialogRef: MatDialogRef<any>, private _moduleService: ModuleService) { }
+
+  form: FormGroup;
 
   ngOnInit(): void {
+
+    /**
+     * Initial form
+     */
+    this.form = this.formBuilder.group({
+      code: '',
+      name: '',
+      description: '',
+    })
+
+    /**
+     * Fetch data by id from API
+     */
+    if (this.dialogData.type == 'edit') {
+      this._moduleService.getModule(this.dialogData.id).subscribe((res) => {
+        this.form.patchValue(res);
+      })
+    }
   }
 
+  /**Submit Form to API
+   * @param f 
+   */
+  submitForm(f: NgForm) {
+
+    /**
+     * Add new Destination
+     */
+    if (this.dialogData.type == 'add') {
+      this._moduleService.createModule(f.value).subscribe((res) => {
+        this.dialogRef.close();
+      });
+    }
+
+    /**
+     * Update data
+     */
+    if (this.dialogData.type == 'edit') {
+      this._moduleService.updateModule(this.dialogData.id, f.value).subscribe((res) => {
+        this.dialogRef.close();
+      });
+    }
+  }
 }
+
