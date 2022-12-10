@@ -82,6 +82,7 @@ export const appRoutes: Route[] = [
             { path: 'utilities/zoom/bull-worker', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/utilities/zoom/bull-worker/bull-worker.module').then(m => m.BullWorkerModule) },
             { path: 'sbmptn/module', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/module/module.module').then(m => m.ModuleModule) },
             { path: 'sbmptn/mapel', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/mapel/mapel.module').then(m => m.MapelModule) },
+            { path: 'sbmptn/bab', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/bab/bab.module').then(m => m.BabModule) },
         ]
     }
 ];

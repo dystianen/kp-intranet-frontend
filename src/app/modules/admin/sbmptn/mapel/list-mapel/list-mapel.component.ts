@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormMapelComponent } from '../form-mapel/form-mapel.component';
 import { MapelService } from '../mapel.service';
+import { MatSort, Sort } from '@angular/material/sort'; 65
 
 @Component({
   selector: 'app-list-mapel',
@@ -11,9 +12,11 @@ import { MapelService } from '../mapel.service';
 })
 export class ListMapelComponent implements OnInit {
 
+  @ViewChild(MatSort) sort: MatSort;
+
   modules: any[] = [];
   dataSource: MatTableDataSource<any>
-  displayedColumns: string[] = ["mapel_name", "module","description", "options"];
+  displayedColumns: string[] = ["mapel_name", "module", "description","bank_soal", "bab", "options"];
 
   constructor(private dialog: MatDialog, private _mapelService: MapelService) { }
 
@@ -22,6 +25,7 @@ export class ListMapelComponent implements OnInit {
     this._mapelService.mapels$.subscribe((data) => {
       this.modules = data;
       this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort = this.sort;
     })
 
   }
@@ -52,5 +56,14 @@ export class ListMapelComponent implements OnInit {
       },
       autoFocus: true
     })
+  }
+
+  announceSortChange(sortState: Sort) {
+
+    if (sortState.direction) {
+
+    } else {
+
+    }
   }
 }
