@@ -4,6 +4,7 @@ import { ModuleComponent } from './module.component';
 import { ListModuleComponent } from './list-module/list-module.component';
 import { FormModuleComponent } from './form-module/form-module.component';
 import { Router, RouterModule, Routes } from '@angular/router';
+import { CrudModule } from 'app/shared/crud/crud.module';
 
 const routes: Routes = [
   {
@@ -22,10 +23,11 @@ const routes: Routes = [
   declarations: [
     ModuleComponent,
     ListModuleComponent,
-    FormModuleComponent
+    FormModuleComponent,
   ],
   imports: [
     CommonModule,
+    CrudModule,
     RouterModule.forChild(routes)
   ]
 })
