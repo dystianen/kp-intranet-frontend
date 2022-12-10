@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
@@ -9,6 +9,7 @@ import { environment } from 'environments/environment';
 @Injectable()
 export class AuthService {
     private _authenticated: boolean = false;
+    private _authorized: BehaviorSubject<Boolean> = new BehaviorSubject(true);
 
     /**
      * Constructor
@@ -34,6 +35,27 @@ export class AuthService {
 
     get accessToken(): string {
         return localStorage.getItem('accessToken') ?? '';
+    }
+
+    /**
+     * Set authorized
+     */
+    get $authorized(): Observable<Boolean> {
+        return this._authorized.asObservable();
+    }
+
+    /**
+     * Check user authorized
+     * @param page 
+     */
+    checkAuthorized(page) {
+        this._httpClient.post(`${environment.apiUrl}/user/auth/authorized`, { page }).subscribe((res: any) => {
+            if (res.statusCode === 200) {
+                this._authorized.next(true);
+            } else {
+                this._authorized.next(false);
+            }
+        })
     }
 
     // -----------------------------------------------------------------------------------------------------
