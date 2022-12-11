@@ -13,17 +13,25 @@ export class SoalService {
 
   private _soals: BehaviorSubject<any[]> = new BehaviorSubject([]);
   private _soal: BehaviorSubject<any> = new BehaviorSubject({});
+  public _jawabans: BehaviorSubject<any> = new BehaviorSubject([]);
+  public jawabans: any = [];
+  _keys: BehaviorSubject<string[]> = new BehaviorSubject(["A", "B", "C", "D", "E", "F"]);
 
   get soals$(): Observable<any[]> {
     return this._soals.asObservable();
   }
 
+  get jawabans$(): Observable<any[]> {
+    return this._jawabans.asObservable();
+  }
+
+
   get soal$(): Observable<any> {
     return this._soal.asObservable();
   }
 
-  getSoals(soalUUID:string): Observable<any[]> {
-    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/latihan-soal/admin/bab/`+soalUUID).pipe(
+  getSoals(soalUUID: string): Observable<any[]> {
+    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/latihan-soal/admin/bab/` + soalUUID).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._soals.next(response.data);

@@ -1,1 +1,35 @@
-<p>form-jawaban works!</p>
+<div class="w-full">
+    <h1 mat-dialog-title>{{ dialogData.title }} </h1>
+
+    <form [formGroup]="form" id="form" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
+        <div class="flex flex-col w-full">
+            <div mat-dialog-content>
+                <div class="flex flex-col w-full">
+
+                    <mat-form-field>
+                        <mat-label>Key</mat-label>
+                        <mat-select matInput [formControlName]="'key'">
+                            <mat-option *ngFor="let key of keys$" [value]="key">
+                                {{key}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div>
+                        <mat-label>Jawaban</mat-label>
+                        <quill-editor matInput [formControlName]="'content'"></quill-editor>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div mat-dialog-actions class="flex">
+                    <button-close></button-close>
+                    <button-submit></button-submit>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>

@@ -9,10 +9,6 @@
                         <mat-label>Nama Mapel</mat-label>
                         <input matInput [formControlName]="'mapel_name'" required />
                     </mat-form-field>
-                    <!-- <mat-form-field>
-                        <mat-label>Pilih Module</mat-label>
-                        <input matInput [formControlName]="'name'" required />
-                    </mat-form-field> -->
                     <ng-container *ngIf="(modules$ | async) as modules">
                         <mat-form-field>
                             <mat-label>Module</mat-label>
