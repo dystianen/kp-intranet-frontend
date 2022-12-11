@@ -5,6 +5,7 @@ import { ListBabComponent } from './list-bab/list-bab.component';
 import { FormBabComponent } from './form-bab/form-bab.component';
 import { RouterModule, Routes } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
+import { BabResolver } from './bab.resolver';
 
 const routes: Routes = [
   {
@@ -13,7 +14,10 @@ const routes: Routes = [
     children: [
       {
         path: ':bab_uuid',
-        component: ListBabComponent
+        component: ListBabComponent,
+        resolve:{
+          babs: BabResolver
+        }
       }
     ]
   }

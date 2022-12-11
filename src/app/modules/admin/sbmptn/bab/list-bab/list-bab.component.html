@@ -1,4 +1,4 @@
-<p>list-mapel works!</p>
+<p>list-bab works!</p>
 <div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
 
     <!-- Header -->
@@ -9,7 +9,7 @@
             <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
         </div> -->
         <!-- Title -->
-        <div class="text-4xl font-extrabold tracking-tight">Fisika - BAB</div>
+        <div class="text-4xl font-extrabold tracking-tight">{{mapel.module?.name}} - {{mapel.mapel_name}} - BAB</div>
         <!-- Actions -->
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
             <button class="ml-4" mat-flat-button [color]="'primary'">
@@ -20,6 +20,69 @@
     </div>
 
     <div class="m-4">
- 
+        <table mat-table [dataSource]="dataSource" class="w-full" matSort>
+
+            <ng-container matColumnDef="bab_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nama Mapel</th>
+                <td mat-cell *matCellDef="let element"> {{element.bab_name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="module">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Module </th>
+                <td mat-cell *matCellDef="let element"> {{element.module?.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Keterangan </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bank_soal">
+                <th mat-header-cell *matHeaderCellDef class="text-right">Soal</th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="flex justify-end">
+                        <button class="min-w-10 min-h-7 h-7 text-blue-800" (click)="edit(element.uuid)">
+                            <span class="material-icons">
+                                edit
+                            </span>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bab">
+                <th mat-header-cell *matHeaderCellDef class="text-right">BAB</th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="flex justify-end">
+                        <a [routerLink]="['/sbmptn/bab/',element.uuid]"
+                            class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800">
+                            <span class="material-icons">
+                                edit
+                            </span>
+                        </a>
+                    </div>
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="options">
+                <th mat-header-cell *matHeaderCellDef class="text-right">Edit</th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="flex justify-end">
+                        <button class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800" (click)="edit(element.uuid)">
+                            <span class="material-icons">
+                                edit
+                            </span>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
     </div>
 </div>
