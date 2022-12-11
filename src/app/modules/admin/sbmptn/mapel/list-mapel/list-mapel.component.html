@@ -12,10 +12,12 @@
         <div class="text-4xl font-extrabold tracking-tight">SBMPTN Mapel</div>
         <!-- Actions -->
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <back-button></back-button>
             <button class="ml-4" mat-flat-button [color]="'primary'" (click)="add()">
                 <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                 <span class="ml-2 mr-1">Add</span>
             </button>
+
         </div>
     </div>
 
@@ -24,7 +26,10 @@
 
             <ng-container matColumnDef="mapel_name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Nama Mapel</th>
-                <td mat-cell *matCellDef="let element"> {{element.mapel_name}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.mapel_name}} - <span
+                        class="bg-green-500 rounded-full p-1 px-2 text-white">{{element.bab.length??0}} BAB</span> <span
+                        class="bg-yellow-500 rounded-full p-1 px-2 ml-2 text-white">{{element.bab.length??0}}
+                        Soal</span></td>
             </ng-container>
 
             <ng-container matColumnDef="module">
@@ -41,11 +46,12 @@
                 <th mat-header-cell *matHeaderCellDef class="text-right">Soal</th>
                 <td mat-cell *matCellDef="let element">
                     <div class="flex justify-end">
-                        <button class="min-w-10 min-h-7 h-7 text-blue-800" (click)="edit(element.uuid)">
+                        <a [routerLink]="['/sbmptn/soal/',element.uuid]"
+                            class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800">
                             <span class="material-icons">
                                 edit
                             </span>
-                        </button>
+                        </a>
                     </div>
                 </td>
             </ng-container>
@@ -54,7 +60,8 @@
                 <th mat-header-cell *matHeaderCellDef class="text-right">BAB</th>
                 <td mat-cell *matCellDef="let element">
                     <div class="flex justify-end">
-                        <a [routerLink]="['/sbmptn/bab/',element.uuid]" class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800">
+                        <a [routerLink]="['/sbmptn/bab/',element.uuid]"
+                            class="min-w-10 min-h-7 h-7 px-2 leading-6 text-blue-800">
                             <span class="material-icons">
                                 edit
                             </span>

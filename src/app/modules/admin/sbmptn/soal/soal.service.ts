@@ -7,26 +7,26 @@ import { map, switchMap, take } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class BabService {
+export class SoalService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  private _babs: BehaviorSubject<any[]> = new BehaviorSubject([]);
-  private _bab: BehaviorSubject<any> = new BehaviorSubject({});
+  private _soals: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  private _soal: BehaviorSubject<any> = new BehaviorSubject({});
 
-  get babs$(): Observable<any[]> {
-    return this._babs.asObservable();
+  get soals$(): Observable<any[]> {
+    return this._soals.asObservable();
   }
 
-  get bab$(): Observable<any> {
-    return this._bab.asObservable();
+  get soal$(): Observable<any> {
+    return this._soal.asObservable();
   }
 
-  getBabs(soalUUID:string): Observable<any[]> {
+  getSoals(soalUUID:string): Observable<any[]> {
     return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/latihan-soal/admin/bab/`+soalUUID).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
-          this._babs.next(response.data);
+          this._soals.next(response.data);
           return response.data;
         }
         return [];
@@ -34,11 +34,11 @@ export class BabService {
     )
   }
 
-  getBab(id: number): Observable<any> {
+  getSoal(id: number): Observable<any> {
     return this._httpClient.get<any>(`${environment.apiPtnUrl}/latihan-soal/admin/bab/detail/${id}`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
-          this._bab.next(response.data);
+          this._soal.next(response.data);
           return response.data;
         }
         return [];
@@ -46,8 +46,8 @@ export class BabService {
     )
   }
 
-  createBab(dataUser: any): Observable<any> {
-    return this.babs$.pipe(
+  createSoal(dataUser: any): Observable<any> {
+    return this.soals$.pipe(
       take(1),
       switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/latihan-soal/admin/bab`, dataUser)
         .pipe(map((response: any) => {
@@ -64,8 +64,8 @@ export class BabService {
     );
   }
 
-  updateBab(id: number, data: any): Observable<any> {
-    return this.bab$.pipe(
+  updateSoal(id: number, data: any): Observable<any> {
+    return this.soal$.pipe(
       take(1),
       switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/latihan-soal/admin/bab/${id}`, data)
         .pipe(map((response: any) => {

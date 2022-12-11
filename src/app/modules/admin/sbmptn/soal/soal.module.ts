@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BabComponent } from './bab.component';
-import { ListBabComponent } from './list-bab/list-bab.component';
-import { FormBabComponent } from './form-bab/form-bab.component';
+import { SoalComponent } from './soal.component';
+import { ListSoalComponent } from './list-soal/list-soal.component';
+import { FormSoalComponent } from './form-soal/form-soal.component';
 import { RouterModule, Routes } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
-import { BabResolver } from './bab.resolver';
 import { ComponentsModule } from 'app/components/components.module';
+import { SoalResolver } from './soal.resolver';
 
 const routes: Routes = [
   {
     path: '',
-    component: BabComponent,
+    component: SoalComponent,
     children: [
       {
         path: ':mapel_uuid',
-        component: ListBabComponent,
-        resolve:{
-          babs: BabResolver
+        component: ListSoalComponent,
+        resolve: {
+          soals: SoalResolver
         }
       }
     ]
@@ -26,15 +26,15 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    BabComponent,
-    ListBabComponent,
-    FormBabComponent
+    SoalComponent,
+    ListSoalComponent,
+    FormSoalComponent
   ],
   imports: [
     CommonModule,
-    CrudModule,
     RouterModule.forChild(routes),
+    CrudModule,
     ComponentsModule
   ]
 })
-export class BabModule { }
+export class SoalModule { }

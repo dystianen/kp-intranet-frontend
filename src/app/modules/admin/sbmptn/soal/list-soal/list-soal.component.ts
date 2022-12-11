@@ -2,15 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { BabService } from '../bab.service';
-import { FormBabComponent } from '../form-bab/form-bab.component';
+import { FormSoalComponent } from '../form-soal/form-soal.component';
+import { SoalService } from '../soal.service';
 
 @Component({
-  selector: 'app-list-bab',
-  templateUrl: './list-bab.component.html',
-  styleUrls: ['./list-bab.component.scss']
+  selector: 'app-list-soal',
+  templateUrl: './list-soal.component.html',
+  styleUrls: ['./list-soal.component.scss']
 })
-export class ListBabComponent implements OnInit {
+export class ListSoalComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -19,11 +19,11 @@ export class ListBabComponent implements OnInit {
   dataSource: MatTableDataSource<any>
   displayedColumns: string[] = ["bab_name", "description", "options"];
 
-  constructor(private dialog: MatDialog, private _babService: BabService) { }
+  constructor(private dialog: MatDialog, private _soalService: SoalService) { }
 
   ngOnInit(): void {
 
-    this._babService.babs$.subscribe((data: any) => {
+    this._soalService.soals$.subscribe((data: any) => {
       this.modules = data;
       this.mapel = data.mapel;
       this.dataSource = new MatTableDataSource(data.data);
@@ -36,9 +36,9 @@ export class ListBabComponent implements OnInit {
    * Show add modal
    */
   add() {
-    this.dialog.open(FormBabComponent, {
+    this.dialog.open(FormSoalComponent, {
       data: {
-        title: 'Add Bab',
+        title: 'Add Soal',
         type: 'add',
         mapel: this.mapel
       },
@@ -51,9 +51,9 @@ export class ListBabComponent implements OnInit {
    * @param id 
    */
   edit(id) {
-    this.dialog.open(FormBabComponent, {
+    this.dialog.open(FormSoalComponent, {
       data: {
-        title: 'Edit Bab',
+        title: 'Edit Soal',
         type: 'edit',
         id: id,
         mapel: this.mapel

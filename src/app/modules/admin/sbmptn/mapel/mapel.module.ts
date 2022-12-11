@@ -7,6 +7,7 @@ import { RouterModule, ROUTER_CONFIGURATION, Routes } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { MapelResolver } from './mapel.resolver';
 import { ModuleResolver } from '../module/module.resolver';
+import { ComponentsModule } from 'app/components/components.module';
 
 const routes: Routes = [
   {
@@ -34,7 +35,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     CrudModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ComponentsModule
   ]
 })
 export class MapelModule { }

@@ -5,15 +5,16 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { BabService } from './bab.service';
+import { SoalService } from './soal.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class BabResolver implements Resolve<any[]> {
-  constructor(private _babService: BabService) { }
+export class SoalResolver implements Resolve<any[]> {
+  constructor(private _soalService: SoalService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any[]> {
     const {mapel_uuid} = route.params;
-    return this._babService.getBabs(mapel_uuid);
+    return this._soalService.getSoals(mapel_uuid);
   }
 }
