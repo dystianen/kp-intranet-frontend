@@ -7,6 +7,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { ComponentsModule } from 'app/components/components.module';
 import { SoalResolver } from './soal.resolver';
+import { QuillModule } from 'ngx-quill';
+import { FormJawabanComponent } from './form-jawaban/form-jawaban.component';
+import { ListJawabanComponent } from './list-jawaban/list-jawaban.component';
+import {MatListModule} from '@angular/material/list'; 
 
 const routes: Routes = [
   {
@@ -28,13 +32,17 @@ const routes: Routes = [
   declarations: [
     SoalComponent,
     ListSoalComponent,
-    FormSoalComponent
+    FormSoalComponent,
+    FormJawabanComponent,
+    ListJawabanComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     CrudModule,
-    ComponentsModule
+    ComponentsModule,
+    QuillModule.forRoot(),
+    MatListModule
   ]
 })
 export class SoalModule { }

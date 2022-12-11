@@ -1,1 +1,35 @@
-<p>form-soal works!</p>
+<div class="w-full">
+    <h1 mat-dialog-title>{{ dialogData.title }} </h1>
+
+    <form [formGroup]="form" id="form" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
+        <div class="flex flex-col w-full">
+            <div mat-dialog-content>
+                <div class="flex flex-col w-full">
+                    <mat-form-field>
+                        <mat-label>Judul Soal</mat-label>
+                        <input matInput [formControlName]="'title'" required />
+                    </mat-form-field>
+                    <div>
+                        <mat-label>Konten</mat-label>
+                        <quill-editor></quill-editor>
+                    </div>
+                    <div class="my-2">
+                        <mat-label>Jawaban</mat-label>
+                        <div class="mt-3">
+                            <list-jawaban></list-jawaban>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div mat-dialog-actions class="flex">
+                    <button-close></button-close>
+                    <button-submit></button-submit>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
