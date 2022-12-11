@@ -14,6 +14,8 @@ export class FormSoalComponent implements OnInit {
 
   form: FormGroup;
 
+  jawaban: any = []
+
   ngOnInit(): void {
 
     /**
@@ -23,6 +25,10 @@ export class FormSoalComponent implements OnInit {
       title: '',
       content: '',
       mapel_id: this.dialogData.mapel.id
+    })
+
+    this._soalService._jawabans.subscribe((item) => {
+      this.jawaban = item;
     })
 
 
@@ -41,25 +47,27 @@ export class FormSoalComponent implements OnInit {
    */
   submitForm(f: NgForm) {
 
-    /**
-     * Add new Destination
-     */
-    if (this.dialogData.type == 'add') {
-      this._soalService.createSoal(f.value).subscribe((res) => {
-        this._soalService.getSoals(this.dialogData.mapel.uuid).subscribe();
-        this.dialogRef.close();
-      });
-    }
+    console.log('soal : ', f.value);
+    console.log('jawaban : ', this.jawaban);
+    // /**
+    //  * Add new Destination
+    //  */
+    // if (this.dialogData.type == 'add') {
+    //   this._soalService.createSoal(f.value).subscribe((res) => {
+    //     this._soalService.getSoals(this.dialogData.mapel.uuid).subscribe();
+    //     this.dialogRef.close();
+    //   });
+    // }
 
-    /**
-     * Update data
-     */
-    if (this.dialogData.type == 'edit') {
-      this._soalService.updateSoal(this.dialogData.id, f.value).subscribe((res) => {
-        this._soalService.getSoals(this.dialogData.mapel.uuid).subscribe();
-        this.dialogRef.close();
-      });
-    }
+    // /**
+    //  * Update data
+    //  */
+    // if (this.dialogData.type == 'edit') {
+    //   this._soalService.updateSoal(this.dialogData.id, f.value).subscribe((res) => {
+    //     this._soalService.getSoals(this.dialogData.mapel.uuid).subscribe();
+    //     this.dialogRef.close();
+    //   });
+    // }
   }
-  
+
 }
