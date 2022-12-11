@@ -39,6 +39,10 @@
                         <mat-label>Order</mat-label>
                         <input matInput type="number" [formControlName]="'order'" />
                     </mat-form-field>
+                    <div class="px-1">
+                        <h4 class="text-bold py-2">Additional Action</h4>
+                        <ngx-monaco-editor style="height: 200px;" [options]="{theme: 'vs-dark', language: 'json'}" [(ngModel)]="action" [ngModelOptions]="{standalone:true}"></ngx-monaco-editor>
+                    </div>
                 </div>
             </div>
 

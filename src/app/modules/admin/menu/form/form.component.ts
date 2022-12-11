@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { MenuService } from '../menu.service';
 import { Menu } from '../menu.types';
+import { exampleAction } from './exampleAction';
 
 @Component({
   selector: 'app-form',
@@ -29,8 +30,10 @@ export class FormComponent implements OnInit {
   ID: number;
 
   menus$: Observable<Menu[]>;
+  action$: {} = {}
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _service: MenuService, public _navigationService: NavigationService, public dialog: MatDialogRef<any>) { }
+
 
   ngOnInit(): void {
     const _this = this;
@@ -38,6 +41,8 @@ export class FormComponent implements OnInit {
     this.formAttribute = this.data;
     // this._service.getMenus();
     this.menus$ = this._service.menus$;
+
+    this.action$ = exampleAction;
 
     if (this.data.parentId) {
       _this.formApp.patchValue({ parentId: this.data.parentId });
@@ -53,6 +58,17 @@ export class FormComponent implements OnInit {
       }
     }
 
+  }
+
+  get action() {
+    return JSON.stringify(this.action$, null, '\t');
+  }
+  set action(v) {
+    try {
+      this.action$ = JSON.parse(v);
+    } catch (error) {
+
+    }
   }
 
 

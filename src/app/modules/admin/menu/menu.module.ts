@@ -9,6 +9,7 @@ import { CrudModule } from 'app/shared/crud/crud.module';
 import { TreeComponent } from './tree/tree.component';
 import {CdkTreeModule} from '@angular/cdk/tree'; 
 import { MatTreeModule } from '@angular/material/tree';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 const routes: Route[] = [
   {
@@ -38,7 +39,8 @@ const routes: Route[] = [
     RouterModule.forChild(routes),
     CrudModule,
     CdkTreeModule,
-    MatTreeModule
+    MatTreeModule,
+    MonacoEditorModule.forRoot(),
   ],
   exports:[
     

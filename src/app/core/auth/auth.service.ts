@@ -9,7 +9,7 @@ import { environment } from 'environments/environment';
 @Injectable()
 export class AuthService {
     private _authenticated: boolean = false;
-    private _authorized: BehaviorSubject<Boolean> = new BehaviorSubject(true);
+    private _authorized: BehaviorSubject<Boolean> = new BehaviorSubject(false);
 
     /**
      * Constructor
