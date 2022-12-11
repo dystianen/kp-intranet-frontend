@@ -76,8 +76,10 @@ export class TreeComponent implements OnInit {
   editDialog(id: number) {
     const _this = this;
     this._service.getMenu(id).subscribe(function (data) {
+      console.log('abc',data)
       const dialogRef = _this.dialog.open(FormComponent, {
         data: {
+          ...data,
           formTitle: 'Edit Menu',
           formType: 'edit'
         },

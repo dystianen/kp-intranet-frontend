@@ -31,6 +31,7 @@ export class FormComponent implements OnInit {
 
   menus$: Observable<Menu[]>;
   action$: {} = {}
+  actionExample$: {} = {}
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _service: MenuService, public _navigationService: NavigationService, public dialog: MatDialogRef<any>) { }
 
@@ -42,10 +43,14 @@ export class FormComponent implements OnInit {
     // this._service.getMenus();
     this.menus$ = this._service.menus$;
 
-    this.action$ = exampleAction;
+    this.actionExample$ = exampleAction;
 
     if (this.data.parentId) {
       _this.formApp.patchValue({ parentId: this.data.parentId });
+    }
+
+    if (this.data.additional) {
+      this.action$ = this.data.additional;
     }
 
 
@@ -71,6 +76,17 @@ export class FormComponent implements OnInit {
     }
   }
 
+  get actionExample() {
+    return JSON.stringify(this.actionExample$, null, '\t');
+  }
+  set actionExample(v) {
+    try {
+      this.actionExample$ = JSON.parse(v);
+    } catch (error) {
+
+    }
+  }
+
 
   submitForm(f: NgForm) {
     const _this = this;
@@ -80,7 +96,7 @@ export class FormComponent implements OnInit {
     const form = f.value;
 
     if (this.data.formType == 'add') {
-      this._service.createMenu(form).subscribe(function (data) {
+      this._service.createMenu({ ...form, additional: this.action }).subscribe(function (data) {
         if (data) {
           _this.dialog.close()
           Swal.fire({
@@ -95,7 +111,7 @@ export class FormComponent implements OnInit {
 
     if (this.data.formType == 'edit') {
       let id = _this.ID;
-      this._service.updateMenu(id, form).subscribe(function (data) {
+      this._service.updateMenu(id, { ...form, additional: JSON.parse(this.action) }).subscribe(function (data) {
         if (data) {
           _this.dialog.close()
           Swal.fire({

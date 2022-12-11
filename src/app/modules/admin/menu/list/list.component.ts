@@ -25,8 +25,9 @@ export class ListComponent implements OnInit {
     this._service.getMenu(id).subscribe(function (data) {
       const dialogRef = _this.dialog.open(FormComponent, {
         data: {
+          ...data,
           formTitle: 'Edit Menu',
-          formType: 'edit'
+          formType: 'edit',
         },
         autoFocus: false
       });
