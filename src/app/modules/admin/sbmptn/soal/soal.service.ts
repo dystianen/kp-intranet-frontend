@@ -31,7 +31,7 @@ export class SoalService {
   }
 
   getSoals(soalUUID: string): Observable<any[]> {
-    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/latihan-soal/admin/bab/` + soalUUID).pipe(
+    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/latihan-soal/admin/soal/` + soalUUID).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._soals.next(response.data);
@@ -57,7 +57,7 @@ export class SoalService {
   createSoal(dataUser: any): Observable<any> {
     return this.soals$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/latihan-soal/admin/bab`, dataUser)
+      switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/latihan-soal/admin/soal`, dataUser)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;

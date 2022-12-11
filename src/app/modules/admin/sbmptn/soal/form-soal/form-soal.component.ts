@@ -47,17 +47,24 @@ export class FormSoalComponent implements OnInit {
    */
   submitForm(f: NgForm) {
 
-    console.log('soal : ', f.value);
-    console.log('jawaban : ', this.jawaban);
-    // /**
-    //  * Add new Destination
-    //  */
-    // if (this.dialogData.type == 'add') {
-    //   this._soalService.createSoal(f.value).subscribe((res) => {
-    //     this._soalService.getSoals(this.dialogData.mapel.uuid).subscribe();
-    //     this.dialogRef.close();
-    //   });
-    // }
+    // console.log('soal : ', f.value);
+    // console.log('jawaban : ', this.jawaban);
+    const data = {
+      ...f.value, jawaban: {
+        createMany: {
+          data: this.jawaban
+        }
+      }
+    };
+    /**
+     * Add new Destination
+     */
+    if (this.dialogData.type == 'add') {
+      this._soalService.createSoal(data).subscribe((res) => {
+        this._soalService.getSoals(this.dialogData.mapel.uuid).subscribe();
+        this.dialogRef.close();
+      });
+    }
 
     // /**
     //  * Update data
