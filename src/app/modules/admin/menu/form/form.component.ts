@@ -30,7 +30,11 @@ export class FormComponent implements OnInit {
   ID: number;
 
   menus$: Observable<Menu[]>;
-  action$: {} = {}
+  action$: {} = {
+    "allow_action": [
+    ]
+  };
+  
   actionExample$: {} = {}
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _service: MenuService, public _navigationService: NavigationService, public dialog: MatDialogRef<any>) { }

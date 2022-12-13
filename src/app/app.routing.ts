@@ -84,6 +84,7 @@ export const appRoutes: Route[] = [
             { path: 'sbmptn/mapel', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/mapel/mapel.module').then(m => m.MapelModule) },
             { path: 'sbmptn/bab', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/bab/bab.module').then(m => m.BabModule) },
             { path: 'sbmptn/soal', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/soal/soal.module').then(m => m.SoalModule) },
+            { path: 'sbmptn/class', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/class/class.module').then(m => m.ClassModule) },
         ]
     }
 ];

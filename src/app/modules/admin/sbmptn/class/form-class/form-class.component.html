@@ -1,0 +1,29 @@
+<div class="w-100">
+    <h1 mat-dialog-title>{{ dialogData.title }} </h1>
+
+    <form [formGroup]="form" id="form" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
+        <div class="flex flex-col w-full">
+            <div mat-dialog-content>
+                <div class="flex flex-col w-full">
+                    <mat-form-field>
+                        <mat-label>ID Kelas</mat-label>
+                        <input matInput type="number" [formControlName]="'class_id'" required />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Deskripsi</mat-label>
+                        <textarea matInput [formControlName]="'description'"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div>
+                <div mat-dialog-actions class="flex justify-center">
+                    <button-close></button-close>
+                    <button-submit></button-submit>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
