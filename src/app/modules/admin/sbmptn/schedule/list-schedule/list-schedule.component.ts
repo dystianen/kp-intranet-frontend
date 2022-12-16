@@ -13,7 +13,7 @@ export class ListScheduleComponent implements OnInit {
 
   schedules: any[] = [];
   dataSource: MatTableDataSource<any>
-  displayedColumns: string[] = ["key","value","description", "options"];
+  displayedColumns: string[] = ["module","mapel","hari","time_start","time_end", "options"];
 
   constructor(private dialog: MatDialog, private _scheduleService: ScheduleService) { }
 

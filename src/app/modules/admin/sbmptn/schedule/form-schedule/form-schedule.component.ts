@@ -41,7 +41,6 @@ export class FormScheduleComponent implements OnInit {
      */
     this.form = this.formBuilder.group({
       mapel_module_id: '',
-      value: '',
       mapel_id: '',
       hari: '',
       time_start:'',
