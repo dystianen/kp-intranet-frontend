@@ -7,6 +7,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ScheduleResolver } from './schedule.resolver';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { ModuleResolver } from '../module/module.resolver';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 const routes: Routes = [
   {
@@ -34,7 +36,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     CrudModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatDatepickerModule,
+    NgxMaterialTimepickerModule
   ]
 })
 export class ScheduleModule { }

@@ -15,6 +15,8 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
 import { StoreModule } from './store/StoreModule';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 
 const routerConfig: ExtraOptions = {
@@ -46,6 +48,8 @@ const routerConfig: ExtraOptions = {
         // 3rd party modules that require global configuration via forRoot
         MarkdownModule.forRoot({}),
         StoreModule,
+        MatNativeDateModule,
+        // MatMomentDateModule
         // NgxsReduxDevtoolsPluginModule.forRoot(),
         // NgxsLoggerPluginModule.forRoot(),
     ],

@@ -1709,6 +1709,11 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.170.tgz#0d67711d4bf7f4ca5147e9091b847479b87925d6"
   integrity sha512-bpcvu/MKHHeYX+qeEN8GE7DIravODWdACVA1ctevD8CN24RhPZIKMn9ntfAsrvLfSX3cR5RrBKAbYm9bGs0A+Q==
 
+"@types/luxon@1.11.1":
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-1.11.1.tgz#819d730cf8ada52bec9c4a1d94347d1250f22c5d"
+  integrity sha512-XBHQ7rzpOHyJudEQcMyoT67Np61FTb6S2jWqWQER/U7H2NAS+dpC8wv5T+6ygV5g/yJQdaojQbsJQiweool0Aw==
+
 "@types/marked@^2.0.0":
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/@types/marked/-/marked-2.0.5.tgz#453e27f1e97199d45bb25297b0dd2b9bbc1e05ea"
@@ -6063,6 +6068,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+luxon@1.24.0:
+  version "1.24.0"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.24.0.tgz#6db04b79ec8f7159973d4dcf21871fd6acfb3d58"
+  integrity sha512-PNeB5cFbBtmuS137OuEdaJnCMTMPS2vz9hnM1Zl6tUIuYdtUgEhMqfVZ7yxX0jHEGx6rp757ECe7cdZxDgq2Tg==
+
 luxon@^1.21.3:
   version "1.28.0"
   resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.28.0.tgz#e7f96daad3938c06a62de0fb027115d251251fbf"
@@ -6504,6 +6514,15 @@ ngx-markdown@12.0.1:
     marked "^2.0.0"
     prismjs "^1.23.0"
     tslib "^2.1.0"
+
+ngx-material-timepicker@^5.5.3:
+  version "5.5.3"
+  resolved "https://registry.yarnpkg.com/ngx-material-timepicker/-/ngx-material-timepicker-5.5.3.tgz#9b65071e8f00477d37d1b0f825baf8fb5ea800db"
+  integrity sha512-Ua6eNNNneHS8S1/3Tn2dUOnLdZ4k6MhQqvLM/eFVoeF0WF+q/uK1DAH8eAki3HW1ogq2oDWnVRSeXvvZGJldhQ==
+  dependencies:
+    "@types/luxon" "1.11.1"
+    luxon "1.24.0"
+    tslib "^1.9.0"
 
 ngx-monaco-editor@^12.0.0:
   version "12.0.0"

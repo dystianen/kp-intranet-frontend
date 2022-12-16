@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { ModuleService } from '../../module/module.service';
 import { ScheduleService } from '../schedule.service';
 
 @Component({
@@ -10,19 +12,40 @@ import { ScheduleService } from '../schedule.service';
 })
 export class FormScheduleComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public dialogData: any, private dialogRef: MatDialogRef<any>, private _scheduleService: ScheduleService) { }
+  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public dialogData: any, private dialogRef: MatDialogRef<any>, private _scheduleService: ScheduleService, private _moduleService: ModuleService) { }
 
   form: FormGroup;
+  modules$: Observable<any[]>
+  modules: any[] = [];
+  mapels: any[] = [];
+  days: any[]=[
+    "Senin",
+    "Selasa",
+    "Rabu",
+    "Kamis",
+    "Jumat",
+    "Sabtu",
+    "Minggu"
+  ];
 
   ngOnInit(): void {
+
+    this.modules$ = this._moduleService.modules$;
+
+    this._moduleService.modules$.subscribe((data) => {
+      this.modules = data;
+    })
 
     /**
      * Initial form
      */
     this.form = this.formBuilder.group({
-      key: '',
+      mapel_module_id: '',
       value: '',
-      description: '',
+      mapel_id: '',
+      hari: '',
+      time_start:'',
+      time_end:''
     })
 
     /**
@@ -32,6 +55,14 @@ export class FormScheduleComponent implements OnInit {
       this._scheduleService.getSchedule(this.dialogData.id).subscribe((res) => {
         this.form.patchValue(res);
       })
+    }
+  }
+
+  onChangeModule(module_id) {
+   
+    const modules : any = this.modules.find((m) => m.id == module_id);
+    if (modules) {
+      this.mapels = modules?.mapel;
     }
   }
 
