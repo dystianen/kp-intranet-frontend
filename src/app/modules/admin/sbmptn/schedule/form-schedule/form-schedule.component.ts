@@ -53,6 +53,10 @@ export class FormScheduleComponent implements OnInit {
     if (this.dialogData.type == 'edit') {
       this._scheduleService.getSchedule(this.dialogData.id).subscribe((res) => {
         this.form.patchValue(res);
+        console.log('abc',res)
+        if(res.mapel_module_id){
+          this.onChangeModule(res.mapel_module_id);
+        }
       })
     }
   }
