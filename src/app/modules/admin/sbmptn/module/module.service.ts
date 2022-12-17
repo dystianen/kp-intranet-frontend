@@ -23,7 +23,7 @@ export class ModuleService {
   }
 
   getModules(): Observable<any[]> {
-    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/latihan-soal/admin/module`).pipe(
+    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/admin/module`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._modules.next(response.data);
@@ -35,7 +35,7 @@ export class ModuleService {
   }
 
   getModule(id: number): Observable<any> {
-    return this._httpClient.get<any>(`${environment.apiPtnUrl}/latihan-soal/admin/module/${id}`).pipe(
+    return this._httpClient.get<any>(`${environment.apiPtnUrl}/admin/module/${id}`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._module.next(response.data);
@@ -49,7 +49,7 @@ export class ModuleService {
   createModule(dataUser: any): Observable<any> {
     return this.modules$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/latihan-soal/admin/module`, dataUser)
+      switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/admin/module`, dataUser)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             this.getModules().subscribe();
@@ -68,7 +68,7 @@ export class ModuleService {
   updateModule(id: number, data: any): Observable<any> {
     return this.module$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/latihan-soal/admin/module/${id}`, data)
+      switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/admin/module/${id}`, data)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             this.getModules().subscribe();

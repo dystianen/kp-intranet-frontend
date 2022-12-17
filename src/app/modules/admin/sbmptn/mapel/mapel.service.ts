@@ -23,7 +23,7 @@ export class MapelService {
   }
 
   getMapels(): Observable<any[]> {
-    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/latihan-soal/admin/mapel`).pipe(
+    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/admin/mapel`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._mapels.next(response.data);
@@ -35,7 +35,7 @@ export class MapelService {
   }
 
   getMapel(id: number): Observable<any> {
-    return this._httpClient.get<any>(`${environment.apiPtnUrl}/latihan-soal/admin/mapel/${id}`).pipe(
+    return this._httpClient.get<any>(`${environment.apiPtnUrl}/admin/mapel/${id}`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._mapel.next(response.data);
@@ -49,7 +49,7 @@ export class MapelService {
   createMapel(dataUser: any): Observable<any> {
     return this.mapels$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/latihan-soal/admin/mapel`, dataUser)
+      switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/admin/mapel`, dataUser)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             this.getMapels().subscribe();
@@ -68,7 +68,7 @@ export class MapelService {
   updateMapel(id: number, data: any): Observable<any> {
     return this.mapel$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/latihan-soal/admin/mapel/${id}`, data)
+      switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/admin/mapel/${id}`, data)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             this.getMapels().subscribe();

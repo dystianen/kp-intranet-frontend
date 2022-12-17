@@ -23,7 +23,7 @@ export class SettingService {
   }
 
   getSettings(): Observable<any[]> {
-    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/latihan-soal/admin/setting`).pipe(
+    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/admin/setting`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._setting.next(response.data);
@@ -35,7 +35,7 @@ export class SettingService {
   }
 
   getSetting(id: number): Observable<any> {
-    return this._httpClient.get<any>(`${environment.apiPtnUrl}/latihan-soal/admin/setting/${id}`).pipe(
+    return this._httpClient.get<any>(`${environment.apiPtnUrl}/admin/setting/${id}`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._clas.next(response.data);
@@ -49,7 +49,7 @@ export class SettingService {
   createSetting(dataUser: any): Observable<any> {
     return this.setting$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/latihan-soal/admin/setting`, dataUser)
+      switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/admin/setting`, dataUser)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             this.getSettings().subscribe();
@@ -68,7 +68,7 @@ export class SettingService {
   updateSetting(id: number, data: any): Observable<any> {
     return this.clas$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/latihan-soal/admin/setting/${id}`, data)
+      switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/admin/setting/${id}`, data)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             this.getSettings().subscribe();

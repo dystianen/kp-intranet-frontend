@@ -23,7 +23,7 @@ export class ClassService {
   }
 
   getClasses(): Observable<any[]> {
-    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/latihan-soal/admin/class`).pipe(
+    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/admin/class`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._class.next(response.data);
@@ -35,7 +35,7 @@ export class ClassService {
   }
 
   getClass(id: number): Observable<any> {
-    return this._httpClient.get<any>(`${environment.apiPtnUrl}/latihan-soal/admin/class/${id}`).pipe(
+    return this._httpClient.get<any>(`${environment.apiPtnUrl}/admin/class/${id}`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._clas.next(response.data);
@@ -49,7 +49,7 @@ export class ClassService {
   createClass(dataUser: any): Observable<any> {
     return this.class$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/latihan-soal/admin/class`, dataUser)
+      switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/admin/class`, dataUser)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             this.getClasses().subscribe();
@@ -68,7 +68,7 @@ export class ClassService {
   updateClass(id: number, data: any): Observable<any> {
     return this.clas$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/latihan-soal/admin/class/${id}`, data)
+      switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/admin/class/${id}`, data)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             this.getClasses().subscribe();

@@ -23,7 +23,7 @@ export class ScheduleService {
   }
 
   getSchedules(): Observable<any[]> {
-    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/latihan-soal/admin/schedule`).pipe(
+    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/admin/schedule`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._schedule.next(response.data);
@@ -35,7 +35,7 @@ export class ScheduleService {
   }
 
   getSchedule(id: number): Observable<any> {
-    return this._httpClient.get<any>(`${environment.apiPtnUrl}/latihan-soal/admin/schedule/${id}`).pipe(
+    return this._httpClient.get<any>(`${environment.apiPtnUrl}/admin/schedule/${id}`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._schedules.next(response.data);
@@ -49,7 +49,7 @@ export class ScheduleService {
   createSchedule(dataUser: any): Observable<any> {
     return this.schedule$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/latihan-soal/admin/schedule`, dataUser)
+      switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/admin/schedule`, dataUser)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             this.getSchedules().subscribe();
@@ -68,7 +68,7 @@ export class ScheduleService {
   updateSchedule(id: number, data: any): Observable<any> {
     return this._schedules$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/latihan-soal/admin/schedule/${id}`, data)
+      switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/admin/schedule/${id}`, data)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             this.getSchedules().subscribe();
