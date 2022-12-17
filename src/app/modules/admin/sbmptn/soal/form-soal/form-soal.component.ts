@@ -24,6 +24,7 @@ export class FormSoalComponent implements OnInit {
     this.form = this.formBuilder.group({
       title: '',
       content: '',
+      pembahasan: '',
       mapel_id: this.dialogData.mapel.id
     })
 

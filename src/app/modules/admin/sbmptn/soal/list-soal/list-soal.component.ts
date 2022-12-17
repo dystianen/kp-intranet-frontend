@@ -38,7 +38,7 @@ export class ListSoalComponent implements OnInit {
   add() {
     this.dialog.open(FormSoalComponent, {
       data: {
-        title: 'Add Soal',
+        title: 'Buat Soal',
         type: 'add',
         mapel: this.mapel
       },
