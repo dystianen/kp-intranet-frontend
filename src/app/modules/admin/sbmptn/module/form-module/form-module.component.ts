@@ -24,6 +24,7 @@ export class FormModuleComponent implements OnInit {
       code: '',
       name: '',
       description: '',
+      order: 0,
     })
 
     /**

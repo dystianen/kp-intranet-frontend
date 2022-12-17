@@ -17,6 +17,10 @@
                         <mat-label>Deskripsi</mat-label>
                         <textarea matInput [formControlName]="'description'"></textarea>
                     </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Urutan</mat-label>
+                        <input type="number" matInput [formControlName]="'order'" required />
+                    </mat-form-field>
                 </div>
             </div>
 
