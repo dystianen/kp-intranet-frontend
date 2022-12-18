@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
 @Injectable({
@@ -15,6 +15,7 @@ export class SoalService {
   private _soal: BehaviorSubject<any> = new BehaviorSubject({});
   public _jawabans: BehaviorSubject<any> = new BehaviorSubject([]);
   public jawabans: any = [];
+  jawabansDeleted$: BehaviorSubject<any[]>= new BehaviorSubject([])
   _keys: BehaviorSubject<string[]> = new BehaviorSubject(["A", "B", "C", "D", "E", "F"]);
 
   get soals$(): Observable<any[]> {
@@ -43,10 +44,13 @@ export class SoalService {
   }
 
   getSoal(id: number): Observable<any> {
-    return this._httpClient.get<any>(`${environment.apiPtnUrl}/admin/bab/detail/${id}`).pipe(
+    return this._httpClient.get<any>(`${environment.apiPtnUrl}/admin/soal/detail/${id}`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._soal.next(response.data);
+          if (response.data.jawaban) {
+            this._jawabans.next(response.data.jawaban);
+          }
           return response.data;
         }
         return [];
@@ -75,7 +79,7 @@ export class SoalService {
   updateSoal(id: number, data: any): Observable<any> {
     return this.soal$.pipe(
       take(1),
-      switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/admin/bab/${id}`, data)
+      switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/admin/soal/${id}`, data)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
             return response.data;

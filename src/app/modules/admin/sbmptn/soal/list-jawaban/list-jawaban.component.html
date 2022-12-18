@@ -8,12 +8,19 @@
     </div>
     <div>
         <ng-container *ngIf="(jawabans$ | async) as jb">
-            <ng-container *ngFor="let jawaban of jb">
+            <ng-container *ngFor="let jawaban of jb; let i = index;">
                 <div class="flex justify-between bg-gray-200 p-2 py-3 my-2">
                     <label for="" class="flex items-center"><span class="font-bold">{{jawaban.key}}.</span> <span
                             class="ml-1" [innerHTML]="jawaban.content"></span></label>
-                    <mat-checkbox class="example-margin" [checked]="jawaban.is_true"
-                        (click)="setTrue(jawaban.key)"></mat-checkbox>
+                    <div class="flex items-center">
+                        <mat-checkbox [checked]="jawaban.is_true" (click)="setTrue(jawaban.key)"></mat-checkbox>
+                        <button type="button" (click)="editJawaban(i)">
+                            <mat-icon [svgIcon]="'edit'" class="text-sm"></mat-icon>
+                        </button>
+                        <button type="button" (click)="deleteJawaban(i)">
+                            <mat-icon [svgIcon]="'delete'" class="text-sm text-red-600"></mat-icon>
+                        </button>
+                    </div>
                 </div>
             </ng-container>
         </ng-container>

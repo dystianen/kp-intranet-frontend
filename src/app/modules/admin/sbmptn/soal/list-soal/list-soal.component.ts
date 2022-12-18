@@ -17,7 +17,7 @@ export class ListSoalComponent implements OnInit {
   modules: any[] = [];
   mapel: any = {}
   dataSource: MatTableDataSource<any>
-  displayedColumns: string[] = ["no","title", "options"];
+  displayedColumns: string[] = ["no", "title", "options"];
 
   constructor(private dialog: MatDialog, private _soalService: SoalService) { }
 
@@ -37,9 +37,10 @@ export class ListSoalComponent implements OnInit {
    */
   add() {
     this.dialog.open(FormSoalComponent, {
+      id: 'formSoal',
       data: {
         title: 'Buat Soal',
-        type: 'add',
+        type: 'addSoal',
         mapel: this.mapel
       },
       autoFocus: true
@@ -52,9 +53,10 @@ export class ListSoalComponent implements OnInit {
    */
   edit(id) {
     this.dialog.open(FormSoalComponent, {
+      id: 'formEditSoal',
       data: {
         title: 'Edit Soal',
-        type: 'edit',
+        type: 'editSoal',
         id: id,
         mapel: this.mapel
       },

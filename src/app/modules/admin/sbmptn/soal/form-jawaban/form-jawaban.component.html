@@ -6,14 +6,27 @@
             <div mat-dialog-content>
                 <div class="flex flex-col w-full">
 
-                    <mat-form-field>
-                        <mat-label>Key</mat-label>
-                        <mat-select matInput [formControlName]="'key'">
-                            <mat-option *ngFor="let key of keys$" [value]="key">
-                                {{key}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                    <ng-container *ngIf="dialogData.type=='edit'">
+                        <mat-form-field>
+                            <mat-label>Key</mat-label>
+                            <mat-select matInput [value]="activeKey" disabled>
+                                <mat-option [value]="activeKey">
+                                    {{activeKey}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+
+                    <ng-container *ngIf="dialogData.type=='add'">
+                        <mat-form-field>
+                            <mat-label>Key</mat-label>
+                            <mat-select matInput [formControlName]="'key'">
+                                <mat-option *ngFor="let key of keys$" [value]="key">
+                                    {{key}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
 
                     <div>
                         <mat-label>Jawaban</mat-label>

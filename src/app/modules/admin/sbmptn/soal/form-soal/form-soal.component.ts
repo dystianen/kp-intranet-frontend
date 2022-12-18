@@ -15,8 +15,16 @@ export class FormSoalComponent implements OnInit {
   form: FormGroup;
 
   jawaban: any = []
+  jawabansDeleted = [];
+  dlg: any;
 
   ngOnInit(): void {
+
+    this.dlg = { ...this.dialogData }
+
+    this._soalService.jawabansDeleted$.subscribe((item) => {
+      this.jawabansDeleted = item;
+    })
 
     /**
      * Initial form
@@ -25,7 +33,7 @@ export class FormSoalComponent implements OnInit {
       title: '',
       content: '',
       pembahasan: '',
-      mapel_id: this.dialogData.mapel.id
+      mapel_id: this.dlg.mapel.id
     })
 
     this._soalService._jawabans.subscribe((item) => {
@@ -36,7 +44,7 @@ export class FormSoalComponent implements OnInit {
     /**
      * Fetch data by id from API
      */
-    if (this.dialogData.type == 'edit') {
+    if (this.dlg.type == 'editSoal') {
       this._soalService.getSoal(this.dialogData.id).subscribe((res) => {
         this.form.patchValue(res);
       })
@@ -48,34 +56,40 @@ export class FormSoalComponent implements OnInit {
    */
   submitForm(f: NgForm) {
 
-    // console.log('soal : ', f.value);
-    // console.log('jawaban : ', this.jawaban);
-    const data = {
-      ...f.value, jawaban: {
-        createMany: {
-          data: this.jawaban
-        }
-      }
-    };
     /**
      * Add new Destination
      */
-    if (this.dialogData.type == 'add') {
+    if (this.dlg.type == 'addSoal') {
+      const data = {
+        ...f.value, jawaban: {
+          createMany: {
+            data: this.jawaban
+          }
+        }
+      };
       this._soalService.createSoal(data).subscribe((res) => {
         this._soalService.getSoals(this.dialogData.mapel.uuid).subscribe();
         this.dialogRef.close();
       });
     }
 
-    // /**
-    //  * Update data
-    //  */
-    // if (this.dialogData.type == 'edit') {
-    //   this._soalService.updateSoal(this.dialogData.id, f.value).subscribe((res) => {
-    //     this._soalService.getSoals(this.dialogData.mapel.uuid).subscribe();
-    //     this.dialogRef.close();
-    //   });
-    // }
+    /**
+     * Update data
+     */
+    if (this.dlg.type === 'editSoal') {
+      const delete_jawaban = this.jawabansDeleted.map((item) => {
+        return item.key;
+      });
+      const data = {
+        soal: f.value,
+        jawaban: this.jawaban,
+        delete_jawaban: delete_jawaban ?? []
+      }
+      this._soalService.updateSoal(this.dialogData.id, data).subscribe((res) => {
+        this._soalService.getSoals(this.dialogData.mapel.uuid).subscribe();
+        this.dialogRef.close();
+      });
+    }
   }
 
 }
