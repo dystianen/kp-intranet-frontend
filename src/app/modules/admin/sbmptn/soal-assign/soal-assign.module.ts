@@ -6,6 +6,9 @@ import { FormSoalAssignComponent } from './form-soal-assign/form-soal-assign.com
 import { RouterModule, Routes } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { SoalResolver } from '../soal/soal.resolver';
+import { ModuleResolver } from '../module/module.resolver';
+import { SoalCategoryResolver } from '../soal-category/soal-category.resolver';
+import { SoalAssignResolver } from './soal-assign.resolver';
 
 const routes: Routes = [
   {
@@ -16,7 +19,10 @@ const routes: Routes = [
         path: '',
         component: ListSoalAssignComponent,
         resolve:{
-          soals: SoalResolver
+          soals: SoalResolver,
+          modules: ModuleResolver,
+          categories: SoalCategoryResolver,
+          assigns: SoalAssignResolver
         }
       }
     ]

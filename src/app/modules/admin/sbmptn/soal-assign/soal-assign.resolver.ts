@@ -5,12 +5,16 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { SoalAssignService } from './soal-assign.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SoalAssignResolver implements Resolve<boolean> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return of(true);
+export class SoalAssignResolver implements Resolve<any> {
+
+  constructor(private _soalAssignService: SoalAssignService){}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    return this._soalAssignService.getSoalAssigns();
   }
 }

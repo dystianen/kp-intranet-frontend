@@ -16,17 +16,66 @@
     </div>
 
     <div class="m-4">
+        <div>
+            <div class="border-2 my-4 p-4">
+                <form [formGroup]="form" id="form" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
+                    <div class="flex flex-col w-full">
+                        <!-- <div>
+                            <div class="flex flex-col w-1/2 px-2">
+                                <ng-container *ngIf="(categories$ | async) as modules">
+                                    <mat-form-field>
+                                        <mat-label>Category</mat-label>
+                                        <mat-select matInput #ctr [formControlName]="'category_id'" (selectionChange)="changeCategory(ctr.value)">
+                                            <mat-option *ngFor="let module of modules" [value]="module.id">
+                                                {{module.category}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </ng-container>
+                            </div>
+                        </div> -->
+                        <div class="flex">
+                            <div class="flex flex-col w-1/2 px-2">
+                                <ng-container *ngIf="(modules$ | async) as modules">
+                                    <mat-form-field>
+                                        <mat-label>Module</mat-label>
+                                        <mat-select matInput [formControlName]="'module_id'" #mdl (selectionChange)="changeModule(mdl.value)">
+                                            <mat-option *ngFor="let module of modules" [value]="module.id">
+                                                {{module.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </ng-container>
+                            </div>
+                            <div class="flex flex-col w-1/2 px-2">
+                                <ng-container *ngIf="mapels">
+                                    <mat-form-field>
+                                        <mat-label>Mapel</mat-label>
+                                        <mat-select matInput [formControlName]="'mapel_id'">
+                                            <mat-option *ngFor="let mapel of mapels" [value]="mapel.id">
+                                                {{mapel.mapel_name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
         <div class="flex">
             <div class="w-1/2 bg-gray-300 p-3 border-r-2">
                 <h2 class="font-bold">Bank Soal</h2>
-                <ng-container *ngFor="let soal of soals">
+                <ng-container *ngFor="let soal of soals$">
                     <div class="p-4 bg-white my-2 flex items-center justify-between">
                         <div>
                             <h2>#{{soal.id}} {{soal.title | slice:0:50 }}</h2>
                             <span class="text-white p-1"
                                 [style]="'background-color:'+soal.category?.color+';'">{{soal.category?.category}}</span>
                         </div>
-                        <button class="bg-green-600 p-1">
+                        <button type="button" class="bg-green-600 p-1" (click)="asssignSoal(soal.id)">
                             <mat-icon [svgIcon]="'chevron_right'" class="text-white"></mat-icon>
                         </button>
                     </div>
@@ -34,9 +83,9 @@
             </div>
             <div class="w-1/2 bg-gray-300 p-3 border-r-2">
                 <h2 class="font-bold">Assigned</h2>
-                <ng-container *ngFor="let soal of soals">
+                <ng-container *ngFor="let soal of soalsAssigns$">
                     <div class="p-4 bg-white my-2 flex items-center">
-                        <button class="bg-red-600 p-1 mr-3">
+                        <button class="bg-red-600 p-1 mr-3" (click)="unAsssignSoal(soal.id)">
                             <mat-icon [svgIcon]="'chevron_left'" class="text-white"></mat-icon>
                         </button>
                         <div>
