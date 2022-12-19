@@ -34,7 +34,7 @@ export class FormComponent implements OnInit {
     "allow_action": [
     ]
   };
-  
+
   actionExample$: {} = {}
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _service: MenuService, public _navigationService: NavigationService, public dialog: MatDialogRef<any>) { }
@@ -53,15 +53,19 @@ export class FormComponent implements OnInit {
       _this.formApp.patchValue({ parentId: this.data.parentId });
     }
 
-    if (this.data.additional) {
-      this.action$ = this.data.additional;
-    }
+    // if (this.data.additional) {
+    //   this.action$ = this.data.additional;
+    // }
 
 
     if (this.data.formType == 'edit') {
+      
       if (this._service.menus$) {
         this._service.menu$.subscribe(function (data: Menu) {
           _this.ID = data.id;
+          if (data.additional) {
+            _this.action$ = data.additional;
+          }
           _this.formApp.patchValue(data);
         })
       }

@@ -17,16 +17,16 @@ export class ListSoalComponent implements OnInit {
   modules: any[] = [];
   mapel: any = {}
   dataSource: MatTableDataSource<any>
-  displayedColumns: string[] = ["no", "title", "options"];
+  displayedColumns: string[] = ["no", "id", "category", "title", "options"];
 
   constructor(private dialog: MatDialog, private _soalService: SoalService) { }
 
   ngOnInit(): void {
 
     this._soalService.soals$.subscribe((data: any) => {
-      this.modules = data;
-      this.mapel = data.mapel;
-      this.dataSource = new MatTableDataSource(data.data);
+      // this.modules = data;
+      // this.mapel = data.mapel;
+      this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
     })
 
@@ -36,6 +36,7 @@ export class ListSoalComponent implements OnInit {
    * Show add modal
    */
   add() {
+    this._soalService._jawabans.next([]);
     this.dialog.open(FormSoalComponent, {
       id: 'formSoal',
       data: {

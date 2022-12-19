@@ -8,13 +8,17 @@
             <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
         </div> -->
         <!-- Title -->
-        <div class="text-4xl font-extrabold tracking-tight">Soal - {{mapel.module?.name}} - {{mapel.mapel_name}}</div>
+        <div class="text-4xl font-extrabold tracking-tight">SBMPTN - Bank Soal</div>
         <!-- Actions -->
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
             <back-button></back-button>
             <button class="ml-4" mat-flat-button [color]="'primary'" (click)="add()">
                 <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                 <span class="ml-2 mr-1">Add</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="add()">
+                <mat-icon [svgIcon]="'file_copy'"></mat-icon>
+                <span class="ml-2 mr-1">Bulk Upload</span>
             </button>
         </div>
     </div>
@@ -27,6 +31,22 @@
                 <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
+                <td mat-cell *matCellDef="let element;"> #{{element.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
+                <td mat-cell *matCellDef="let element">
+                    <ng-container *ngIf="element.category_id==='latihan_soal'">
+                        <span class="p-1 text-white" [style]="'background-color:'+element.category?.color+';'">{{element.category?.category}}</span>
+                    </ng-container>
+                    <ng-container *ngIf="element.category_id==='tryout'">
+                        <span class="p-1 text-white"[style]="'background-color:'+element.category?.color+';'">{{element.category?.category}}</span>
+                    </ng-container>
+                </td>
+            </ng-container>
 
             <ng-container matColumnDef="title">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Soal</th>

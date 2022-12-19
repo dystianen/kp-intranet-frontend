@@ -5,6 +5,16 @@
         <div class="flex flex-col w-full">
             <div mat-dialog-content>
                 <div class="flex flex-col w-full">
+                    <ng-container *ngIf="categories">
+                        <mat-form-field>
+                            <mat-label>Category</mat-label>
+                            <mat-select matInput [formControlName]="'category_id'" required>
+                                <mat-option *ngFor="let category of categories" [value]="category.id">
+                                    {{category.category}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
                     <mat-form-field>
                         <mat-label>Judul Soal</mat-label>
                         <input matInput [formControlName]="'title'" required />
@@ -21,6 +31,24 @@
                     <div>
                         <mat-label>Pembahasan</mat-label>
                         <quill-editor matInput [formControlName]="'pembahasan'"></quill-editor>
+                    </div>
+                    <div class="my-4 flex flex-col">
+                        <mat-form-field>
+                            <mat-label>Flag 1</mat-label>
+                            <input matInput [formControlName]="'value1'" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Flag 2</mat-label>
+                            <input matInput [formControlName]="'value2'" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Flag 3</mat-label>
+                            <input matInput [formControlName]="'value3'" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Flag 4</mat-label>
+                            <input matInput [formControlName]="'value4'" />
+                        </mat-form-field>
                     </div>
                 </div>
             </div>

@@ -5,4 +5,5 @@ export interface Menu {
     description: string;
     path: string;
     icon: string;
+    additional?: string;
 }

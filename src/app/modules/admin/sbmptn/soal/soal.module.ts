@@ -11,6 +11,7 @@ import { QuillModule } from 'ngx-quill';
 import { FormJawabanComponent } from './form-jawaban/form-jawaban.component';
 import { ListJawabanComponent } from './list-jawaban/list-jawaban.component';
 import {MatListModule} from '@angular/material/list'; 
+import { SoalCategoryResolver } from '../soal-category/soal-category.resolver';
 
 const routes: Routes = [
   {
@@ -18,10 +19,11 @@ const routes: Routes = [
     component: SoalComponent,
     children: [
       {
-        path: ':mapel_uuid',
+        path: '',
         component: ListSoalComponent,
         resolve: {
-          soals: SoalResolver
+          soals: SoalResolver,
+          category: SoalCategoryResolver
         }
       }
     ]

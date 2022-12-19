@@ -31,8 +31,8 @@ export class SoalService {
     return this._soal.asObservable();
   }
 
-  getSoals(soalUUID: string): Observable<any[]> {
-    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/admin/soal/` + soalUUID).pipe(
+  getSoals(soalUUID: string=""): Observable<any[]> {
+    return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/admin/soal`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
           this._soals.next(response.data);

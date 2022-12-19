@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SoalCategoryService } from '../../soal-category/soal-category.service';
 import { SoalService } from '../soal.service';
 
 @Component({
@@ -10,13 +11,14 @@ import { SoalService } from '../soal.service';
 })
 export class FormSoalComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public dialogData: any, private dialogRef: MatDialogRef<any>, private _soalService: SoalService) { }
+  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public dialogData: any, private dialogRef: MatDialogRef<any>, private _soalService: SoalService, private _categoryService: SoalCategoryService) { }
 
   form: FormGroup;
 
   jawaban: any = []
   jawabansDeleted = [];
   dlg: any;
+  categories: any[] = [];
 
   ngOnInit(): void {
 
@@ -24,6 +26,10 @@ export class FormSoalComponent implements OnInit {
 
     this._soalService.jawabansDeleted$.subscribe((item) => {
       this.jawabansDeleted = item;
+    });
+
+    this._categoryService.soal_categorys$.subscribe((item) => {
+      this.categories = item;
     })
 
     /**
@@ -32,8 +38,12 @@ export class FormSoalComponent implements OnInit {
     this.form = this.formBuilder.group({
       title: '',
       content: '',
+      value1: '',
+      value2: '',
+      value3: '',
+      value4: '',
       pembahasan: '',
-      mapel_id: this.dlg.mapel.id
+      category_id:'',
     })
 
     this._soalService._jawabans.subscribe((item) => {
@@ -68,7 +78,7 @@ export class FormSoalComponent implements OnInit {
         }
       };
       this._soalService.createSoal(data).subscribe((res) => {
-        this._soalService.getSoals(this.dialogData.mapel.uuid).subscribe();
+        this._soalService.getSoals().subscribe();
         this.dialogRef.close();
       });
     }
@@ -86,7 +96,7 @@ export class FormSoalComponent implements OnInit {
         delete_jawaban: delete_jawaban ?? []
       }
       this._soalService.updateSoal(this.dialogData.id, data).subscribe((res) => {
-        this._soalService.getSoals(this.dialogData.mapel.uuid).subscribe();
+        this._soalService.getSoals().subscribe();
         this.dialogRef.close();
       });
     }
