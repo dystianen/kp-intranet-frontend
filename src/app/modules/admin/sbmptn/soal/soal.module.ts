@@ -12,6 +12,7 @@ import { FormJawabanComponent } from './form-jawaban/form-jawaban.component';
 import { ListJawabanComponent } from './list-jawaban/list-jawaban.component';
 import {MatListModule} from '@angular/material/list'; 
 import { SoalCategoryResolver } from '../soal-category/soal-category.resolver';
+import { SoalPreviewComponent } from './soal-preview/soal-preview.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,8 @@ const routes: Routes = [
     ListSoalComponent,
     FormSoalComponent,
     FormJawabanComponent,
-    ListJawabanComponent
+    ListJawabanComponent,
+    SoalPreviewComponent
   ],
   imports: [
     CommonModule,

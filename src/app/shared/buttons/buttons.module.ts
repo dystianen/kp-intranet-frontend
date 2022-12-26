@@ -5,6 +5,8 @@ import { DeleteComponent } from './delete/delete.component';
 import { CloseComponent } from './close/close.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UploadComponent } from './upload/upload.component';
+import {MatIconModule} from "@angular/material/icon";
 
 
 
@@ -12,17 +14,20 @@ import { MatDialogModule } from '@angular/material/dialog';
   declarations: [
     SubmitComponent,
     DeleteComponent,
-    CloseComponent
+    CloseComponent,
+    UploadComponent
   ],
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatDialogModule
-  ],
-  exports:[
-    SubmitComponent,
-    DeleteComponent,
-    CloseComponent
-  ]
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatIconModule
+    ],
+    exports: [
+        SubmitComponent,
+        DeleteComponent,
+        CloseComponent,
+        UploadComponent
+    ]
 })
 export class ButtonsModule { }
