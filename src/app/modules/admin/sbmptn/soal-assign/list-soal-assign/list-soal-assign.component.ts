@@ -29,7 +29,7 @@ export class ListSoalAssignComponent implements OnInit {
     this.form = this.formBuilder.group({
       mapel_id: '',
       module_id: '',
-      category_id: '',
+      category_id: 'latihan_soal',
     });
 
     this._soalAssignService.soalAssigns$.subscribe((res) => {
