@@ -6,6 +6,7 @@ import { FormModuleComponent } from './form-module/form-module.component';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { ModuleResolver } from './module.resolver';
+import { SoalCategoryResolver } from '../soal-category/soal-category.resolver';
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
         path: '',
         component: ListModuleComponent,
         resolve:{
-          modules: ModuleResolver
+          modules: ModuleResolver,
+          categories: SoalCategoryResolver
         }
       }
     ]

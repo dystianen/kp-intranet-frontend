@@ -50,7 +50,7 @@ export class ListSoalAssignComponent implements OnInit {
   get soals$() {
     return this.soals.filter((item) => {
       if (this.idSoalAssigned) {
-        return !this.idSoalAssigned.includes(item.id);
+        return !this.idSoalAssigned.includes(item.id) && item.category_id==='latihan_soal';
       }
       return true;
     })
