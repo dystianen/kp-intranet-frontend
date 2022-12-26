@@ -26,7 +26,8 @@ export class FormMapelComponent implements OnInit {
       mapel_name: '',
       module_id: '',
       description: '',
-      thumbnail: ''
+      thumbnail: '',
+      thumbnail_mobile: '',
     })
 
     this.modules$ = this._moduleService.modules$;

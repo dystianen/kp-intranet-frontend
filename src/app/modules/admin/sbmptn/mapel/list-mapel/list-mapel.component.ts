@@ -16,7 +16,7 @@ export class ListMapelComponent implements OnInit {
 
   modules: any[] = [];
   dataSource: MatTableDataSource<any>
-  displayedColumns: string[] = ["mapel_name", "module", "description", "bab", "options"];
+  displayedColumns: string[] = ["mapel_name", "module", "description", "thumbnail","thumbnail_mobile","bab", "options"];
 
   constructor(private dialog: MatDialog, private _mapelService: MapelService) { }
 
