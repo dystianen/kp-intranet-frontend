@@ -47,7 +47,7 @@
         "moment": "2.29.4",
         "monaco-editor": "^0.34.1",
         "ng-apexcharts": "1.5.12",
-        "ngx-doc-viewer": "^15.0.1",
+        "ngx-doc-viewer": "2.0.4",
         "ngx-markdown": "12.0.1",
         "ngx-material-timepicker": "^5.5.3",
         "ngx-monaco-editor": "^12.0.0",

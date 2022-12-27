@@ -10,10 +10,13 @@ import { SoalResolver } from './soal.resolver';
 import { QuillModule } from 'ngx-quill';
 import { FormJawabanComponent } from './form-jawaban/form-jawaban.component';
 import { ListJawabanComponent } from './list-jawaban/list-jawaban.component';
-import {MatListModule} from '@angular/material/list'; 
+import {MatListModule} from '@angular/material/list';
 import { SoalCategoryResolver } from '../soal-category/soal-category.resolver';
 import { ModuleResolver } from '../module/module.resolver';
 import { MapelResolver } from '../mapel/mapel.resolver';
+import { SoalPreviewComponent } from './soal-preview/soal-preview.component';
+import { FormUploadComponent } from './form-upload/form-upload.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 const routes: Routes = [
   {
@@ -41,7 +44,8 @@ const routes: Routes = [
     FormSoalComponent,
     FormJawabanComponent,
     ListJawabanComponent,
-    SoalPreviewComponent
+    SoalPreviewComponent,
+    FormUploadComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +53,8 @@ const routes: Routes = [
     CrudModule,
     ComponentsModule,
     QuillModule.forRoot(),
-    MatListModule
+    MatListModule,
+    NgxDocViewerModule,
   ]
 })
 export class SoalModule { }

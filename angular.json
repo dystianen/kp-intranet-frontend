@@ -58,7 +58,9 @@
               "src/styles/styles.scss",
               "src/styles/tailwind.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ]
           },
           "configurations": {
             "production": {

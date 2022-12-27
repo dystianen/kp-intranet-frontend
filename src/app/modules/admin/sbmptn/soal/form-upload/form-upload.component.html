@@ -1,0 +1,83 @@
+<div class="w-200">
+    <h1 mat-dialog-title>{{ dialogData.title }} </h1>
+
+    <form
+        [formGroup]="form"
+        id="form"
+        #f="ngForm"
+        novalidate
+    >
+        <div class="flex flex-col w-full">
+            <div mat-dialog-content>
+                <div class="flex flex-col w-full">
+                    <ng-container *ngIf="categories">
+                        <mat-form-field>
+                            <mat-label>Category</mat-label>
+                            <mat-select
+                                matInput
+                                [formControlName]="'category_id'"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let category of categories"
+                                    [value]="category.id"
+                                >
+                                    {{ category.category }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+
+                    <ng-container *ngIf="modules$ | async as modules">
+                        <mat-form-field>
+                            <mat-label>Module</mat-label>
+                            <mat-select
+                                matInput
+                                [formControlName]="'module_id'"
+                                #mdl
+                                (selectionChange)="changeModule(mdl.value)"
+                            >
+                                <mat-option
+                                    *ngFor="let module of modules"
+                                    [value]="module.id"
+                                >
+                                    {{ module.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+
+                    <ng-container *ngIf="mapels">
+                        <mat-form-field>
+                            <mat-label>Mapel</mat-label>
+                            <mat-select
+
+                                matInput
+                                [formControlName]="'mapel_id'"
+                            >
+                                <mat-option
+                                    *ngFor="let mapel of mapels"
+                                    [value]="mapel.id"
+                                >
+                                    {{ mapel.mapel_name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+
+                    <div class="flex flex-col gap-2">
+                        <mat-label class="font-medium">Upload Soal</mat-label>
+                        <button-upload (change)="selectFile($event)"></button-upload>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div mat-dialog-actions class="flex mt-2 gap-2">
+                    <button-close></button-close>
+                    <button-submit></button-submit>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

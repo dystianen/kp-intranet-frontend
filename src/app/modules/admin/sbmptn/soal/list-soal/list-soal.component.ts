@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormSoalComponent } from '../form-soal/form-soal.component';
+import { FormUploadComponent } from '../form-upload/form-upload.component';
 import { SoalService } from '../soal.service';
 
 @Component({
@@ -50,7 +51,7 @@ export class ListSoalComponent implements OnInit {
 
   /**
    * Show edit modal
-   * @param id 
+   * @param id
    */
   edit(id) {
     this.dialog.open(FormSoalComponent, {
@@ -64,4 +65,20 @@ export class ListSoalComponent implements OnInit {
       autoFocus: true
     })
   }
+
+    /**
+   * Show upload modal
+   */
+    onModalUpload() {
+        this._soalService._jawabans.next([]);
+        this.dialog.open(FormUploadComponent, {
+          id: 'formUpload',
+          data: {
+            title: 'Buat Soal dengan Template',
+            type: 'upload',
+            mapel: this.mapel
+          },
+          autoFocus: true
+        })
+      }
 }
