@@ -45,5 +45,3 @@ testem.log
 Thumbs.db
 
 docker-compose.yml
-
-/src/environments/environment.ts
