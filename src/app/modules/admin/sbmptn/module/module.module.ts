@@ -7,6 +7,7 @@ import { Router, RouterModule, Routes } from '@angular/router';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { ModuleResolver } from './module.resolver';
 import { SoalCategoryResolver } from '../soal-category/soal-category.resolver';
+import { MatListModule } from '@angular/material/list';
 
 const routes: Routes = [
   {
@@ -34,7 +35,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     CrudModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatListModule
   ]
 })
 export class ModuleModule { }

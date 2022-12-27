@@ -1,35 +1,76 @@
 <div class="w-100">
-    <h1 mat-dialog-title>{{ dialogData.title }} </h1>
+    <h1 mat-dialog-title>{{ dialogData.title }}</h1>
 
-    <form [formGroup]="form" id="form" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
+    <form
+        [formGroup]="form"
+        id="form"
+        #f="ngForm"
+        (ngSubmit)="submitForm(f)"
+        novalidate
+    >
         <div class="flex flex-col w-full">
             <div mat-dialog-content>
                 <div class="flex flex-col w-full">
                     <mat-form-field>
                         <mat-label>Nama Mapel</mat-label>
-                        <input matInput [formControlName]="'mapel_name'" required />
+                        <input
+                            matInput
+                            [formControlName]="'mapel_name'"
+                            required
+                        />
                     </mat-form-field>
-                    <ng-container *ngIf="(modules$ | async) as modules">
-                        <mat-form-field>
-                            <mat-label>Module</mat-label>
-                            <mat-select matInput [formControlName]="'module_id'">
-                                <mat-option *ngFor="let module of modules" [value]="module.id">
-                                    {{module.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Category</mat-label>
+                        <mat-select matInput [formControlName]="'category_id'">
+                            <mat-option
+                                *ngFor="let category of categories$"
+                                [value]="category.id"
+                            >
+                                {{ category.category }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <ng-container *ngIf="form.value.category_id">
+                        <ng-container *ngIf="modules$ | async as modules">
+                            <mat-form-field>
+                                <mat-label>Module</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'module_id'"
+                                >
+                                    <mat-option
+                                        *ngFor="let module of modules"
+                                        [value]="module.id"
+                                    >
+                                        {{ module.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
                     </ng-container>
                     <mat-form-field>
                         <mat-label>Deskripsi</mat-label>
-                        <textarea matInput [formControlName]="'description'"></textarea>
+                        <textarea
+                            matInput
+                            [formControlName]="'description'"
+                        ></textarea>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Thumbnail</mat-label>
-                        <input matInput [formControlName]="'thumbnail'" required />
+                        <input
+                            matInput
+                            [formControlName]="'thumbnail'"
+                            required
+                        />
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Thumbnail Mobile</mat-label>
-                        <input matInput [formControlName]="'thumbnail_mobile'" required />
+                        <input
+                            matInput
+                            [formControlName]="'thumbnail_mobile'"
+                            required
+                        />
                     </mat-form-field>
                 </div>
             </div>
@@ -41,7 +82,5 @@
                 </div>
             </div>
         </div>
-
     </form>
-
 </div>

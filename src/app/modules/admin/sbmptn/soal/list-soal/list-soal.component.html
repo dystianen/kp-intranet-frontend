@@ -36,6 +36,11 @@
                 <td mat-cell *matCellDef="let element;"> #{{element.id}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="level">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Bobot</th>
+                <td mat-cell *matCellDef="let element;"> {{element.level}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="category">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
                 <td mat-cell *matCellDef="let element">

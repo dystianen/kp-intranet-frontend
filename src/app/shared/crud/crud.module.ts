@@ -15,8 +15,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from 'app/shared/shared.module';
-import {MatTableModule} from '@angular/material/table'; 
+import { MatTableModule } from '@angular/material/table';
 import { FuseScrollbarModule } from '@fuse/directives/scrollbar';
+// import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { FuseScrollbarModule } from '@fuse/directives/scrollbar';
     SharedModule,
     MatTableModule,
     FuseScrollbarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    // NgxDocViewerModule
   ],
   exports: [
     MatButtonModule,
@@ -60,7 +62,8 @@ import { FuseScrollbarModule } from '@fuse/directives/scrollbar';
     SharedModule,
     MatTableModule,
     FuseScrollbarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    // NgxDocViewerModule
   ]
 })
 export class CrudModule { }
