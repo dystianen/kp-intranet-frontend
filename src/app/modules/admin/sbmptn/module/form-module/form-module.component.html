@@ -1,7 +1,13 @@
 <div class="w-100">
-    <h1 mat-dialog-title>{{ dialogData.title }} </h1>
+    <h1 mat-dialog-title>{{ dialogData.title }}</h1>
 
-    <form [formGroup]="form" id="form" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
+    <form
+        [formGroup]="form"
+        id="form"
+        #f="ngForm"
+        (ngSubmit)="submitForm(f)"
+        novalidate
+    >
         <div class="flex flex-col w-full">
             <div mat-dialog-content>
                 <div class="flex flex-col w-full">
@@ -15,12 +21,31 @@
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Deskripsi</mat-label>
-                        <textarea matInput [formControlName]="'description'"></textarea>
+                        <textarea
+                            matInput
+                            [formControlName]="'description'"
+                        ></textarea>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Urutan</mat-label>
-                        <input type="number" matInput [formControlName]="'order'" required />
+                        <input
+                            type="number"
+                            matInput
+                            [formControlName]="'order'"
+                            required
+                        />
                     </mat-form-field>
+                    <div class="my-2">
+                        <mat-label>Category</mat-label>
+                        <ng-container *ngFor="let item of categories">
+                            <div class="flex items-center justify-between border py-2 px-1 my-2">
+                                <label for="">{{item.category}}</label>
+                                <span>
+                                    <mat-checkbox #chk (change)="checkCategory(chk,item.id)" [checked]="isChcek(item.id)"></mat-checkbox>
+                                </span>
+                            </div>
+                        </ng-container>
+                    </div>
                 </div>
             </div>
 
@@ -31,7 +56,5 @@
                 </div>
             </div>
         </div>
-
     </form>
-
 </div>

@@ -13,7 +13,7 @@ export class ListModuleComponent implements OnInit {
 
   modules: any[] = [];
   dataSource: MatTableDataSource<any>
-  displayedColumns: string[] = ["code", "name","description","order", "options"];
+  displayedColumns: string[] = ["code", "name","description","module_has_category","order", "options"];
 
   constructor(private dialog: MatDialog, private _moduleService: ModuleService) { }
 

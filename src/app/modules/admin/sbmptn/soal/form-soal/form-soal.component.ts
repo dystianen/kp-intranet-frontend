@@ -1,24 +1,21 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, NgForm} from '@angular/forms';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import {SoalCategoryService} from '../../soal-category/soal-category.service';
-import {SoalService} from '../soal.service';
-import {Observable} from 'rxjs';
-import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
-import {SoalPreviewComponent} from "../soal-preview/soal-preview.component";
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { MapelService } from '../../mapel/mapel.service';
+import { ModuleService } from '../../module/module.service';
+import { SoalCategoryService } from '../../soal-category/soal-category.service';
+import { SoalService } from '../soal.service';
 
 @Component({
     selector: 'app-form-soal',
     templateUrl: './form-soal.component.html',
-    styleUrls: ['./form-soal.component.scss']
+    styleUrls: ['./form-soal.component.scss'],
 })
 export class FormSoalComponent implements OnInit {
-    form: FormGroup;
-    jawaban: any = [];
-    jawabansDeleted = [];
-    dlg: any;
-    categories: any[] = [];
-    url: '';
+    modules$: Observable<any[]>;
+    modules: any[] = [];
+    mapels: any[] = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -26,13 +23,24 @@ export class FormSoalComponent implements OnInit {
         private dialogRef: MatDialogRef<any>,
         private _soalService: SoalService,
         private _categoryService: SoalCategoryService,
-        private dialog: MatDialog
-    ) {
-    }
+        private _moduleService: ModuleService,
+        private _mapelService: MapelService
+    ) {}
+
+    form: FormGroup;
+
+    jawaban: any = [];
+    jawabansDeleted = [];
+    dlg: any;
+    categories: any[] = [];
 
     ngOnInit(): void {
+        this.modules$ = this._moduleService.modules$;
+        this._moduleService.modules$.subscribe((res) => {
+            this.modules = res;
+        });
 
-        this.dlg = {...this.dialogData}
+        this.dlg = { ...this.dialogData };
 
         this._soalService.jawabansDeleted$.subscribe((item) => {
             this.jawabansDeleted = item;
@@ -54,19 +62,28 @@ export class FormSoalComponent implements OnInit {
             value4: '',
             pembahasan: '',
             category_id: '',
+            mapel_id: '',
+            module_id: '',
+            level: '',
         });
 
         this._soalService._jawabans.subscribe((item) => {
             this.jawaban = item;
         });
 
-
         /**
          * Fetch data by id from API
          */
-        if (this.dlg.type === 'editSoal') {
+        if (this.dlg.type == 'editSoal') {
             this._soalService.getSoal(this.dialogData.id).subscribe((res) => {
                 this.form.patchValue(res);
+                if (res.module_id) {
+                    this._mapelService.mapels$.subscribe((mapels) => {
+                        this.mapels = mapels.filter(
+                            (mapel) => mapel.module_id === res.module_id
+                        );
+                    });
+                }
             });
         }
     }
@@ -74,18 +91,18 @@ export class FormSoalComponent implements OnInit {
     /**Submit Form to API
      * @param f
      */
-    submitForm(f: NgForm): void {
-
+    submitForm(f: NgForm) {
         /**
          * Add new Destination
          */
-        if (this.dlg.type === 'addSoal') {
+        if (this.dlg.type == 'addSoal') {
             const data = {
-                ...f.value, jawaban: {
+                ...f.value,
+                jawaban: {
                     createMany: {
-                        data: this.jawaban
-                    }
-                }
+                        data: this.jawaban,
+                    },
+                },
             };
             this._soalService.createSoal(data).subscribe((res) => {
                 this._soalService.getSoals().subscribe();
@@ -103,35 +120,21 @@ export class FormSoalComponent implements OnInit {
             const data = {
                 soal: f.value,
                 jawaban: this.jawaban,
-                delete_jawaban: delete_jawaban ?? []
-            }
-            this._soalService.updateSoal(this.dialogData.id, data).subscribe((res) => {
-                this._soalService.getSoals().subscribe();
-                this.dialogRef.close();
-            });
-        }
-    }
-
-    selectFile(event: any): void {
-        if (event.target.files && event.target.files[0]) {
-            const reader = new FileReader();
-            reader.readAsDataURL(event.target.files[0]);
-            reader.onload = (event: any) => {
-                this.url = event.target.result;
+                delete_jawaban: delete_jawaban ?? [],
             };
-            this.onPreview();
+            this._soalService
+                .updateSoal(this.dialogData.id, data)
+                .subscribe((res) => {
+                    this._soalService.getSoals().subscribe();
+                    this.dialogRef.close();
+                });
         }
     }
 
-    onPreview(): void {
-        this._soalService._jawabans.next([]);
-        this.dialog.open(SoalPreviewComponent, {
-            id: 'preview',
-            data: {
-                title: 'Preview',
-                type: 'preview',
-            },
-            autoFocus: true
-        });
+    changeModule(module_id) {
+        const module = this.modules.find((item) => item.id === module_id);
+        if (module) {
+            this.mapels = module.mapel;
+        }
     }
 }
