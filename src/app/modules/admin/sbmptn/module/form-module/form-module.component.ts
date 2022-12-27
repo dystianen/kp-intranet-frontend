@@ -1,3 +1,4 @@
+import { findIndex, indexOf, remove } from 'lodash';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -21,11 +22,12 @@ export class FormModuleComponent implements OnInit {
 
     form: FormGroup;
 
-    categories: Category[] = [];
+    categories$: Category[] = [];
+    categories_checked: any[] = [];
 
     ngOnInit(): void {
         this._categoryService.soal_categorys$.subscribe((data) => {
-            this.categories = data;
+            this.categories$ = data;
         });
         /**
          * Initial form
@@ -45,6 +47,9 @@ export class FormModuleComponent implements OnInit {
                 .getModule(this.dialogData.id)
                 .subscribe((res) => {
                     this.form.patchValue(res);
+                    this.categories_checked = res.module_has_category?.map(
+                        (item) => item.category_id
+                    );
                 });
         }
     }
@@ -56,8 +61,12 @@ export class FormModuleComponent implements OnInit {
         /**
          * Add new Destination
          */
+        const data = {
+            module: f.value,
+            categories: this.categories_checked,
+        };
         if (this.dialogData.type == 'add') {
-            this._moduleService.createModule(f.value).subscribe((res) => {
+            this._moduleService.createModule(data).subscribe((res) => {
                 this.dialogRef.close();
             });
         }
@@ -67,10 +76,31 @@ export class FormModuleComponent implements OnInit {
          */
         if (this.dialogData.type == 'edit') {
             this._moduleService
-                .updateModule(this.dialogData.id, f.value)
+                .updateModule(this.dialogData.id, data)
                 .subscribe((res) => {
                     this.dialogRef.close();
                 });
         }
+    }
+
+    get categories() {
+        return this.categories$;
+    }
+
+    checkCategory(e, idCategory: string) {
+        if (e.checked) {
+            this.categories_checked.push(idCategory);
+        } else {
+            const index = indexOf(this.categories_checked, idCategory);
+            if (index > -1) {
+                remove(this.categories_checked, (item) => {
+                    return item === idCategory;
+                });
+            }
+        }
+    }
+
+    isChcek(idCategory: string) {
+        return this.categories_checked.includes(idCategory);
     }
 }

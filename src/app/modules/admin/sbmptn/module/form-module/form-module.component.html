@@ -41,7 +41,7 @@
                             <div class="flex items-center justify-between border py-2 px-1 my-2">
                                 <label for="">{{item.category}}</label>
                                 <span>
-                                    <mat-checkbox></mat-checkbox>
+                                    <mat-checkbox #chk (change)="checkCategory(chk,item.id)" [checked]="isChcek(item.id)"></mat-checkbox>
                                 </span>
                             </div>
                         </ng-container>

@@ -13,6 +13,7 @@ import { ListJawabanComponent } from './list-jawaban/list-jawaban.component';
 import {MatListModule} from '@angular/material/list'; 
 import { SoalCategoryResolver } from '../soal-category/soal-category.resolver';
 import { ModuleResolver } from '../module/module.resolver';
+import { MapelResolver } from '../mapel/mapel.resolver';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
         resolve: {
           soals: SoalResolver,
           category: SoalCategoryResolver,
-          modules: ModuleResolver
+          modules: ModuleResolver,
+          mapels: MapelResolver
         }
       }
     ]

@@ -17,7 +17,7 @@ export class ListSoalComponent implements OnInit {
   modules: any[] = [];
   mapel: any = {}
   dataSource: MatTableDataSource<any>
-  displayedColumns: string[] = ["no", "id", "category", "title", "options"];
+  displayedColumns: string[] = ["no", "id","level", "category", "title", "options"];
 
   constructor(private dialog: MatDialog, private _soalService: SoalService) { }
 

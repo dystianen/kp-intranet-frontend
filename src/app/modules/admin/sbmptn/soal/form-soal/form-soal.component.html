@@ -1,27 +1,85 @@
 <div class="w-full">
-    <h1 mat-dialog-title>{{ dialogData.title }} </h1>
+    <h1 mat-dialog-title>{{ dialogData.title }}</h1>
 
-    <form [formGroup]="form" id="form" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
+    <form
+        [formGroup]="form"
+        id="form"
+        #f="ngForm"
+        (ngSubmit)="submitForm(f)"
+        novalidate
+    >
         <div class="flex flex-col w-full">
             <div mat-dialog-content>
                 <div class="flex flex-col w-full">
                     <ng-container *ngIf="categories">
                         <mat-form-field>
                             <mat-label>Category</mat-label>
-                            <mat-select matInput [formControlName]="'category_id'" required>
-                                <mat-option *ngFor="let category of categories" [value]="category.id">
-                                    {{category.category}}
+                            <mat-select
+                                matInput
+                                [formControlName]="'category_id'"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let category of categories"
+                                    [value]="category.id"
+                                >
+                                    {{ category.category }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </ng-container>
+
+                    <ng-container *ngIf="modules$ | async as modules">
+                        <mat-form-field>
+                            <mat-label>Module</mat-label>
+                            <mat-select
+                                matInput
+                                [formControlName]="'module_id'"
+                                #mdl
+                                (selectionChange)="changeModule(mdl.value)"
+                            >
+                                <mat-option
+                                    *ngFor="let module of modules"
+                                    [value]="module.id"
+                                >
+                                    {{ module.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+
+                    <ng-container *ngIf="mapels">
+                        <mat-form-field>
+                            <mat-label>Mapel</mat-label>
+                            <mat-select
+                               
+                                matInput
+                                [formControlName]="'mapel_id'"
+                            >
+                                <mat-option
+                                    *ngFor="let mapel of mapels"
+                                    [value]="mapel.id"
+                                >
+                                    {{ mapel.mapel_name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+
                     <mat-form-field>
                         <mat-label>Judul Soal</mat-label>
                         <input matInput [formControlName]="'title'" required />
                     </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Level</mat-label>
+                        <input type="number" matInput [formControlName]="'level'" />
+                    </mat-form-field>
                     <div>
                         <mat-label>Konten</mat-label>
-                        <quill-editor matInput [formControlName]="'content'"></quill-editor>
+                        <quill-editor
+                            matInput
+                            [formControlName]="'content'"
+                        ></quill-editor>
                     </div>
                     <div class="my-2">
                         <div class="mt-3">
@@ -30,7 +88,10 @@
                     </div>
                     <div>
                         <mat-label>Pembahasan</mat-label>
-                        <quill-editor matInput [formControlName]="'pembahasan'"></quill-editor>
+                        <quill-editor
+                            matInput
+                            [formControlName]="'pembahasan'"
+                        ></quill-editor>
                     </div>
                     <div class="my-4 flex flex-col">
                         <mat-form-field>
@@ -60,7 +121,5 @@
                 </div>
             </div>
         </div>
-
     </form>
-
 </div>
