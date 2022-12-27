@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     apiUrl:'https://intranet-api.kelaspintar.co.id/api',
-    apiPtnUrl:'https://ptn-api.kelaspintar.co.id/api',
+    apiPtnUrl:'http://localhost:81/api',
 };
 
 /*

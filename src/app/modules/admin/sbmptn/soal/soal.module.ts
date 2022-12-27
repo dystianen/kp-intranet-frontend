@@ -12,6 +12,7 @@ import { FormJawabanComponent } from './form-jawaban/form-jawaban.component';
 import { ListJawabanComponent } from './list-jawaban/list-jawaban.component';
 import {MatListModule} from '@angular/material/list'; 
 import { SoalCategoryResolver } from '../soal-category/soal-category.resolver';
+import { ModuleResolver } from '../module/module.resolver';
 
 const routes: Routes = [
   {
@@ -23,7 +24,8 @@ const routes: Routes = [
         component: ListSoalComponent,
         resolve: {
           soals: SoalResolver,
-          category: SoalCategoryResolver
+          category: SoalCategoryResolver,
+          modules: ModuleResolver
         }
       }
     ]
