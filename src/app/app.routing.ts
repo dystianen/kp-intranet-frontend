@@ -89,6 +89,7 @@ export const appRoutes: Route[] = [
             { path: 'sbmptn/class', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/class/class.module').then(m => m.ClassModule) },
             { path: 'sbmptn/setting', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/setting/setting.module').then(m => m.SettingModule) },
             { path: 'sbmptn/schedule', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/schedule/schedule.module').then(m => m.ScheduleModule) },
+            { path: 'sbmptn/tryout-package', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/tryout/package/package.module').then(m => m.PackageModule) },
         ]
     }
 ];
