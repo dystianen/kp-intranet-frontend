@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -7,6 +7,8 @@ import {Observable} from 'rxjs';
     styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
+    @Input() disabled: boolean;
+
     constructor() {
     }
 

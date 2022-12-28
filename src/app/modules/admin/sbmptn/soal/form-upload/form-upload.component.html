@@ -51,9 +51,9 @@
                         <mat-form-field>
                             <mat-label>Mapel</mat-label>
                             <mat-select
-
                                 matInput
                                 [formControlName]="'mapel_id'"
+                                (selectionChange)="changeMapel()"
                             >
                                 <mat-option
                                     *ngFor="let mapel of mapels"
@@ -67,7 +67,7 @@
 
                     <div class="flex flex-col gap-2">
                         <mat-label class="font-medium">Upload Soal</mat-label>
-                        <button-upload (change)="selectFile($event)"></button-upload>
+                        <button-upload (change)="selectFile($event)" [disabled]="isDisabled"></button-upload>
                     </div>
                 </div>
             </div>

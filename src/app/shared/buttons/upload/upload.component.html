@@ -1,4 +1,4 @@
-<button type="button" class="bg-blue-500 text-white rounded" (click)="fileInput.click()" mat-button>
-    <mat-icon class="text-white mr-2">cloud_upload</mat-icon> Choose file...
+<button type="button" class="text-white rounded" mat-flat-button color="primary" (click)="fileInput.click()" [disabled]="disabled">
+    <mat-icon class="!text-white mr-2">cloud_upload</mat-icon> Choose file...
     <input #fileInput type="file" hidden id="file"/>
 </button>

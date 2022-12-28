@@ -8,14 +8,17 @@ import { SoalPreviewComponent } from '../soal-preview/soal-preview.component';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-form-upload',
-  templateUrl: './form-upload.component.html',
-  styleUrls: ['./form-upload.component.scss']
+    selector: 'app-form-upload',
+    templateUrl: './form-upload.component.html',
+    styleUrls: ['./form-upload.component.scss']
 })
 export class FormUploadComponent implements OnInit {
+    categories: any[] = [];
     modules$: Observable<any[]>;
     modules: any[] = [];
     mapels: any[] = [];
+    form: FormGroup;
+    isDisabled: boolean = true;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -24,10 +27,8 @@ export class FormUploadComponent implements OnInit {
         private _moduleService: ModuleService,
         private _mapelService: MapelService,
         private dialog: MatDialog
-    ) {}
-
-    form: FormGroup;
-    categories: any[] = [];
+    ) {
+    }
 
     ngOnInit(): void {
         this.modules$ = this._moduleService.modules$;
@@ -52,27 +53,37 @@ export class FormUploadComponent implements OnInit {
 
     changeModule(module_id) {
         const module = this.modules.find((item) => item.id === module_id);
+        this.isDisabled = true;
         if (module) {
             this.mapels = module.mapel;
         }
     }
 
+    changeMapel() {
+        this.isDisabled = false;
+    }
+
     selectFile(event: any): void {
         if (event.target.files && event.target.files[0]) {
-            const reader = new FileReader();
-            reader.readAsDataURL(event.target.files[0]);
-            console.log(reader);
-            reader.onload = (e: any) => {
-                this.dialog.open(SoalPreviewComponent, {
-                    id: 'preview',
-                    data: {
-                      title: 'Buat Soal dengan Template',
-                      type: 'preview',
-                      url: e.target.result
-                    },
-                    autoFocus: true
-                });
-            };
+            const type = event.target.files[0].name.substr(event.target.files[0].name.indexOf('.'));
+            if (type === '.docx') {
+                const reader = new FileReader();
+                reader.readAsDataURL(event.target.files[0]);
+                const url = URL.createObjectURL(event.target.files[0]);
+                reader.onload = (e: any) => {
+                    this.dialog.open(SoalPreviewComponent, {
+                        id: 'preview',
+                        data: {
+                            title: 'Buat Soal dengan Template',
+                            type: 'preview',
+                            url: url
+                        },
+                        autoFocus: true
+                    });
+                };
+            } else {
+                alert('Document type not matching!');
+            }
         }
     }
 }
