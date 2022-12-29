@@ -5,6 +5,7 @@
         [formGroup]="form"
         id="form"
         #f="ngForm"
+        (submit)="submitForm(f)"
         novalidate
     >
         <div class="flex flex-col w-full">
@@ -67,7 +68,10 @@
 
                     <div class="flex flex-col gap-2">
                         <mat-label class="font-medium">Upload Soal</mat-label>
-                        <button-upload (change)="selectFile($event)" [disabled]="isDisabled"></button-upload>
+                        <div class="flex flex-row gap-2">
+                            <button-upload (change)="selectFile($event)" [disabled]="isDisabled"></button-upload>
+                            <span>{{filename}}</span>
+                        </div>
                     </div>
                 </div>
             </div>

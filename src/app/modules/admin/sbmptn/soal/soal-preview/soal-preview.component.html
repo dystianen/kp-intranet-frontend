@@ -1,10 +1,10 @@
-<div>
-    <h2 mat-dialog-title>Prefiew</h2>
-    <mat-dialog-content class="mat-typography">
-        <ngx-doc-viewer [url]="data.url" viewer="mammoth"> </ngx-doc-viewer>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <button-close>button-close></button-close>
-        <button-submit></button-submit>
-    </mat-dialog-actions>
-</div>
+<h2 mat-dialog-title>Preview</h2>
+
+<mat-dialog-content class="mat-typography">
+    <div id="preview-document"></div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button-close>button-close></button-close>
+    <button-submit></button-submit>
+</mat-dialog-actions>
