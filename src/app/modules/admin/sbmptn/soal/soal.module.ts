@@ -16,7 +16,6 @@ import { ModuleResolver } from '../module/module.resolver';
 import { MapelResolver } from '../mapel/mapel.resolver';
 import { SoalPreviewComponent } from './soal-preview/soal-preview.component';
 import { FormUploadComponent } from './form-upload/form-upload.component';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 const routes: Routes = [
   {
@@ -54,7 +53,6 @@ const routes: Routes = [
     ComponentsModule,
     QuillModule.forRoot(),
     MatListModule,
-    NgxDocViewerModule,
   ]
 })
 export class SoalModule { }

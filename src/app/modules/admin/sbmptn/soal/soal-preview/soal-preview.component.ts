@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SoalService } from '../soal.service';
 import { renderAsync } from 'docx-preview';
-import { DOCUMENT } from '@angular/common';
+import { FormUploadComponent } from '../form-upload/form-upload.component';
 
 @Component({
     selector: 'app-soal-preview',
@@ -13,7 +13,6 @@ export class SoalPreviewComponent implements OnInit {
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         private dialog: MatDialogRef<any>,
-        private _soalService: SoalService,
     ) {
     }
 
@@ -22,10 +21,7 @@ export class SoalPreviewComponent implements OnInit {
         renderAsync(this.data.url, container);
     }
 
-    // onSubmit(): void {
-    //     this._soalService.uploadSoal(this.data.url).subscribe((res) => {
-    //         console.log({res});
-    //         this.dialog.close();
-    //     });
-    // }
+    onSubmit(): void {
+        this.dialog.close();
+    }
 }

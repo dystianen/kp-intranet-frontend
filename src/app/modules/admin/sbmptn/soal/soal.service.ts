@@ -80,9 +80,9 @@ export class SoalService {
     updateSoal(id: number, data: any): Observable<any> {
         return this.soal$.pipe(
             take(1),
-            switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/admin/soal/${id}`, data)
+            switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/admin/soal/bulk-upload`, data)
                 .pipe(map((response: any) => {
-                    if (response.statusCode == 200) {
+                    if (response.statusCode === 200) {
                         return response.data;
                     }
                     return [];
@@ -94,7 +94,7 @@ export class SoalService {
     createBulkSoal(data: any): Observable<any> {
         return this.soal$.pipe(
             take(1),
-            switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/admin/upload-soal`, data)
+            switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/admin/soal/bulk-upload`, data)
                 .pipe(map((response: any) => {
                     if (response.statusCode === 200) {
                         return response.data;

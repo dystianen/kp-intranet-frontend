@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SoalCategoryService } from '../../soal-category/soal-category.service';
 import { MapelService } from '../../mapel/mapel.service';
 import { ModuleService } from '../../module/module.service';
 import { SoalPreviewComponent } from '../soal-preview/soal-preview.component';
 import { Observable } from 'rxjs';
-import { SoalService } from "../soal.service";
+import { SoalService } from '../soal.service';
 
 @Component({
     selector: 'app-form-upload',
@@ -30,7 +30,8 @@ export class FormUploadComponent implements OnInit {
         private _moduleService: ModuleService,
         private _mapelService: MapelService,
         private _soalService: SoalService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private dialogRef: MatDialogRef<FormUploadComponent>,
     ) {
     }
 
@@ -51,7 +52,6 @@ export class FormUploadComponent implements OnInit {
             category_id: '',
             mapel_id: '',
             module_id: '',
-            file: ''
         });
     }
 
@@ -127,11 +127,14 @@ export class FormUploadComponent implements OnInit {
         };
 
         const fd = new FormData();
-        fd.append('category_id', data.category_id);
-        fd.append('module_id', data.module_id);
-        fd.append('mapel_id', data.mapel_id);
+        fd.append('categoryId', data.category_id);
+        fd.append('modulId', data.module_id);
+        fd.append('mapelId', data.mapel_id);
         fd.append('file', this.file, this.filename);
 
-        this._soalService.createBulkSoal(fd).subscribe();
+        this._soalService.createBulkSoal(fd).subscribe(() => {
+            this._soalService.getSoals().subscribe();
+            this.dialogRef.close();
+        });
     }
 }
