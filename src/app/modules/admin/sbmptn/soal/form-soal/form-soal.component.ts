@@ -54,7 +54,7 @@ export class FormSoalComponent implements OnInit {
          * Initial form
          */
         this.form = this.formBuilder.group({
-            title: '',
+            // title: '',
             content: '',
             value1: '',
             value2: '',
