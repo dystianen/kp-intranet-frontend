@@ -80,7 +80,7 @@ export class SoalService {
     updateSoal(id: number, data: any): Observable<any> {
         return this.soal$.pipe(
             take(1),
-            switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/admin/soal/bulk-upload`, data)
+            switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/admin/soal`, data)
                 .pipe(map((response: any) => {
                     if (response.statusCode === 200) {
                         return response.data;
