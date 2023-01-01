@@ -1,10 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { identity, omit, omitBy, pick } from 'lodash';
+import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { MapelService } from '../../mapel/mapel.service';
 import { ModuleService } from '../../module/module.service';
 import { SoalCategoryService } from '../../soal-category/soal-category.service';
+import { TryoutModuleService } from '../../tryout-module/tryout-module.service';
+import { TryoutTypeService } from '../../tryout-type/tryout-type.service';
 import { SoalService } from '../soal.service';
 
 @Component({
@@ -14,8 +18,15 @@ import { SoalService } from '../soal.service';
 })
 export class FormSoalComponent implements OnInit {
     modules$: Observable<any[]>;
+    moduleTyouts$: Observable<any[]>;
+    tryoutTypes$: Observable<any[]>;
     modules: any[] = [];
     mapels: any[] = [];
+    
+    tryoutTypes: any[] = [];
+    tryoutModules: any[] = [];
+    tryoutTopics: any[] = [];
+    tryoutSubtopics: any[] = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -24,7 +35,9 @@ export class FormSoalComponent implements OnInit {
         private _soalService: SoalService,
         private _categoryService: SoalCategoryService,
         private _moduleService: ModuleService,
-        private _mapelService: MapelService
+        private _mapelService: MapelService,
+        private _moduleTryoutService: TryoutModuleService,
+        private _tryoutTypeService: TryoutTypeService
     ) {}
 
     form: FormGroup;
@@ -36,6 +49,11 @@ export class FormSoalComponent implements OnInit {
 
     ngOnInit(): void {
         this.modules$ = this._moduleService.modules$;
+        this.tryoutTypes$ = this._tryoutTypeService.types$;
+
+        this._tryoutTypeService.types$.subscribe((res) => {
+            this.tryoutTypes = res;
+        });
         this._moduleService.modules$.subscribe((res) => {
             this.modules = res;
         });
@@ -65,6 +83,10 @@ export class FormSoalComponent implements OnInit {
             mapel_id: '',
             module_id: '',
             level: '',
+            tryout_module_id:'',
+            tryout_subtopic_id:'',
+            tryout_topic_id:'',
+            tryout_type_id:'',
         });
 
         this._soalService._jawabans.subscribe((item) => {
@@ -104,7 +126,8 @@ export class FormSoalComponent implements OnInit {
                     },
                 },
             };
-            this._soalService.createSoal(data).subscribe((res) => {
+            const filterData  = omitBy(data,v => v === "" || v === null);
+            this._soalService.createSoal(filterData).subscribe((res) => {
                 this._soalService.getSoals().subscribe();
                 this.dialogRef.close();
             });
@@ -135,6 +158,27 @@ export class FormSoalComponent implements OnInit {
         const module = this.modules.find((item) => item.id === module_id);
         if (module) {
             this.mapels = module.mapel;
+        }
+    }
+
+    changeTryoutType(id_type) {
+        const module = this.tryoutTypes.find((item) => item.id === id_type);
+        if (module) {
+            this.tryoutModules = module.type_modul;
+        }
+    }
+
+    changeTryoutModule(id_module) {
+        const module = this.tryoutModules.find((item) => item.id === id_module);
+        if (module) {
+            this.tryoutTopics = module.topic;
+        }
+    }
+
+    changeTryoutTopic(id) {
+        const module = this.tryoutTopics.find((item) => item.id === id);
+        if (module) {
+            this.tryoutSubtopics = module.subtopic;
         }
     }
 }

@@ -16,6 +16,8 @@ import { ModuleResolver } from '../module/module.resolver';
 import { MapelResolver } from '../mapel/mapel.resolver';
 import { SoalPreviewComponent } from './soal-preview/soal-preview.component';
 import { FormUploadComponent } from './form-upload/form-upload.component';
+import { TryoutModuleResolver } from '../tryout-module/tryout-module.resolver';
+import { TryoutTypeResolver } from '../tryout-type/tryout-type.resolver';
 
 const routes: Routes = [
   {
@@ -29,7 +31,8 @@ const routes: Routes = [
           soals: SoalResolver,
           category: SoalCategoryResolver,
           modules: ModuleResolver,
-          mapels: MapelResolver
+          mapels: MapelResolver,
+          tryoutType: TryoutTypeResolver
         }
       }
     ]
