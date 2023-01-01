@@ -22,13 +22,33 @@
         <table mat-table [dataSource]="dataSource" class="w-full">
 
             <ng-container matColumnDef="key">
-                <th mat-header-cell *matHeaderCellDef> Key/Code</th>
+                <th mat-header-cell *matHeaderCellDef> Code</th>
                 <td mat-cell *matCellDef="let element"> {{element.key}} </td>
             </ng-container>
 
             <ng-container matColumnDef="value">
                 <th mat-header-cell *matHeaderCellDef> Value </th>
                 <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="value2">
+                <th mat-header-cell *matHeaderCellDef> Value2 </th>
+                <td mat-cell *matCellDef="let element"> {{element.value2}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="value3">
+                <th mat-header-cell *matHeaderCellDef> Value3 </th>
+                <td mat-cell *matCellDef="let element"> {{element.value3}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="value4">
+                <th mat-header-cell *matHeaderCellDef> Value4 </th>
+                <td mat-cell *matCellDef="let element"> {{element.value4}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="value5">
+                <th mat-header-cell *matHeaderCellDef> Value 5</th>
+                <td mat-cell *matCellDef="let element"> {{element.value5}} </td>
             </ng-container>
 
             <ng-container matColumnDef="description">
