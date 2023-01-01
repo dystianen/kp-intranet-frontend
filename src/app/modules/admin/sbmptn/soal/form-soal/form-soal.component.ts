@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { MapelService } from '../../mapel/mapel.service';
 import { ModuleService } from '../../module/module.service';
 import { SoalCategoryService } from '../../soal-category/soal-category.service';
-import { TryoutModuleService } from '../../tryout-module/tryout-module.service';
 import { TryoutTypeService } from '../../tryout-type/tryout-type.service';
 import { SoalService } from '../soal.service';
 
@@ -36,7 +35,6 @@ export class FormSoalComponent implements OnInit {
         private _categoryService: SoalCategoryService,
         private _moduleService: ModuleService,
         private _mapelService: MapelService,
-        private _moduleTryoutService: TryoutModuleService,
         private _tryoutTypeService: TryoutTypeService
     ) {}
 

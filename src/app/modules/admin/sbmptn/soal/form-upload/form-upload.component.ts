@@ -7,6 +7,7 @@ import { ModuleService } from '../../module/module.service';
 import { SoalPreviewComponent } from '../soal-preview/soal-preview.component';
 import { Observable } from 'rxjs';
 import { SoalService } from '../soal.service';
+import { TryoutTypeService } from '../../tryout-type/tryout-type.service';
 
 @Component({
     selector: 'app-form-upload',
@@ -19,9 +20,17 @@ export class FormUploadComponent implements OnInit {
     modules: any[] = [];
     mapels: any[] = [];
     form: FormGroup;
-    isDisabled: boolean = true;
+    isDisabled: boolean = false;
     filename: string;
     file: any;
+
+    moduleTyouts$: Observable<any[]>;
+    tryoutTypes$: Observable<any[]>;
+    
+    tryoutTypes: any[] = [];
+    tryoutModules: any[] = [];
+    tryoutTopics: any[] = [];
+    tryoutSubtopics: any[] = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -32,6 +41,7 @@ export class FormUploadComponent implements OnInit {
         private _soalService: SoalService,
         private dialog: MatDialog,
         private dialogRef: MatDialogRef<FormUploadComponent>,
+        private _tryoutTypeService: TryoutTypeService
     ) {
     }
 
@@ -45,6 +55,12 @@ export class FormUploadComponent implements OnInit {
             this.categories = item;
         });
 
+        this.tryoutTypes$ = this._tryoutTypeService.types$;
+
+        this._tryoutTypeService.types$.subscribe((res) => {
+            this.tryoutTypes = res;
+        });
+
         /**
          * Initial form
          */
@@ -52,6 +68,10 @@ export class FormUploadComponent implements OnInit {
             category_id: '',
             mapel_id: '',
             module_id: '',
+            tryout_module_id:'',
+            tryout_subtopic_id:'',
+            tryout_topic_id:'',
+            tryout_type_id:'',
         });
     }
 
@@ -66,6 +86,27 @@ export class FormUploadComponent implements OnInit {
 
     changeMapel() {
         this.isDisabled = false;
+    }
+
+    changeTryoutType(id_type) {
+        const module = this.tryoutTypes.find((item) => item.id === id_type);
+        if (module) {
+            this.tryoutModules = module.type_modul;
+        }
+    }
+
+    changeTryoutModule(id_module) {
+        const module = this.tryoutModules.find((item) => item.id === id_module);
+        if (module) {
+            this.tryoutTopics = module.topic;
+        }
+    }
+
+    changeTryoutTopic(id) {
+        const module = this.tryoutTopics.find((item) => item.id === id);
+        if (module) {
+            this.tryoutSubtopics = module.subtopic;
+        }
     }
 
     b64toBlob(b64Data, contentType, sliceSize = 512) {

@@ -1,5 +1,5 @@
 <div class="w-200">
-    <h1 mat-dialog-title>{{ dialogData.title }} </h1>
+    <h1 mat-dialog-title>{{ dialogData.title }}</h1>
 
     <form
         [formGroup]="form"
@@ -29,48 +29,137 @@
                         </mat-form-field>
                     </ng-container>
 
-                    <ng-container *ngIf="modules$ | async as modules">
-                        <mat-form-field>
-                            <mat-label>Module</mat-label>
-                            <mat-select
-                                matInput
-                                [formControlName]="'module_id'"
-                                #mdl
-                                (selectionChange)="changeModule(mdl.value)"
-                            >
-                                <mat-option
-                                    *ngFor="let module of modules"
-                                    [value]="module.id"
+                    <ng-container *ngIf="form.value.category_id === 'tryout'">
+                        <ng-container *ngIf="tryoutTypes$ | async as modules">
+                            <mat-form-field>
+                                <mat-label>Type</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'tryout_type_id'"
+                                    #mdl
+                                    (selectionChange)="
+                                        changeTryoutType(mdl.value)
+                                    "
                                 >
-                                    {{ module.name }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                                    <mat-option
+                                        *ngFor="let module of modules"
+                                        [value]="module.id"
+                                    >
+                                        {{ module.title }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="tryoutModules">
+                            <mat-form-field>
+                                <mat-label>Module</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'tryout_module_id'"
+                                    #md
+                                    (selectionChange)="
+                                        changeTryoutModule(md.value)
+                                    "
+                                >
+                                    <mat-option
+                                        *ngFor="let mapel of tryoutModules"
+                                        [value]="mapel.id"
+                                    >
+                                        {{ mapel.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="tryoutTopics">
+                            <mat-form-field>
+                                <mat-label>Topik</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'tryout_topic_id'"
+                                    #tp
+                                    (selectionChange)="
+                                        changeTryoutTopic(tp.value)
+                                    "
+                                >
+                                    <mat-option
+                                        *ngFor="let mapel of tryoutTopics"
+                                        [value]="mapel.id"
+                                    >
+                                        {{ mapel.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="tryoutSubtopics">
+                            <mat-form-field>
+                                <mat-label>Sub Topik</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'tryout_subtopic_id'"
+                                >
+                                    <mat-option
+                                        *ngFor="let mapel of tryoutSubtopics"
+                                        [value]="mapel.id"
+                                    >
+                                        {{ mapel.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
                     </ng-container>
 
-                    <ng-container *ngIf="mapels">
-                        <mat-form-field>
-                            <mat-label>Mapel</mat-label>
-                            <mat-select
-                                matInput
-                                [formControlName]="'mapel_id'"
-                                (selectionChange)="changeMapel()"
-                            >
-                                <mat-option
-                                    *ngFor="let mapel of mapels"
-                                    [value]="mapel.id"
+                    <ng-container
+                        *ngIf="form.value.category_id === 'latihan_soal'"
+                    >
+                        <ng-container *ngIf="modules$ | async as modules">
+                            <mat-form-field>
+                                <mat-label>Module</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'module_id'"
+                                    #mdl
+                                    (selectionChange)="changeModule(mdl.value)"
                                 >
-                                    {{ mapel.mapel_name }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                                    <mat-option
+                                        *ngFor="let module of modules"
+                                        [value]="module.id"
+                                    >
+                                        {{ module.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="mapels">
+                            <mat-form-field>
+                                <mat-label>Mapel</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'mapel_id'"
+                                    (selectionChange)="changeMapel()"
+                                >
+                                    <mat-option
+                                        *ngFor="let mapel of mapels"
+                                        [value]="mapel.id"
+                                    >
+                                        {{ mapel.mapel_name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
                     </ng-container>
 
                     <div class="flex flex-col gap-2">
                         <mat-label class="font-medium">Upload Soal</mat-label>
                         <div class="flex flex-row gap-2">
-                            <button-upload (change)="selectFile($event)" [disabled]="isDisabled"></button-upload>
-                            <span>{{filename}}</span>
+                            <button-upload
+                                (change)="selectFile($event)"
+                                [disabled]="isDisabled"
+                            ></button-upload>
+                            <span>{{ filename }}</span>
                         </div>
                     </div>
                 </div>
