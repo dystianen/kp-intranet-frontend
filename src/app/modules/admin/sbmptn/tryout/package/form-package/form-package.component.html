@@ -1,12 +1,12 @@
 <div class="max-w-full h-full">
     <h1 mat-dialog-title>{{ dialogData.title }}</h1>
 
-    <form [formGroup]="form" id="form" #f="ngForm" novalidate>
+    <form [formGroup]="form" id="form" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
         <div class="flex flex-col w-full">
             <div mat-dialog-content>
                 <mat-form-field class="w-full">
                     <mat-label>Nama Paket</mat-label>
-                    <input matInput placeholder="Ex. Paket A" required />
+                    <input matInput placeholder="Ex. Paket A" required   [formControlName]="'package_name'"/>
                 </mat-form-field>
                 <div class="grid grid-cols-2 gap-2">
                     <ng-container>
@@ -119,7 +119,7 @@
                             <ng-container *ngIf="soals">
                                 <ng-container *ngFor="let item of soals; let i = index">
                                     <div class="my-2">
-                                        <mat-checkbox>
+                                        <mat-checkbox #chk (change)="changeQuestion(chk)" [value]="item.id">
                                            <div class="flex">
                                             <span><b>{{i+1}}</b>.</span> <span class="ml-2" [innerHTML]="item.content"></span>
                                            </div>

@@ -1,12 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SoalCategoryService } from '../../../../sbmptn/soal-category/soal-category.service';
 import { ModuleService } from '../../../../sbmptn/module/module.service';
 import { MapelService } from '../../../../sbmptn/mapel/mapel.service';
 import { TryoutTypeService } from '../../../tryout-type/tryout-type.service';
 import { SoalService } from '../../../soal/soal.service';
+import { PackageService } from '../package.service';
 
 @Component({
     selector: 'app-form-package',
@@ -26,12 +27,14 @@ export class FormPackageComponent implements OnInit {
     moduleTyouts$: Observable<any[]>;
     tryoutTypes$: Observable<any[]>;
     mapels: any[] = [];
-    soals: any[] = [];
+    soals$: any[] = [];
 
     tryoutTypes: any[] = [];
     tryoutModules: any[] = [];
     tryoutTopics: any[] = [];
     tryoutSubtopics: any[] = [];
+
+    questionIds: any[] = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -39,9 +42,9 @@ export class FormPackageComponent implements OnInit {
         private dialogRef: MatDialogRef<any>,
         private _categoryService: SoalCategoryService,
         private _moduleService: ModuleService,
-        private _mapelService: MapelService,
         private _tryoutTypeService: TryoutTypeService,
-        private _soalService: SoalService
+        private _soalService: SoalService,
+        private _packageService: PackageService
     ) {}
 
     ngOnInit(): void {
@@ -57,13 +60,12 @@ export class FormPackageComponent implements OnInit {
         });
 
         this._soalService.soals$.subscribe((soals) => {
-            this.soals = soals;
+            this.soals$ = soals;
         });
 
         this.dlg = { ...this.dialogData };
 
         this._categoryService.soal_categorys$.subscribe((item) => {
-            console.log('test');
             this.categories = item;
         });
 
@@ -71,11 +73,102 @@ export class FormPackageComponent implements OnInit {
          * Initial form
          */
         this.form = this.formBuilder.group({
-            category_id: '',
-            module_id: '',
-            subject_id: '',
-            flag_id: '',
+            package_name: '',
+            tryout_type_id: '',
+            tryout_module_id: '',
+            tryout_topic_id: '',
+            tryout_subtopic_id: '',
         });
+    }
+
+    /**Submit Form to API
+     * @param f
+     */
+    submitForm(f: NgForm) {
+        const form = f.value;
+        const data = {
+            ...form,
+            question_ids: this.questionIds,
+        };
+
+        /**
+         * Add new Destination
+         */
+        if (this.dialogData.type == 'add') {
+            this._packageService.createPackage(data).subscribe((res) => {
+                this._packageService.getPackages().subscribe();
+                this.dialogRef.close();
+            });
+        }
+
+        /**
+         * Update data
+         */
+        if (this.dialogData.type == 'edit') {
+            this._packageService
+                .updatePackage(this.dialogData.id, data)
+                .subscribe((res) => {
+                    this._packageService.getPackages().subscribe();
+                    this.dialogRef.close();
+                });
+        }
+    }
+
+    get soals() {
+        return this.soals$.filter((item) => {
+            if (
+                this.form.value.tryout_type_id &&
+                this.form.value.tryout_module_id &&
+                this.form.value.tryout_topic_id &&
+                this.form.value.tryout_subtopic_id
+            ) {
+                return (
+                    item.category_id === 'tryout' &&
+                    this.form.value.tryout_type_id === item.tryout_type_id &&
+                    this.form.value.tryout_module_id ===
+                        item.tryout_module_id &&
+                    this.form.value.tryout_topic_id === item.tryout_topic_id &&
+                    this.form.value.tryout_subtopic_id ===
+                        item.tryout_subtopic_id
+                );
+            }
+
+            if (
+                this.form.value.tryout_type_id &&
+                this.form.value.tryout_module_id &&
+                this.form.value.tryout_topic_id
+            ) {
+                return (
+                    item.category_id === 'tryout' &&
+                    this.form.value.tryout_type_id === item.tryout_type_id &&
+                    this.form.value.tryout_module_id ===
+                        item.tryout_module_id &&
+                    this.form.value.tryout_topic_id === item.tryout_topic_id
+                );
+            }
+
+            if (
+                this.form.value.tryout_type_id &&
+                this.form.value.tryout_module_id
+            ) {
+                return (
+                    item.category_id === 'tryout' &&
+                    this.form.value.tryout_type_id === item.tryout_type_id &&
+                    this.form.value.tryout_module_id === item.tryout_module_id
+                );
+            }
+
+            if (this.form.value.tryout_type_id) {
+                return (
+                    item.category_id === 'tryout' &&
+                    this.form.value.tryout_type_id === item.tryout_type_id
+                );
+            }
+
+            return item.category_id === 'tryout';
+        });
+        if (this.form.value.tryout_type_id) {
+        }
     }
 
     changeModule(module_id) {
@@ -109,9 +202,18 @@ export class FormPackageComponent implements OnInit {
     onPreview(status): void {
         this.isPreview = status;
     }
-    
-    checkKey(jawaban){
-        return jawaban.find((item)=>item.is_true==true).key??''
-    }
 
+    checkKey(jawaban) {
+        return jawaban.find((item) => item.is_true == true).key ?? '';
+    }
+    changeQuestion(e) {
+        if (e.checked) {
+            this.questionIds.push(e.value);
+        } else {
+            const index = this.questionIds.indexOf(e.value);
+            this.questionIds.splice(index, 1);
+        }
+
+        console.log(this.questionIds);
+    }
 }

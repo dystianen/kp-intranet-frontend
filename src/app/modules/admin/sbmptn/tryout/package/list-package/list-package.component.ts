@@ -26,9 +26,10 @@ export class ListPackageComponent implements OnInit {
     add(): void {
         this.dialog.open(FormPackageComponent, {
             id: 'formPackage',
+            width:'80vw',
             data: {
                 title: 'Buat Paket Soal',
-                type: 'addPackage',
+                type: 'add',
             },
             disableClose: true,
             autoFocus: true

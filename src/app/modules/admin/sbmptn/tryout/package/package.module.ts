@@ -9,6 +9,7 @@ import { ComponentsModule } from 'app/components/components.module';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { TryoutTypeResolver } from '../../tryout-type/tryout-type.resolver';
 import { SoalResolver } from '../../soal/soal.resolver';
+import { PackageResolver } from './package.resolver';
 
 const routes: Routes = [
     {
@@ -20,7 +21,8 @@ const routes: Routes = [
                 component: ListPackageComponent,
                 resolve:{
                     tryoutTypes: TryoutTypeResolver,
-                    soals: SoalResolver
+                    soals: SoalResolver,
+                    packages: PackageResolver
                 }
                 // resolve: {
                 //     schedules: PackageComponent,
