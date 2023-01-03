@@ -4,14 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { ScheduleComponent } from './schedule.component';
 import { ListScheduleComponent } from './list-schedule/list-schedule.component';
 import { ScheduleResolver } from './schedule.resolver';
-import { CrudModule } from '../../../../shared/crud/crud.module';
-import { ComponentsModule } from '../../../../components/components.module';
 import { QuillModule } from 'ngx-quill';
 import { FormScheduleComponent } from './form-schedule/form-schedule.component';
-import { SoalCategoryResolver } from '../../sbmptn/soal-category/soal-category.resolver';
-import { ModuleResolver } from '../../sbmptn/module/module.resolver';
-import { MapelResolver } from '../../sbmptn/mapel/mapel.resolver';
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { SoalCategoryResolver } from '../../soal-category/soal-category.resolver';
+import { ModuleResolver } from '../../module/module.resolver';
+import { MapelResolver } from '../../mapel/mapel.resolver';
+import { CrudModule } from 'app/shared/crud/crud.module';
+import { ComponentsModule } from 'app/components/components.module';
 
 const routes: Routes = [
     {

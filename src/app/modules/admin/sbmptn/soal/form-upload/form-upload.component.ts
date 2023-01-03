@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+    MatDialog,
+    MatDialogRef,
+    MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { SoalCategoryService } from '../../soal-category/soal-category.service';
 import { MapelService } from '../../mapel/mapel.service';
 import { ModuleService } from '../../module/module.service';
@@ -12,7 +16,7 @@ import { TryoutTypeService } from '../../tryout-type/tryout-type.service';
 @Component({
     selector: 'app-form-upload',
     templateUrl: './form-upload.component.html',
-    styleUrls: ['./form-upload.component.scss']
+    styleUrls: ['./form-upload.component.scss'],
 })
 export class FormUploadComponent implements OnInit {
     categories: any[] = [];
@@ -26,7 +30,7 @@ export class FormUploadComponent implements OnInit {
 
     moduleTyouts$: Observable<any[]>;
     tryoutTypes$: Observable<any[]>;
-    
+
     tryoutTypes: any[] = [];
     tryoutModules: any[] = [];
     tryoutTopics: any[] = [];
@@ -42,8 +46,7 @@ export class FormUploadComponent implements OnInit {
         private dialog: MatDialog,
         private dialogRef: MatDialogRef<FormUploadComponent>,
         private _tryoutTypeService: TryoutTypeService
-    ) {
-    }
+    ) {}
 
     ngOnInit(): void {
         this.modules$ = this._moduleService.modules$;
@@ -68,10 +71,10 @@ export class FormUploadComponent implements OnInit {
             category_id: '',
             mapel_id: '',
             module_id: '',
-            tryout_module_id:'',
-            tryout_subtopic_id:'',
-            tryout_topic_id:'',
-            tryout_type_id:'',
+            tryout_module_id: '',
+            tryout_subtopic_id: '',
+            tryout_topic_id: '',
+            tryout_type_id: '',
         });
     }
 
@@ -116,7 +119,11 @@ export class FormUploadComponent implements OnInit {
         const byteCharacters = atob(b64Data);
         const byteArrays = [];
 
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        for (
+            let offset = 0;
+            offset < byteCharacters.length;
+            offset += sliceSize
+        ) {
             const slice = byteCharacters.slice(offset, offset + sliceSize);
 
             const byteNumbers = new Array(slice.length);
@@ -127,12 +134,14 @@ export class FormUploadComponent implements OnInit {
             byteArrays.push(byteArray);
         }
 
-        return new Blob(byteArrays, {type: contentType});
+        return new Blob(byteArrays, { type: contentType });
     }
 
     selectFile(event: any): void {
         if (event.target.files && event.target.files[0]) {
-            const type = event.target.files[0].name.substr(event.target.files[0].name.indexOf('.'));
+            const type = event.target.files[0].name.substr(
+                event.target.files[0].name.indexOf('.')
+            );
             const file = event.target.files[0];
             this.filename = event.target.files[0].name;
 
@@ -151,9 +160,9 @@ export class FormUploadComponent implements OnInit {
                         data: {
                             title: 'Buat Soal dengan Template',
                             type: 'preview',
-                            url: file
+                            url: file,
                         },
-                        autoFocus: true
+                        autoFocus: true,
                     });
                 };
             } else {
@@ -168,10 +177,31 @@ export class FormUploadComponent implements OnInit {
         };
 
         const fd = new FormData();
-        fd.append('categoryId', data.category_id);
-        fd.append('modulId', data.module_id);
-        fd.append('mapelId', data.mapel_id);
-        fd.append('file', this.file, this.filename);
+        if (data.category_id) {
+            fd.append('category_id', data.category_id);
+        }
+        if (data.module_id) {
+            fd.append('module_id', data.module_id);
+        }
+        if (data.mapel_id) {
+            fd.append('mapel_id', data.mapel_id);
+        }
+        if (data.tryout_module_id) {
+            fd.append('tryout_module_id', data.tryout_module_id);
+        }
+        if (data.tryout_subtopic_id) {
+            fd.append('tryout_subtopic_id', data.tryout_subtopic_id);
+        }
+        if (data.tryout_type_id) {
+            fd.append('tryout_type_id', data.tryout_type_id);
+        }
+
+        if (data.tryout_topic_id) {
+            fd.append('tryout_topic_id', data.tryout_topic_id);
+        }
+        if (this.file) {
+            fd.append('file', this.file, this.filename);
+        }
 
         this._soalService.createBulkSoal(fd).subscribe(() => {
             this._soalService.getSoals().subscribe();

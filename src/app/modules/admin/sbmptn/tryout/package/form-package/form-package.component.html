@@ -1,0 +1,156 @@
+<div class="max-w-full h-full">
+    <h1 mat-dialog-title>{{ dialogData.title }}</h1>
+
+    <form [formGroup]="form" id="form" #f="ngForm" novalidate>
+        <div class="flex flex-col w-full">
+            <div mat-dialog-content>
+                <mat-form-field class="w-full">
+                    <mat-label>Nama Paket</mat-label>
+                    <input matInput placeholder="Ex. Paket A" required />
+                </mat-form-field>
+                <div class="grid grid-cols-2 gap-2">
+                    <ng-container>
+                        <ng-container *ngIf="tryoutTypes$ | async as modules">
+                            <mat-form-field>
+                                <mat-label>Type</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'tryout_type_id'"
+                                    #mdl
+                                    (selectionChange)="
+                                        changeTryoutType(mdl.value)
+                                    "
+                                >
+                                    <mat-option
+                                        *ngFor="let module of modules"
+                                        [value]="module.id"
+                                    >
+                                        {{ module.title }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="tryoutModules">
+                            <mat-form-field>
+                                <mat-label>Module</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'tryout_module_id'"
+                                    #md
+                                    (selectionChange)="
+                                        changeTryoutModule(md.value)
+                                    "
+                                >
+                                    <mat-option
+                                        *ngFor="let mapel of tryoutModules"
+                                        [value]="mapel.id"
+                                    >
+                                        {{ mapel.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="tryoutTopics">
+                            <mat-form-field>
+                                <mat-label>Topik</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'tryout_topic_id'"
+                                    #tp
+                                    (selectionChange)="
+                                        changeTryoutTopic(tp.value)
+                                    "
+                                >
+                                    <mat-option
+                                        *ngFor="let mapel of tryoutTopics"
+                                        [value]="mapel.id"
+                                    >
+                                        {{ mapel.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="tryoutSubtopics">
+                            <mat-form-field>
+                                <mat-label>Sub Topik</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'tryout_subtopic_id'"
+                                >
+                                    <mat-option
+                                        *ngFor="let mapel of tryoutSubtopics"
+                                        [value]="mapel.id"
+                                    >
+                                        {{ mapel.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div
+                    class="flex flex-col gap-3 bg-gray-300 rounded-md px-5 pb-5 pt-2"
+                >
+                    <ng-container>
+                        <div class="flex flex-row items-center justify-between">
+                            <p class="font-bold text-lg">Soal</p>
+                            <button
+                                *ngIf="isPreview === false"
+                                mat-button
+                                color="primary"
+                                (click)="onPreview(true)"
+                            >
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+                            <button
+                                *ngIf="isPreview === true"
+                                mat-button
+                                color="primary"
+                                (click)="onPreview(false)"
+                            >
+                                <mat-icon>visibility_off</mat-icon>
+                            </button>
+                        </div>
+
+                        <div>
+                            <ng-container *ngIf="soals">
+                                <ng-container *ngFor="let item of soals; let i = index">
+                                    <div class="my-2">
+                                        <mat-checkbox>
+                                           <div class="flex">
+                                            <span><b>{{i+1}}</b>.</span> <span class="ml-2" [innerHTML]="item.content"></span>
+                                           </div>
+                                        </mat-checkbox>
+                                        <div
+                                            class="flex flex-col pt-2 pl-10"
+                                            *ngIf="isPreview === true"
+                                        >
+                                            <ol class="">
+                                                <ng-container *ngFor="let jwb of item.jawaban">
+                                                    <li>{{jwb.key}}. <span [innerHTML]="jwb.content"></span></li>
+                                                </ng-container>
+                                            </ol>
+                                            <span class="font-bold pt-2"
+                                                >Jawaban Yang Benar: {{checkKey(item.jawaban)}}</span
+                                            >
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div>
+                <div mat-dialog-actions class="flex">
+                    <button-close></button-close>
+                    <button-submit></button-submit>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -104,6 +104,15 @@ export class FormSoalComponent implements OnInit {
                         );
                     });
                 }
+                if(res.tryout_module_id){
+                    this.changeTryoutModule(res.tryout_type_id);
+                }
+                if(res.tryout_type_id){
+                    this.changeTryoutType(res.tryout_type_id);
+                }
+                if(res.tryout_topic_id){
+                    this.changeTryoutTopic(res.tryout_type_id);
+                }
             });
         }
     }

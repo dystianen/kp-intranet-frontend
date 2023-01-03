@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { PackageComponent } from './package.component';
 import { ListPackageComponent } from './list-package/list-package.component';
-import { CrudModule } from '../../../../shared/crud/crud.module';
-import { ComponentsModule } from '../../../../components/components.module';
 import { QuillModule } from 'ngx-quill';
 import { FormPackageComponent } from './form-package/form-package.component';
+import { ComponentsModule } from 'app/components/components.module';
+import { CrudModule } from 'app/shared/crud/crud.module';
+import { TryoutTypeResolver } from '../../tryout-type/tryout-type.resolver';
+import { SoalResolver } from '../../soal/soal.resolver';
 
 const routes: Routes = [
     {
@@ -16,6 +18,10 @@ const routes: Routes = [
             {
                 path: '',
                 component: ListPackageComponent,
+                resolve:{
+                    tryoutTypes: TryoutTypeResolver,
+                    soals: SoalResolver
+                }
                 // resolve: {
                 //     schedules: PackageComponent,
                 // }
