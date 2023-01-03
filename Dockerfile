@@ -10,6 +10,6 @@ RUN yarn
 
 RUN yarn build
 
-CMD ["angular-http-server","--p 3000","dist/intranet"]
+CMD ["angular-http-server","--p 8080","dist/intranet"]
 
-EXPOSE 3000
+EXPOSE 8080
