@@ -91,6 +91,9 @@ export const appRoutes: Route[] = [
             { path: 'sbmptn/schedule', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/schedule/schedule.module').then(m => m.ScheduleModule) },
             { path: 'sbmptn/tryout-schedule', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/tryout/schedule/schedule.module').then(m => m.ScheduleModule) },
             { path: 'sbmptn/tryout-package', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/sbmptn/tryout/package/package.module').then(m => m.PackageModule) },
+
+
+            { path: 'zoom/virtual-background', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/zoom-vb/zoom-vb.module').then(m => m.ZoomVbModule) },
         ]
     }
 ];
