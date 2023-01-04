@@ -5,12 +5,16 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { ScheduleService } from '../../schedule/schedule.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ScheduleResolver implements Resolve<boolean> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return of(true);
+export class ScheduleResolver implements Resolve<any> {
+
+  constructor(private _scheduleService: ScheduleService){}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    return this._scheduleService.getSchedules();
   }
 }

@@ -39,6 +39,42 @@
                 </td>
             </ng-container>
 
+            <ng-container matColumnDef="tryout_type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Type
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.tryout_type?.title }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tryout_module">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Module
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.tryout_module?.name }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tryout_topic">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Topik
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.tryout_topic?.name }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tryout_subtopic">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Subtopik
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.tryout_subtopic?.name }}
+                </td>
+            </ng-container>
+
             <ng-container matColumnDef="description">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Deskripsi

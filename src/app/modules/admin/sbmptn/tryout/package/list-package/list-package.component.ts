@@ -16,7 +16,7 @@ export class ListPackageComponent implements OnInit {
     modules: any[] = [];
     mapel: any = {};
     dataSource: MatTableDataSource<any>;
-    displayedColumns: string[] = ['package_name', 'description', 'options'];
+    displayedColumns: string[] = ['package_name', 'description','tryout_type','tryout_module','tryout_topic','tryout_subtopic', 'options'];
 
     constructor(
         private dialog: MatDialog,
