@@ -14,6 +14,8 @@ import { CrudModule } from 'app/shared/crud/crud.module';
 import { ComponentsModule } from 'app/components/components.module';
 import { PackageResolver } from '../package/package.resolver';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { TryoutTypeResolver } from '../../tryout-type/tryout-type.resolver';
+import { SoalResolver } from '../../soal/soal.resolver';
 
 const routes: Routes = [
     {
@@ -25,7 +27,9 @@ const routes: Routes = [
                 component: ListScheduleComponent,
                 resolve: {
                     schedules: ScheduleResolver,
-                    packages: PackageResolver
+                    packages: PackageResolver,
+                    tryoutTypes: TryoutTypeResolver,
+                    soals: SoalResolver,
                 }
             }
         ]

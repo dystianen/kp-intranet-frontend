@@ -52,6 +52,7 @@ export class ZoomVbService {
       switchMap(sites => this._httpClient.post<any>(`${environment.apiPtnUrl}/admin/zoom-vb`, dataUser)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
+            this.getZoomVbs().subscribe();
             return response.data;
           }
           return [];
@@ -70,6 +71,23 @@ export class ZoomVbService {
       switchMap(sites => this._httpClient.patch<any>(`${environment.apiPtnUrl}/admin/zoom-vb/${id}`, data)
         .pipe(map((response: any) => {
           if (response.statusCode == 200) {
+            this.getZoomVbs().subscribe();
+            return response.data;
+          }
+          return [];
+        }))
+      )
+    )
+  }
+
+  deleteZoomVb(id: number): Observable<any> {
+    console.log('abc',id)
+    return this.zoomVbs$.pipe(
+      take(1),
+      switchMap(sites => this._httpClient.delete<any>(`${environment.apiPtnUrl}/admin/zoom-vb/${id}`)
+        .pipe(map((response: any) => {
+          if (response.statusCode == 200) {
+            this.getZoomVbs().subscribe();
             return response.data;
           }
           return [];

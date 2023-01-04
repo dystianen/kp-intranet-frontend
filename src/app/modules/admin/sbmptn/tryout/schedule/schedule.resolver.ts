@@ -5,7 +5,8 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { ScheduleService } from '../../schedule/schedule.service';
+import { ScheduleService } from './schedule.service';
+
 
 @Injectable({
   providedIn: 'root'
