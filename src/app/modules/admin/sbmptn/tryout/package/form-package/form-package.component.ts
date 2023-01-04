@@ -69,11 +69,21 @@ export class FormPackageComponent implements OnInit {
             this.categories = item;
         });
 
+        if (this.dialogData.type == 'edit') {
+            this._packageService.getPackage(this.dialogData.id).subscribe((res) => {
+              this.form.patchValue(res);
+              if(res.question_ids){
+                this.questionIds = res.question_ids;
+              }
+            })
+          }
+
         /**
          * Initial form
          */
         this.form = this.formBuilder.group({
             package_name: '',
+            description:'',
             tryout_type_id: '',
             tryout_module_id: '',
             tryout_topic_id: '',
@@ -215,5 +225,9 @@ export class FormPackageComponent implements OnInit {
         }
 
         console.log(this.questionIds);
+    }
+
+    isQuestionCheck(id){
+        return this.questionIds.includes(id);
     }
 }

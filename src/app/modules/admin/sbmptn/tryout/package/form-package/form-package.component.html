@@ -1,13 +1,32 @@
 <div class="max-w-full h-full">
     <h1 mat-dialog-title>{{ dialogData.title }}</h1>
 
-    <form [formGroup]="form" id="form" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
+    <form
+        [formGroup]="form"
+        id="form"
+        #f="ngForm"
+        (ngSubmit)="submitForm(f)"
+        novalidate
+    >
         <div class="flex flex-col w-full">
             <div mat-dialog-content>
                 <mat-form-field class="w-full">
                     <mat-label>Nama Paket</mat-label>
-                    <input matInput placeholder="Ex. Paket A" required   [formControlName]="'package_name'"/>
+                    <input
+                        matInput
+                        placeholder="Ex. Paket A"
+                        required
+                        [formControlName]="'package_name'"
+                    />
                 </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>Deksripsi</mat-label>
+                    <textarea
+                        matInput
+                        [formControlName]="'description'"
+                    ></textarea>
+                </mat-form-field>
+
                 <div class="grid grid-cols-2 gap-2">
                     <ng-container>
                         <ng-container *ngIf="tryoutTypes$ | async as modules">
@@ -117,24 +136,52 @@
 
                         <div>
                             <ng-container *ngIf="soals">
-                                <ng-container *ngFor="let item of soals; let i = index">
+                                <ng-container
+                                    *ngFor="let item of soals; let i = index"
+                                >
                                     <div class="my-2">
-                                        <mat-checkbox #chk (change)="changeQuestion(chk)" [value]="item.id">
-                                           <div class="flex">
-                                            <span><b>{{i+1}}</b>.</span> <span class="ml-2" [innerHTML]="item.content"></span>
-                                           </div>
+                                        <mat-checkbox
+                                            #chk
+                                            (change)="changeQuestion(chk)"
+                                            [value]="item.id"
+                                            [checked]="isQuestionCheck(item.id)"
+                                        >
+                                            <div class="flex">
+                                                <span
+                                                    ><b>{{ i + 1 }}</b
+                                                    >.</span
+                                                >
+                                                <span
+                                                    class="ml-2"
+                                                    [innerHTML]="item.content"
+                                                ></span>
+                                            </div>
                                         </mat-checkbox>
                                         <div
                                             class="flex flex-col pt-2 pl-10"
                                             *ngIf="isPreview === true"
                                         >
                                             <ol class="">
-                                                <ng-container *ngFor="let jwb of item.jawaban">
-                                                    <li>{{jwb.key}}. <span [innerHTML]="jwb.content"></span></li>
+                                                <ng-container
+                                                    *ngFor="
+                                                        let jwb of item.jawaban
+                                                    "
+                                                >
+                                                    <li>
+                                                        {{ jwb.key }}.
+                                                        <span
+                                                            [innerHTML]="
+                                                                jwb.content
+                                                            "
+                                                        ></span>
+                                                    </li>
                                                 </ng-container>
                                             </ol>
                                             <span class="font-bold pt-2"
-                                                >Jawaban Yang Benar: {{checkKey(item.jawaban)}}</span
+                                                >Jawaban Yang Benar:
+                                                {{
+                                                    checkKey(item.jawaban)
+                                                }}</span
                                             >
                                         </div>
                                     </div>
