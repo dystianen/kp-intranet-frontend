@@ -8,37 +8,42 @@ import { ScheduleResolver } from './schedule.resolver';
 import { CrudModule } from 'app/shared/crud/crud.module';
 import { ModuleResolver } from '../module/module.resolver';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ScheduleComponent,
-    children: [
-      {
+    {
         path: '',
-        component: ListScheduleComponent,
-        resolve: {
-          schedules: ScheduleResolver,
-          modules: ModuleResolver
-        }
-      }
-    ]
-  }
-]
+        component: ScheduleComponent,
+        children: [
+            {
+                path: '',
+                component: ListScheduleComponent,
+                resolve: {
+                    schedules: ScheduleResolver,
+                    modules: ModuleResolver,
+                },
+            },
+        ],
+    },
+];
 
 @NgModule({
-  declarations: [
-    ScheduleComponent,
-    FormScheduleComponent,
-    ListScheduleComponent
-  ],
-  imports: [
-    CommonModule,
-    CrudModule,
-    RouterModule.forChild(routes),
-    MatDatepickerModule,
-    NgxMaterialTimepickerModule
-  ]
+    declarations: [
+        ScheduleComponent,
+        FormScheduleComponent,
+        ListScheduleComponent,
+    ],
+    imports: [
+        CommonModule,
+        CrudModule,
+        RouterModule.forChild(routes),
+        MatDatepickerModule,
+        NgxMaterialTimepickerModule,
+        MatDatepickerModule,
+        NgxMatNativeDateModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+    ],
 })
-export class ScheduleModule { }
+export class ScheduleModule {}

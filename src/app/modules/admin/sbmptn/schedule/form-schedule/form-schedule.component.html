@@ -1,17 +1,33 @@
 <div class="w-100">
-    <h1 mat-dialog-title>{{ dialogData.title }} </h1>
+    <h1 mat-dialog-title>{{ dialogData.title }}</h1>
 
-    <form [formGroup]="form" id="form" #f="ngForm" (ngSubmit)="submitForm(f)" novalidate>
+    <form
+        [formGroup]="form"
+        id="form"
+        #f="ngForm"
+        (ngSubmit)="submitForm(f)"
+        novalidate
+    >
         <div class="flex flex-col w-full">
             <div mat-dialog-content>
                 <div class="flex flex-col w-full">
-                    <ng-container *ngIf="(modules$ | async) as modules">
+                    <ng-container *ngIf="modules$ | async as modules">
                         <mat-form-field>
                             <mat-label>Module</mat-label>
-                            <mat-select matInput [formControlName]="'mapel_module_id'" #module_id
-                                (selectionChange)="onChangeModule(module_id.value)" required>
-                                <mat-option *ngFor="let module of modules" [value]="module.id">
-                                    {{module.name}}
+                            <mat-select
+                                matInput
+                                [formControlName]="'mapel_module_id'"
+                                #module_id
+                                (selectionChange)="
+                                    onChangeModule(module_id.value)
+                                "
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let module of modules"
+                                    [value]="module.id"
+                                >
+                                    {{ module.name }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -19,9 +35,16 @@
                     <ng-container *ngIf="mapels">
                         <mat-form-field>
                             <mat-label>Mapel</mat-label>
-                            <mat-select matInput [formControlName]="'mapel_id'" required>
-                                <mat-option *ngFor="let mapel of mapels" [value]="mapel.id">
-                                    {{mapel.mapel_name}}
+                            <mat-select
+                                matInput
+                                [formControlName]="'mapel_id'"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let mapel of mapels"
+                                    [value]="mapel.id"
+                                >
+                                    {{ mapel.mapel_name }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -29,25 +52,72 @@
                     <ng-container *ngIf="days">
                         <mat-form-field>
                             <mat-label>Hari</mat-label>
-                            <mat-select matInput [formControlName]="'hari'" required>
-                                <mat-option *ngFor="let day of days" [value]="day">
-                                    {{day}}
+                            <mat-select
+                                matInput
+                                [formControlName]="'hari'"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let day of days"
+                                    [value]="day"
+                                >
+                                    {{ day }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </ng-container>
 
-                    <mat-form-field appearance="fill">
+                    <mat-form-field>
+                        <mat-label>Mulai</mat-label>
+                        <input
+                            matInput
+                            class="w-full"
+                            [ngxMatDatetimePicker]="time_start"
+                            placeholder="Choose a date & time"
+                            [formControlName]="'time_start'"
+                        />
+
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="time_start"
+                        ></mat-datepicker-toggle>
+
+                        <ngx-mat-datetime-picker
+                            #time_start
+                        ></ngx-mat-datetime-picker>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Selesai</mat-label>
+                        <input
+                            matInput
+                            class="w-full"
+                            [ngxMatDatetimePicker]="time_end"
+                            placeholder="Choose a date & time"
+                            [formControlName]="'time_end'"
+                        />
+
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="time_end"
+                        ></mat-datepicker-toggle>
+
+                        <ngx-mat-datetime-picker
+                            #time_end
+                        ></ngx-mat-datetime-picker>
+                    </mat-form-field>
+
+                    <!-- <mat-form-field appearance="fill">
                         <mat-label>Mulai</mat-label>
                         <input matInput [ngxTimepicker]="time_start" [formControlName]="'time_start'">
                         <ngx-material-timepicker #time_start></ngx-material-timepicker>
-                    </mat-form-field>
+                    </mat-form-field> -->
 
-                    <mat-form-field appearance="fill">
+                    <!-- <mat-form-field appearance="fill">
                         <mat-label>Selesai</mat-label>
                         <input matInput [ngxTimepicker]="time_end" [formControlName]="'time_end'">
                         <ngx-material-timepicker #time_end></ngx-material-timepicker>
-                    </mat-form-field>
+                    </mat-form-field> -->
                 </div>
             </div>
 
@@ -58,7 +128,5 @@
                 </div>
             </div>
         </div>
-
     </form>
-
 </div>
