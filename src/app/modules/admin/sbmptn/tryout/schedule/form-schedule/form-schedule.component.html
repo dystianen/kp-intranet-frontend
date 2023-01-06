@@ -142,6 +142,13 @@
                                         <span>
                                             <mat-checkbox
                                                 [value]="item.id"
+                                                [checked]="
+                                                    inputCheckTypeTryout(
+                                                        item.id
+                                                    )
+                                                "
+                                                #chk
+                                                (change)="handleChangeType(chk)"
                                             ></mat-checkbox>
                                         </span>
                                     </div>
@@ -158,7 +165,7 @@
                         <p class="font-bold text-lg">Filter Soal</p>
                         <div class="grid grid-cols-2 gap-2">
                             <ng-container>
-                                <ng-container
+                                <!-- <ng-container
                                     *ngIf="tryoutTypes$ | async as modules"
                                 >
                                     <mat-form-field>
@@ -179,31 +186,33 @@
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
-                                </ng-container>
+                                </ng-container> -->
 
                                 <ng-container *ngIf="tryoutModules">
-                                    <mat-form-field>
+                                    <div>
                                         <mat-label>Module</mat-label>
-                                        <mat-select
-                                            matInput
-                                            [formControlName]="
-                                                'tryout_module_id'
-                                            "
-                                            #md
-                                            (selectionChange)="
-                                                changeTryoutModule(md.value)
-                                            "
-                                        >
-                                            <mat-option
+
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <ng-container
                                                 *ngFor="
-                                                    let mapel of tryoutModules
+                                                    let item of tryoutModules
                                                 "
-                                                [value]="mapel.id"
                                             >
-                                                {{ mapel.name }}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
+                                                <div
+                                                    class="flex items-center justify-between border py-2 px-1 my-2 bg-white"
+                                                >
+                                                    <label for="">{{
+                                                        item.name
+                                                    }}</label>
+                                                    <span>
+                                                        <mat-checkbox
+                                                            [value]="item.id"
+                                                        ></mat-checkbox>
+                                                    </span>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </div>
                                 </ng-container>
 
                                 <ng-container *ngIf="tryoutTopics">

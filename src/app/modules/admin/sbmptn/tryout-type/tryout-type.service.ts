@@ -12,10 +12,20 @@ export class TryoutTypeService {
   constructor(private _httpClient: HttpClient) { }
 
   private _types: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  private _modules: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  private _topics: BehaviorSubject<any[]> = new BehaviorSubject([]);
   private _type: BehaviorSubject<any> = new BehaviorSubject({});
 
   get types$(): Observable<any[]> {
     return this._types.asObservable();
+  }
+
+  get modules$(): Observable<any[]> {
+    return this._modules.asObservable();
+  }
+
+  get topics$(): Observable<any[]> {
+    return this._topics.asObservable();
   }
 
   get type$(): Observable<any> {
@@ -26,7 +36,8 @@ export class TryoutTypeService {
     return this._httpClient.get<any[]>(`${environment.apiPtnUrl}/admin/tryout-type`).pipe(
       map((response: any) => {
         if (response.statusCode == 200) {
-          this._types.next(response.data);
+          this._types.next(response.data.types);
+          this._modules.next(response.data.modules);
           return response.data;
         }
         return [];

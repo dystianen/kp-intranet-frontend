@@ -65,15 +65,17 @@ export class FormScheduleComponent implements OnInit {
     packages: any[] = [];
     soals$: any[] = [];
 
-    moduleTyouts$: Observable<any[]>;
+    moduleTyouts$: any[] = [];
+    topics$: any[] = [];
     tryoutTypes$: Observable<any[]>;
 
     tryoutTypes: any[] = [];
-    tryoutModules: any[] = [];
-    tryoutTopics: any[] = [];
     tryoutSubtopics: any[] = [];
 
     questionIds: any[] = [];
+
+    inputTypeTryoutIds: any[] = [];
+    inputModuleIds: any[] = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -113,7 +115,46 @@ export class FormScheduleComponent implements OnInit {
 
         this._tryoutTypeService.types$.subscribe((res) => {
             this.tryoutTypes = res;
+            this.inputTypeTryoutIds = res.map((id) => id.id);
         });
+
+        this._tryoutTypeService.modules$.subscribe((res) => {
+            this.moduleTyouts$ = res;
+            this.inputModuleIds = res.map((id) => id.id);
+        });
+
+        this._tryoutTypeService.topics$.subscribe((res) => {
+            this.topics$ = res;
+        });
+    }
+
+    get tryoutModules() {
+        return this.moduleTyouts$;
+    }
+
+    get tryoutTopics(){
+        return this.topics$;
+    }
+
+    /**
+     * check type tryout
+     * @param id
+     * @returns
+     */
+    inputCheckTypeTryout(id) {
+        return this.inputTypeTryoutIds.includes(id);
+    }
+    /**
+     * Handle change tryout
+     * @param e
+     */
+    handleChangeType(e) {
+        if (e.checked == true) {
+            this.inputTypeTryoutIds.push(e.value);
+        } else {
+            const index = this.inputTypeTryoutIds.indexOf(e.value);
+            this.inputTypeTryoutIds.splice(index, 1);
+        }
     }
 
     /**Submit Form to API
@@ -149,80 +190,85 @@ export class FormScheduleComponent implements OnInit {
 
     get soals() {
         return this.soals$.filter((item) => {
-            if (
-                this.form.value.tryout_type_id &&
-                this.form.value.tryout_module_id &&
-                this.form.value.tryout_topic_id &&
-                this.form.value.tryout_subtopic_id
-            ) {
+            if (this.inputTypeTryoutIds.length >= 1) {
                 return (
                     item.category_id === 'tryout' &&
-                    this.form.value.tryout_type_id === item.tryout_type_id &&
-                    this.form.value.tryout_module_id ===
-                        item.tryout_module_id &&
-                    this.form.value.tryout_topic_id === item.tryout_topic_id &&
-                    this.form.value.tryout_subtopic_id ===
-                        item.tryout_subtopic_id
+                    this.inputTypeTryoutIds.includes(item.tryout_type_id)
                 );
             }
 
-            if (
-                this.form.value.tryout_type_id &&
-                this.form.value.tryout_module_id &&
-                this.form.value.tryout_topic_id
-            ) {
-                return (
-                    item.category_id === 'tryout' &&
-                    this.form.value.tryout_type_id === item.tryout_type_id &&
-                    this.form.value.tryout_module_id ===
-                        item.tryout_module_id &&
-                    this.form.value.tryout_topic_id === item.tryout_topic_id
-                );
-            }
+            // if (
+            //     this.inputTypeTryoutIds.length>=1 &&
+            //     this.form.value.tryout_module_id &&
+            //     this.form.value.tryout_topic_id &&
+            //     this.form.value.tryout_subtopic_id
+            // ) {
+            //     return (
+            //         item.category_id === 'tryout' &&
+            //         this.inputTypeTryoutIds.includes(item.tryout_type_id) &&
+            //         this.form.value.tryout_module_id ===
+            //             item.tryout_module_id &&
+            //         this.form.value.tryout_topic_id === item.tryout_topic_id &&
+            //         this.form.value.tryout_subtopic_id ===
+            //             item.tryout_subtopic_id
+            //     );
+            // }
 
-            if (
-                this.form.value.tryout_type_id &&
-                this.form.value.tryout_module_id
-            ) {
-                return (
-                    item.category_id === 'tryout' &&
-                    this.form.value.tryout_type_id === item.tryout_type_id &&
-                    this.form.value.tryout_module_id === item.tryout_module_id
-                );
-            }
+            // if (
+            //     this.form.value.tryout_type_id &&
+            //     this.form.value.tryout_module_id &&
+            //     this.form.value.tryout_topic_id
+            // ) {
+            //     return (
+            //         item.category_id === 'tryout' &&
+            //         this.form.value.tryout_type_id === item.tryout_type_id &&
+            //         this.form.value.tryout_module_id ===
+            //             item.tryout_module_id &&
+            //         this.form.value.tryout_topic_id === item.tryout_topic_id
+            //     );
+            // }
 
-            if (this.form.value.tryout_type_id) {
-                return (
-                    item.category_id === 'tryout' &&
-                    this.form.value.tryout_type_id === item.tryout_type_id
-                );
-            }
+            // if (
+            //     this.form.value.tryout_type_id &&
+            //     this.form.value.tryout_module_id
+            // ) {
+            //     return (
+            //         item.category_id === 'tryout' &&
+            //         this.form.value.tryout_type_id === item.tryout_type_id &&
+            //         this.form.value.tryout_module_id === item.tryout_module_id
+            //     );
+            // }
 
+            // if (this.form.value.tryout_type_id) {
+            //     return (
+            //         item.category_id === 'tryout' &&
+            //         this.form.value.tryout_type_id === item.tryout_type_id
+            //     );
+            // }
+            return false;
             return item.category_id === 'tryout';
         });
-        if (this.form.value.tryout_type_id) {
-        }
     }
 
     changeTryoutType(id_type) {
         const module = this.tryoutTypes.find((item) => item.id === id_type);
         if (module) {
-            this.tryoutModules = module.type_modul;
+            // this.tryoutModules = module.type_modul;
         }
     }
 
     changeTryoutModule(id_module) {
         const module = this.tryoutModules.find((item) => item.id === id_module);
         if (module) {
-            this.tryoutTopics = module.topic;
+            // this.tryoutTopics = module.topic;
         }
     }
 
     changeTryoutTopic(id) {
-        const module = this.tryoutTopics.find((item) => item.id === id);
-        if (module) {
-            this.tryoutSubtopics = module.subtopic;
-        }
+        // const module = this.tryoutTopics.find((item) => item.id === id);
+        // if (module) {
+        //     this.tryoutSubtopics = module.subtopic;
+        // }
     }
 
     onPreview(status): void {
