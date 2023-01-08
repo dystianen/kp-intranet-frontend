@@ -13,7 +13,7 @@ import { ScheduleService } from '../schedule.service';
 export class ListScheduleComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
     dataSource: MatTableDataSource<any>;
-    displayedColumns: string[] = ['no','package_name','description','options'];
+    displayedColumns: string[] = ['no','title','description','schedule_start','schedule_end','options'];
 
     schedules: any[] = [];
 

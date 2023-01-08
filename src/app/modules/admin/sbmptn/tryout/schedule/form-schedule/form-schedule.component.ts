@@ -1,4 +1,10 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
     FormBuilder,
@@ -14,13 +20,14 @@ import { ScheduleService } from '../schedule.service';
 import { SoalService } from '../../../soal/soal.service';
 import { TryoutTypeService } from '../../../tryout-type/tryout-type.service';
 import { Observable } from 'rxjs';
+import { uniqBy } from 'lodash';
 
 @Component({
     selector: 'app-form-schedule',
     templateUrl: './form-schedule.component.html',
     styleUrls: ['./form-schedule.component.scss'],
 })
-export class FormScheduleComponent implements OnInit {
+export class FormScheduleComponent implements OnInit, AfterViewInit {
     @ViewChild('picker') picker: any;
 
     public date: any;
@@ -37,6 +44,7 @@ export class FormScheduleComponent implements OnInit {
     public color: ThemePalette = 'primary';
 
     isPreview: boolean = true;
+    isFilter: boolean = true;
 
     public formGroup = new FormGroup({
         date: new FormControl(null, [Validators.required]),
@@ -67,15 +75,18 @@ export class FormScheduleComponent implements OnInit {
 
     moduleTyouts$: any[] = [];
     topics$: any[] = [];
+    subtopics$: any[] = [];
     tryoutTypes$: Observable<any[]>;
 
     tryoutTypes: any[] = [];
-    tryoutSubtopics: any[] = [];
+    // tryoutSubtopics: any[] = [];
 
     questionIds: any[] = [];
 
     inputTypeTryoutIds: any[] = [];
     inputModuleIds: any[] = [];
+    inputTopicIds: any[] = [];
+    inputSubtopicIds: any[] = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -91,16 +102,11 @@ export class FormScheduleComponent implements OnInit {
         this.date = new Date(2021, 9, 4, 5, 6, 7);
         this.form = this.formBuilder.group({
             title: '',
-            soal_package_id: '',
             schedule_start: '',
             schedule_end: '',
             registration_start: '',
             registration_end: '',
-            description: '',
-            tryout_type_id: '',
-            tryout_module_id: '',
-            tryout_topic_id: '',
-            tryout_subtopic_id: '',
+            description: ''
         });
 
         this.tryoutTypes$ = this._tryoutTypeService.types$;
@@ -126,14 +132,51 @@ export class FormScheduleComponent implements OnInit {
         this._tryoutTypeService.topics$.subscribe((res) => {
             this.topics$ = res;
         });
+
+        this._tryoutTypeService.subtopics$.subscribe((res) => {
+            this.subtopics$ = res;
+        });
+    }
+
+    ngAfterViewInit() {
+        this.inputTopicIds = this.tryoutTopics.map((topic) => topic.id);
+        this.inputSubtopicIds = this.tryoutSubtopics.map((subtopic) => subtopic.id);
     }
 
     get tryoutModules() {
-        return this.moduleTyouts$;
+        let data = this.moduleTyouts$;
+        if (this.inputTypeTryoutIds.length >= 1) {
+            data = this.moduleTyouts$.filter((item) => {
+                return this.inputTypeTryoutIds.includes(item.id_type);
+            });
+        } else {
+            return [];
+        }
+        return uniqBy(data, 'code');
     }
 
-    get tryoutTopics(){
-        return this.topics$;
+    get tryoutTopics() {
+        let data = this.topics$;
+        if (this.inputTypeTryoutIds.length >= 1) {
+            data = this.topics$.filter((item) => {
+                return this.inputTypeTryoutIds.includes(item.id_type);
+            });
+        } else {
+            return [];
+        }
+        return data;
+    }
+
+    get tryoutSubtopics() {
+        let data = this.subtopics$;
+        if (this.inputTopicIds.length >= 1) {
+            data = this.subtopics$.filter((item) => {
+                return this.inputTopicIds.includes(item.id_topic);
+            });
+        } else {
+            return [];
+        }
+        return data;
     }
 
     /**
@@ -142,7 +185,18 @@ export class FormScheduleComponent implements OnInit {
      * @returns
      */
     inputCheckTypeTryout(id) {
-        return this.inputTypeTryoutIds.includes(id);
+        return this.inputTypeTryoutIds.includes(id)??false;
+    }
+    /**
+     * check topics
+     * @param id
+     */
+    inputCheckTopics(id) {
+        return this.inputTopicIds.includes(id)??false;
+    }
+
+    inputCheckSubtopics(id) {
+        return this.inputSubtopicIds.includes(id)??false;
     }
     /**
      * Handle change tryout
@@ -157,15 +211,33 @@ export class FormScheduleComponent implements OnInit {
         }
     }
 
+    handleChangeTopic(e) {
+        if (e.checked == true) {
+            this.inputTopicIds.push(e.value);
+        } else {
+            const index = this.inputTopicIds.indexOf(e.value);
+            this.inputTopicIds.splice(index, 1);
+        }
+    }
+
+    handleChangeSubtopic(e) {
+        if (e.checked == true) {
+            this.inputSubtopicIds.push(e.value);
+        } else {
+            const index = this.inputSubtopicIds.indexOf(e.value);
+            this.inputSubtopicIds.splice(index, 1);
+        }
+    }
+
     /**Submit Form to API
      * @param f
      */
     submitForm(f: NgForm) {
-        alert('aa');
         const form = f.value;
         const data = {
-            ...form,
+            data: form,
             questionIds: this.questionIds,
+            scheduleTypes: this.inputTypeTryoutIds
         };
         /**
          * Add new Destination
@@ -190,62 +262,18 @@ export class FormScheduleComponent implements OnInit {
 
     get soals() {
         return this.soals$.filter((item) => {
+            if (this.inputSubtopicIds.length >= 1) {
+                return (
+                    item.category_id === 'tryout' &&
+                    this.inputSubtopicIds.includes(item.tryout_subtopic_id)
+                );
+            }
             if (this.inputTypeTryoutIds.length >= 1) {
                 return (
                     item.category_id === 'tryout' &&
                     this.inputTypeTryoutIds.includes(item.tryout_type_id)
                 );
             }
-
-            // if (
-            //     this.inputTypeTryoutIds.length>=1 &&
-            //     this.form.value.tryout_module_id &&
-            //     this.form.value.tryout_topic_id &&
-            //     this.form.value.tryout_subtopic_id
-            // ) {
-            //     return (
-            //         item.category_id === 'tryout' &&
-            //         this.inputTypeTryoutIds.includes(item.tryout_type_id) &&
-            //         this.form.value.tryout_module_id ===
-            //             item.tryout_module_id &&
-            //         this.form.value.tryout_topic_id === item.tryout_topic_id &&
-            //         this.form.value.tryout_subtopic_id ===
-            //             item.tryout_subtopic_id
-            //     );
-            // }
-
-            // if (
-            //     this.form.value.tryout_type_id &&
-            //     this.form.value.tryout_module_id &&
-            //     this.form.value.tryout_topic_id
-            // ) {
-            //     return (
-            //         item.category_id === 'tryout' &&
-            //         this.form.value.tryout_type_id === item.tryout_type_id &&
-            //         this.form.value.tryout_module_id ===
-            //             item.tryout_module_id &&
-            //         this.form.value.tryout_topic_id === item.tryout_topic_id
-            //     );
-            // }
-
-            // if (
-            //     this.form.value.tryout_type_id &&
-            //     this.form.value.tryout_module_id
-            // ) {
-            //     return (
-            //         item.category_id === 'tryout' &&
-            //         this.form.value.tryout_type_id === item.tryout_type_id &&
-            //         this.form.value.tryout_module_id === item.tryout_module_id
-            //     );
-            // }
-
-            // if (this.form.value.tryout_type_id) {
-            //     return (
-            //         item.category_id === 'tryout' &&
-            //         this.form.value.tryout_type_id === item.tryout_type_id
-            //     );
-            // }
-            return false;
             return item.category_id === 'tryout';
         });
     }
@@ -274,6 +302,13 @@ export class FormScheduleComponent implements OnInit {
     onPreview(status): void {
         this.isPreview = status;
     }
+    changeFilterVisible(): void {
+        if(this.isFilter==true){
+            this.isFilter = false;
+        }else{
+            this.isFilter = true;
+        }
+    }
 
     checkKey(jawaban) {
         return jawaban.find((item) => item.is_true == true).key ?? '';
@@ -285,8 +320,6 @@ export class FormScheduleComponent implements OnInit {
             const index = this.questionIds.indexOf(e.value);
             this.questionIds.splice(index, 1);
         }
-
-        console.log(this.questionIds);
     }
 
     isQuestionCheck(id) {

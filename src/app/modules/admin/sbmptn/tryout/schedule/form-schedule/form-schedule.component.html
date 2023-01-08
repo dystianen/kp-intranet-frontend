@@ -21,21 +21,6 @@
                                 [formControlName]="'title'"
                             />
                         </mat-form-field>
-                        <!-- <mat-form-field>
-                            <mat-label>Paket</mat-label>
-                            <mat-select
-                                matInput
-                                #ctr
-                                [formControlName]="'soal_package_id'"
-                            >
-                                <mat-option
-                                    *ngFor="let pckg of packages"
-                                    [value]="pckg.id"
-                                >
-                                    {{ pckg.package_name }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field> -->
                     </ng-container>
 
                     <div class="w-full grid grid-cols-2 gap-2">
@@ -162,106 +147,102 @@
                     class="flex flex-col gap-3 bg-gray-300 rounded-md px-5 pb-5 pt-2"
                 >
                     <ng-container>
-                        <p class="font-bold text-lg">Filter Soal</p>
-                        <div class="grid grid-cols-2 gap-2">
-                            <ng-container>
-                                <!-- <ng-container
-                                    *ngIf="tryoutTypes$ | async as modules"
-                                >
-                                    <mat-form-field>
-                                        <mat-label>Type</mat-label>
-                                        <mat-select
-                                            matInput
-                                            [formControlName]="'tryout_type_id'"
-                                            #mdl
-                                            (selectionChange)="
-                                                changeTryoutType(mdl.value)
-                                            "
-                                        >
-                                            <mat-option
-                                                *ngFor="let module of modules"
-                                                [value]="module.id"
-                                            >
-                                                {{ module.title }}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </ng-container> -->
-
-                                <ng-container *ngIf="tryoutModules">
-                                    <div>
-                                        <mat-label>Module</mat-label>
-
-                                        <div class="grid grid-cols-2 gap-3">
-                                            <ng-container
-                                                *ngFor="
-                                                    let item of tryoutModules
-                                                "
-                                            >
-                                                <div
-                                                    class="flex items-center justify-between border py-2 px-1 my-2 bg-white"
-                                                >
-                                                    <label for="">{{
-                                                        item.name
-                                                    }}</label>
-                                                    <span>
-                                                        <mat-checkbox
-                                                            [value]="item.id"
-                                                        ></mat-checkbox>
-                                                    </span>
-                                                </div>
-                                            </ng-container>
-                                        </div>
-                                    </div>
-                                </ng-container>
-
-                                <ng-container *ngIf="tryoutTopics">
-                                    <mat-form-field>
-                                        <mat-label>Topik</mat-label>
-                                        <mat-select
-                                            matInput
-                                            [formControlName]="
-                                                'tryout_topic_id'
-                                            "
-                                            #tp
-                                            (selectionChange)="
-                                                changeTryoutTopic(tp.value)
-                                            "
-                                        >
-                                            <mat-option
-                                                *ngFor="
-                                                    let mapel of tryoutTopics
-                                                "
-                                                [value]="mapel.id"
-                                            >
-                                                {{ mapel.name }}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </ng-container>
-
-                                <ng-container *ngIf="tryoutSubtopics">
-                                    <mat-form-field>
-                                        <mat-label>Sub Topik</mat-label>
-                                        <mat-select
-                                            matInput
-                                            [formControlName]="
-                                                'tryout_subtopic_id'
-                                            "
-                                        >
-                                            <mat-option
-                                                *ngFor="
-                                                    let mapel of tryoutSubtopics
-                                                "
-                                                [value]="mapel.id"
-                                            >
-                                                {{ mapel.name }}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </ng-container>
-                            </ng-container>
+                        <div class="flex justify-between items-center">
+                            <p class="font-bold text-lg">Filter Soal</p>
+                            <button
+                                type="button"
+                                mat-button
+                                color="primary"
+                                (click)="changeFilterVisible()"
+                            >
+                                <mat-icon>{{
+                                    isFilter ? "visibility" : "visibility_off"
+                                }}</mat-icon>
+                            </button>
                         </div>
+                        <ng-container *ngIf="isFilter">
+                            <div class="grid grid-cols-1 gap-2">
+                                <ng-container>
+                                    <ng-container *ngIf="tryoutTopics">
+                                        <div>
+                                            <mat-label>Topik</mat-label>
+                                            <div class="grid grid-cols-4 gap-3">
+                                                <ng-container
+                                                    *ngFor="
+                                                        let item of tryoutTopics
+                                                    "
+                                                >
+                                                    <div
+                                                        class="flex items-center justify-between border py-2 px-1 my-2 bg-white"
+                                                    >
+                                                        <label for="">{{
+                                                            item.name
+                                                        }}</label>
+                                                        <span>
+                                                            <mat-checkbox
+                                                                [checked]="
+                                                                    inputCheckTopics(
+                                                                        item.id
+                                                                    )
+                                                                "
+                                                                [value]="
+                                                                    item.id
+                                                                "
+                                                                #chk1
+                                                                (change)="
+                                                                    handleChangeTopic(
+                                                                        chk1
+                                                                    )
+                                                                "
+                                                            ></mat-checkbox>
+                                                        </span>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="tryoutSubtopics">
+                                        <div>
+                                            <mat-label>Sub Topik</mat-label>
+                                            <div class="grid grid-cols-4 gap-3">
+                                                <ng-container
+                                                    *ngFor="
+                                                        let item of tryoutSubtopics
+                                                    "
+                                                >
+                                                    <div
+                                                        class="flex items-center justify-between border py-2 px-1 my-2 bg-white"
+                                                    >
+                                                        <label for="">{{
+                                                            item.name
+                                                        }}</label>
+                                                        <span>
+                                                            <mat-checkbox
+                                                                [checked]="
+                                                                    inputCheckSubtopics(
+                                                                        item.id
+                                                                    )
+                                                                "
+                                                                [value]="
+                                                                    item.id
+                                                                "
+                                                                #chk2
+                                                                (change)="
+                                                                    handleChangeSubtopic(
+                                                                        chk2
+                                                                    )
+                                                                "
+                                                            ></mat-checkbox>
+                                                        </span>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </ng-container>
                     </ng-container>
                     <ng-container>
                         <div class="flex flex-row items-center justify-between">

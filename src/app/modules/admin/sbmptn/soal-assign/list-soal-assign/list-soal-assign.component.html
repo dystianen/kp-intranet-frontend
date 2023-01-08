@@ -100,9 +100,9 @@
                             class="p-4 bg-white my-2 flex items-center justify-between"
                         >
                             <div>
-                                <h2>
+                                <h2 class="flex items-center">
                                     #{{ soal.id }}
-                                    {{ soal.title | slice : 0 : 50 }}
+                                    <span class="ml-1" [innerHTML]="soal.content | slice:0:50"></span>...
                                 </h2>
                                 <span
                                     class="text-white p-1"
@@ -141,9 +141,9 @@
                                 ></mat-icon>
                             </button>
                             <div>
-                                <h2>
+                                <h2 class="flex items-center">
                                     #{{ soal.id }}
-                                    {{ soal.title | slice : 0 : 50 }}
+                                    <span class="ml-1" [innerHTML]="soal.content | slice:0:50"></span>...
                                 </h2>
                                 <span
                                     class="text-white p-1"

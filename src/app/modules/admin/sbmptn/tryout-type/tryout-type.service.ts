@@ -14,6 +14,7 @@ export class TryoutTypeService {
   private _types: BehaviorSubject<any[]> = new BehaviorSubject([]);
   private _modules: BehaviorSubject<any[]> = new BehaviorSubject([]);
   private _topics: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  private _subtopics: BehaviorSubject<any[]> = new BehaviorSubject([]);
   private _type: BehaviorSubject<any> = new BehaviorSubject({});
 
   get types$(): Observable<any[]> {
@@ -28,6 +29,10 @@ export class TryoutTypeService {
     return this._topics.asObservable();
   }
 
+  get subtopics$(): Observable<any[]> {
+    return this._subtopics.asObservable();
+  }
+
   get type$(): Observable<any> {
     return this._type.asObservable();
   }
@@ -38,6 +43,8 @@ export class TryoutTypeService {
         if (response.statusCode == 200) {
           this._types.next(response.data.types);
           this._modules.next(response.data.modules);
+          this._topics.next(response.data.topics);
+          this._subtopics.next(response.data.subtopics);
           return response.data;
         }
         return [];
