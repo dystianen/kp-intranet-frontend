@@ -48,6 +48,7 @@
         "angularx-qrcode": "^11.0.0",
         "apexcharts": "3.27.1",
         "ckeditor4-angular": "^3.2.1",
+        "ckeditor5-custom-build": "file:./plugins/ckeditor5",
         "crypto-js": "3.3.0",
         "docx-preview": "^0.1.14",
         "express": "^4.17.1",
