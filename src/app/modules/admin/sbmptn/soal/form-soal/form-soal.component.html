@@ -29,7 +29,7 @@
                         </mat-form-field>
                     </ng-container>
 
-                    <ng-container *ngIf="form.value.category_id==='tryout'">
+                    <ng-container *ngIf="form.value.category_id === 'tryout'">
                         <ng-container *ngIf="tryoutTypes$ | async as modules">
                             <mat-form-field>
                                 <mat-label>Type</mat-label>
@@ -37,7 +37,9 @@
                                     matInput
                                     [formControlName]="'tryout_type_id'"
                                     #mdl
-                                    (selectionChange)="changeTryoutType(mdl.value)"
+                                    (selectionChange)="
+                                        changeTryoutType(mdl.value)
+                                    "
                                 >
                                     <mat-option
                                         *ngFor="let module of modules"
@@ -54,8 +56,11 @@
                                 <mat-label>Module</mat-label>
                                 <mat-select
                                     matInput
-                                    [formControlName]="'tryout_module_id'"  #md
-                                    (selectionChange)="changeTryoutModule(md.value)"
+                                    [formControlName]="'tryout_module_id'"
+                                    #md
+                                    (selectionChange)="
+                                        changeTryoutModule(md.value)
+                                    "
                                 >
                                     <mat-option
                                         *ngFor="let mapel of tryoutModules"
@@ -72,8 +77,11 @@
                                 <mat-label>Topik</mat-label>
                                 <mat-select
                                     matInput
-                                    [formControlName]="'tryout_topic_id'" #tp
-                                    (selectionChange)="changeTryoutTopic(tp.value)"
+                                    [formControlName]="'tryout_topic_id'"
+                                    #tp
+                                    (selectionChange)="
+                                        changeTryoutTopic(tp.value)
+                                    "
                                 >
                                     <mat-option
                                         *ngFor="let mapel of tryoutTopics"
@@ -101,10 +109,11 @@
                                 </mat-select>
                             </mat-form-field>
                         </ng-container>
-
                     </ng-container>
 
-                    <ng-container *ngIf="form.value.category_id==='latihan_soal'">
+                    <ng-container
+                        *ngIf="form.value.category_id === 'latihan_soal'"
+                    >
                         <ng-container *ngIf="modules$ | async as modules">
                             <mat-form-field>
                                 <mat-label>Module</mat-label>
@@ -157,8 +166,10 @@
                         <mat-label>Konten</mat-label>
                         <quill-editor
                             matInput
-                            [formControlName]="'content'"
+                            [formControlName]="'content'" [modules]="modulesEditor"
                         ></quill-editor>
+                        <angular-editor formControlName="content" [config]="editorConfig"></angular-editor>
+                        
                     </div>
                     <div class="my-2">
                         <div class="mt-3">
@@ -170,6 +181,7 @@
                         <quill-editor
                             matInput
                             [formControlName]="'pembahasan'"
+                            [modules]="modulesEditor"
                         ></quill-editor>
                     </div>
                     <div class="my-4 flex flex-col">

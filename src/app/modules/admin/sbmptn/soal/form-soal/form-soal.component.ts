@@ -9,6 +9,18 @@ import { ModuleService } from '../../module/module.service';
 import { SoalCategoryService } from '../../soal-category/soal-category.service';
 import { TryoutTypeService } from '../../tryout-type/tryout-type.service';
 import { SoalService } from '../soal.service';
+import Quill from 'quill';
+import { VideoHandler, ImageHandler, Options } from 'ngx-quill-upload';
+import BlotFormatter from 'quill-blot-formatter/dist/BlotFormatter';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { environment } from 'environments/environment';
+import {ImageResize} from 'quill-image-resize-module';
+// import { Validators, Editor, Toolbar } from 'ngx-editor';
+
+Quill.register('modules/imageHandler', ImageHandler);
+Quill.register('modules/videoHandler', VideoHandler);
+Quill.register('modules/blotFormatter', BlotFormatter);
+// Quill.register('modules/imageResize', ImageResize);
 
 @Component({
     selector: 'app-form-soal',
@@ -21,7 +33,7 @@ export class FormSoalComponent implements OnInit {
     tryoutTypes$: Observable<any[]>;
     modules: any[] = [];
     mapels: any[] = [];
-    
+
     tryoutTypes: any[] = [];
     tryoutModules: any[] = [];
     tryoutTopics: any[] = [];
@@ -44,6 +56,167 @@ export class FormSoalComponent implements OnInit {
     jawabansDeleted = [];
     dlg: any;
     categories: any[] = [];
+
+    // editor: Editor;
+    // toolbar: Toolbar = [
+    //   ['bold', 'italic'],
+    //   ['underline', 'strike'],
+    //   ['code', 'blockquote'],
+    //   ['ordered_list', 'bullet_list'],
+    //   [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    //   ['link', 'image'],
+    //   ['text_color', 'background_color'],
+    //   ['align_left', 'align_center', 'align_right', 'align_justify'],
+    // ];
+  
+
+    modulesEditor = {
+        // imageResize: true,
+        blotFormatter: true,
+        toolbar: [
+            ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+            ['blockquote', 'code-block'],
+
+            [{ header: 1 }, { header: 2 }], // custom button values
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+            [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+            [{ direction: 'rtl' }], // text direction
+
+            [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+            [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+            [{ font: [] }],
+            [{ align: [] }],
+
+            ['clean'],
+            ['image'],
+        ],
+        imageHandler: {
+            upload: (file) => {
+                return new Promise((resolve, reject) => {
+                    if (
+                        file.type === 'image/jpeg' ||
+                        file.type === 'image/png' ||
+                        file.type === 'image/jpg'
+                    ) {
+                        // File types supported for image
+                        if (file.size < 1000000) {
+                            // Customize file size as per requirement
+
+                            // Sample API Call
+                            const uploadData = new FormData();
+                            uploadData.append('file', file);
+                            return this._soalService
+                                .uploadFile(uploadData)
+                                .then((result) => {
+                                    setTimeout(()=>{
+                                        resolve(result.imageUrl); 
+                                    },2000)
+                                })
+                                .catch((error) => {
+                                    reject('Upload failed');
+                                    // Handle error control
+                                    console.error('Error:', error);
+                                });
+                        } else {
+                            reject('Size too large');
+                            // Handle Image size large logic
+                        }
+                    } else {
+                        reject('Unsupported type');
+                        // Handle Unsupported type logic
+                    }
+                });
+            },
+            accepts: ['png', 'jpg', 'jpeg', 'jfif'],
+        } as Options,
+        videoHandler: {
+            upload: (file) => {
+                return; // your uploaded video URL as Promise<string>
+            },
+            accepts: ['mpeg', 'avi'], // Extensions to allow for videos (Optional) | Default - ['mp4', 'webm']
+        } as Options,
+    };
+
+    editorConfig: any = {
+        editable: true,
+        spellcheck: true,
+        height: 'auto',
+        minHeight: '0',
+        maxHeight: 'auto',
+        width: 'auto',
+        minWidth: '0',
+        translate: 'yes',
+        enableToolbar: true,
+        showToolbar: true,
+        placeholder: 'Enter text here...',
+        defaultParagraphSeparator: '',
+        defaultFontName: '',
+        defaultFontSize: '',
+        fonts: [
+            { class: 'arial', name: 'Arial' },
+            { class: 'times-new-roman', name: 'Times New Roman' },
+            { class: 'calibri', name: 'Calibri' },
+            { class: 'comic-sans-ms', name: 'Comic Sans MS' },
+        ],
+        customClasses: [
+            {
+                name: 'quote',
+                class: 'quote',
+            },
+            {
+                name: 'redText',
+                class: 'redText',
+            },
+            {
+                name: 'titleText',
+                class: 'titleText',
+                tag: 'h1',
+            },
+        ],
+        // uploadUrl: `${environment.apiPtnUrl}/admin/soal/upload-media`,
+        // upload: (file) => {
+        //     return new Promise((resolve, reject) => {
+        //         if (
+        //             file.type === 'image/jpeg' ||
+        //             file.type === 'image/png' ||
+        //             file.type === 'image/jpg'
+        //         ) {
+        //             // File types supported for image
+        //             if (file.size < 1000000) {
+        //                 // Customize file size as per requirement
+
+        //                 // Sample API Call
+        //                 const uploadData = new FormData();
+        //                 uploadData.append('image', file);
+        //                 return this._soalService
+        //                     .uploadFile(uploadData)
+        //                     .then((result) => {
+        //                         resolve({imageUrl:'https://storage.googleapis.com/kp-sbmptn/media/temp/soal/081f410a-b935-4a18-9b16-1b2700c34a1fcircle.png'})
+        //                         // resolve(result.data.url); // RETURN IMAGE URL from response
+        //                     })
+        //                     .catch((error) => {
+        //                         reject('Upload failed');
+        //                         // Handle error control
+        //                         console.error('Error:', error);
+        //                     });
+        //             } else {
+        //                 reject('Size too large');
+        //                 // Handle Image size large logic
+        //             }
+        //         } else {
+        //             reject('Unsupported type');
+        //             // Handle Unsupported type logic
+        //         }
+        //     });
+        // },
+        uploadWithCredentials: false,
+        sanitize: true,
+        toolbarPosition: 'top',
+        toolbarHiddenButtons: [['bold', 'italic'], ['fontSize']],
+    };
 
     ngOnInit(): void {
         this.modules$ = this._moduleService.modules$;
@@ -81,10 +254,11 @@ export class FormSoalComponent implements OnInit {
             mapel_id: '',
             module_id: '',
             level: '',
-            tryout_module_id:'',
-            tryout_subtopic_id:'',
-            tryout_topic_id:'',
-            tryout_type_id:'',
+            mark: '',
+            tryout_module_id: '',
+            tryout_subtopic_id: '',
+            tryout_topic_id: '',
+            tryout_type_id: '',
         });
 
         this._soalService._jawabans.subscribe((item) => {
@@ -104,13 +278,13 @@ export class FormSoalComponent implements OnInit {
                         );
                     });
                 }
-                if(res.tryout_module_id){
+                if (res.tryout_module_id) {
                     this.changeTryoutModule(res.tryout_type_id);
                 }
-                if(res.tryout_type_id){
+                if (res.tryout_type_id) {
                     this.changeTryoutType(res.tryout_type_id);
                 }
-                if(res.tryout_topic_id){
+                if (res.tryout_topic_id) {
                     this.changeTryoutTopic(res.tryout_type_id);
                 }
             });
@@ -133,7 +307,7 @@ export class FormSoalComponent implements OnInit {
                     },
                 },
             };
-            const filterData  = omitBy(data,v => v === "" || v === null);
+            const filterData = omitBy(data, (v) => v === '' || v === null);
             this._soalService.createSoal(filterData).subscribe((res) => {
                 this._soalService.getSoals().subscribe();
                 this.dialogRef.close();

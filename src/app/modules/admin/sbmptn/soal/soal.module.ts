@@ -18,6 +18,9 @@ import { SoalPreviewComponent } from './soal-preview/soal-preview.component';
 import { FormUploadComponent } from './form-upload/form-upload.component';
 import { TryoutModuleResolver } from '../tryout-module/tryout-module.resolver';
 import { TryoutTypeResolver } from '../tryout-type/tryout-type.resolver';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+// import { EditorModule } from '@tinymce/tinymce-angular';
+// import { NgxEditorModule } from "ngx-editor";
 
 const routes: Routes = [
   {
@@ -56,6 +59,8 @@ const routes: Routes = [
     ComponentsModule,
     QuillModule.forRoot(),
     MatListModule,
+    AngularEditorModule,
+    // NgxEditorModule
   ]
 })
 export class SoalModule { }
