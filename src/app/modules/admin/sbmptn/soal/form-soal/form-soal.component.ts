@@ -20,6 +20,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor5 } from '@ckeditor/ckeditor5-angular';
 import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
 import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
+import Editor from 'ckeditor5-custom-build/build/ckeditor';
 
 Quill.register('modules/imageHandler', ImageHandler);
 Quill.register('modules/videoHandler', VideoHandler);
@@ -57,7 +58,7 @@ export class FormSoalComponent implements OnInit {
         private _tryoutTypeService: TryoutTypeService
     ) {}
 
-    public Editor = ClassicEditor;
+    public Editor = Editor;
 
     form: FormGroup;
 
@@ -68,12 +69,92 @@ export class FormSoalComponent implements OnInit {
 
     ckeditor5Config = {
         placeholder: 'Type the content here!',
+        toolbar: {
+            items: [
+                'heading',
+                '|',
+                'fontfamily',
+                'fontsize',
+                'alignment',
+                'fontColor',
+                'fontBackgroundColor',
+                '|',
+                'bold',
+                'italic',
+                'strikethrough',
+                'underline',
+                'subscript',
+                'superscript',
+                '|',
+                'link',
+                '|',
+                'outdent',
+                'indent',
+                '|',
+                'bulletedList',
+                '-',
+                'numberedList',
+                'todoList',
+                '|',
+                'code',
+                'codeBlock',
+                '|',
+                'insertTable',
+                '|',
+                'imageUpload',
+                'blockQuote',
+                '|',
+                'todoList',
+                'undo',
+                'redo',
+            ],
+        },
         // plugins: [ SimpleUploadAdapter],
+        image: {
+            // Configure the available styles.
+            styles: ['alignLeft', 'alignCenter', 'alignRight'],
+
+            // Configure the available image resize options.
+            resizeOptions: [
+                {
+                    name: 'resizeImage:original',
+                    label: 'Original',
+                    value: null,
+                },
+                {
+                    name: 'resizeImage:50',
+                    label: '25%',
+                    value: '25',
+                },
+                {
+                    name: 'resizeImage:50',
+                    label: '50%',
+                    value: '50',
+                },
+                {
+                    name: 'resizeImage:75',
+                    label: '75%',
+                    value: '75',
+                },
+            ],
+
+            // You need to configure the image toolbar, too, so it shows the new style
+            // buttons as well as the resize buttons.
+            toolbar: [
+                'imageStyle:alignLeft',
+                'imageStyle:alignCenter',
+                'imageStyle:alignRight',
+                '|',
+                'ImageResize',
+                '|',
+                'imageTextAlternative',
+            ],
+        },
         simpleUpload: {
             // The URL that the images are uploaded to.
             uploadUrl: `${environment.apiPtnUrl}/admin/soal/upload-media`,
-        }
-    }
+        },
+    };
 
     ckeditorConfig = {
         // ImageResize: true,
@@ -263,15 +344,16 @@ export class FormSoalComponent implements OnInit {
         toolbarHiddenButtons: [['bold', 'italic'], ['fontSize']],
     };
 
-    public onReady( editor ) {
-        editor.ui.getEditableElement().parentElement.insertBefore(
-            editor.ui.view.toolbar.element,
-            editor.ui.getEditableElement()
-        );
+    public onReady(editor) {
+        editor.ui
+            .getEditableElement()
+            .parentElement.insertBefore(
+                editor.ui.view.toolbar.element,
+                editor.ui.getEditableElement()
+            );
     }
 
     ngOnInit(): void {
-
         this.modules$ = this._moduleService.modules$;
         this.tryoutTypes$ = this._tryoutTypeService.types$;
 

@@ -185,7 +185,7 @@
                             [formControlName]="'pembahasan'"
                             [modules]="modulesEditor"
                         ></quill-editor> -->
-                        <!-- <ckeditor formControlName="pembahasan"></ckeditor> -->
+                        <ckeditor formControlName="pembahasan" [editor]="Editor" [config]="ckeditor5Config" (ready)="onReady($event)"></ckeditor>
 
                     </div>
                     <div class="my-4 flex flex-col">
