@@ -1,9 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { find, findIndex } from 'lodash';
+import { findIndex } from 'lodash';
 import { SoalService } from '../soal.service';
-import Editor from 'ckeditor5-custom-build/build/ckeditor';
 
 @Component({
   selector: 'form-jawaban',
@@ -21,7 +20,6 @@ export class FormJawabanComponent implements OnInit {
   jawabans: any[] = [];
   activeKey: string = "";
 
-  public Editor = Editor;
 
   ngOnInit(): void {
 

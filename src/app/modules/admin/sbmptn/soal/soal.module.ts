@@ -18,11 +18,8 @@ import { SoalPreviewComponent } from './soal-preview/soal-preview.component';
 import { FormUploadComponent } from './form-upload/form-upload.component';
 import { TryoutModuleResolver } from '../tryout-module/tryout-module.resolver';
 import { TryoutTypeResolver } from '../tryout-type/tryout-type.resolver';
-import { AngularEditorModule } from '@kolkov/angular-editor';
-// import { EditorModule } from '@tinymce/tinymce-angular';
-// import { NgxEditorModule } from "ngx-editor";
-// import { CKEditorModule } from 'ckeditor4-angular';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { MyEditorModule } from 'app/shared/my-editor/my-editor.module';
 
 const routes: Routes = [
   {
@@ -61,9 +58,8 @@ const routes: Routes = [
     ComponentsModule,
     QuillModule.forRoot(),
     MatListModule,
-    AngularEditorModule,
-    // NgxEditorModule,
-    CKEditorModule
+    CKEditorModule,
+    MyEditorModule
   ]
 })
 export class SoalModule { }
