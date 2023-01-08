@@ -164,11 +164,13 @@
                     </mat-form-field>
                     <div>
                         <mat-label>Konten</mat-label>
-                        <quill-editor
+                        <!-- <quill-editor
                             matInput
                             [formControlName]="'content'" [modules]="modulesEditor"
                         ></quill-editor>
-                        <angular-editor formControlName="content" [config]="editorConfig"></angular-editor>
+                        <angular-editor formControlName="content" [config]="editorConfig"></angular-editor> -->
+                        <!-- <ckeditor formControlName="content" [config]="ckeditorConfig"></ckeditor> -->
+                        <ckeditor formControlName="content" [editor]="Editor" [config]="ckeditor5Config" (ready)="onReady($event)"></ckeditor>
                         
                     </div>
                     <div class="my-2">
@@ -178,11 +180,13 @@
                     </div>
                     <div>
                         <mat-label>Pembahasan</mat-label>
-                        <quill-editor
+                        <!-- <quill-editor
                             matInput
                             [formControlName]="'pembahasan'"
                             [modules]="modulesEditor"
-                        ></quill-editor>
+                        ></quill-editor> -->
+                        <!-- <ckeditor formControlName="pembahasan"></ckeditor> -->
+
                     </div>
                     <div class="my-4 flex flex-col">
                         <mat-form-field>

@@ -3152,6 +3152,19 @@ circular-dependency-plugin@5.2.2:
   resolved "https://registry.npmjs.org/circular-dependency-plugin/-/circular-dependency-plugin-5.2.2.tgz"
   integrity sha512-g38K9Cm5WRwlaH6g03B9OEz/0qRizI+2I7n+Gz+L5DxXJAPAiWQvwlYNm1V1jkdpUv95bOe/ASm2vfi/G560jQ==
 
+ckeditor4-angular@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/ckeditor4-angular/-/ckeditor4-angular-3.2.1.tgz#b0ce9947b1190ad44288f3500c402744f0d6cb08"
+  integrity sha512-4UOR9K5wIAQ+4+pBXe4hb4yW+9/kAzjh/s+EaTq53cY8i0h4YU2Pqc9f//oFmWZrNfjigUBJJEqKT3e3N8hFGg==
+  dependencies:
+    ckeditor4-integrations-common "^1.0.0"
+    tslib "^2.2.0"
+
+ckeditor4-integrations-common@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ckeditor4-integrations-common/-/ckeditor4-integrations-common-1.0.0.tgz#a8afc33b94877b4d01362c7c73aa9eec162b2d20"
+  integrity sha512-OAoQT/gYrHkg0qgzf6MS/rndYhq3SScLVQ3rtXQeuCE8ju7nFHg3qZ7WGA2XpFxcZzsMP6hhugXqdel5vbcC3g==
+
 ckeditor5@^35.4.0:
   version "35.4.0"
   resolved "https://registry.yarnpkg.com/ckeditor5/-/ckeditor5-35.4.0.tgz#0ce67af211551b96856b780e3729481cadbb34df"

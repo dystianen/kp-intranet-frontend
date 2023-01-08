@@ -14,13 +14,20 @@ import { VideoHandler, ImageHandler, Options } from 'ngx-quill-upload';
 import BlotFormatter from 'quill-blot-formatter/dist/BlotFormatter';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { environment } from 'environments/environment';
-import {ImageResize} from 'quill-image-resize-module';
+import { ImageResize } from 'quill-image-resize-module';
 // import { Validators, Editor, Toolbar } from 'ngx-editor';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor5 } from '@ckeditor/ckeditor5-angular';
+import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
+import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
 Quill.register('modules/imageHandler', ImageHandler);
 Quill.register('modules/videoHandler', VideoHandler);
 Quill.register('modules/blotFormatter', BlotFormatter);
 // Quill.register('modules/imageResize', ImageResize);
+
+// import EasyImage from '@ckeditor/ckeditor5-easy-image/src/easyimage';
+// import Image from '@ckeditor/ckeditor5-image/src/image';
 
 @Component({
     selector: 'app-form-soal',
@@ -50,12 +57,51 @@ export class FormSoalComponent implements OnInit {
         private _tryoutTypeService: TryoutTypeService
     ) {}
 
+    public Editor = ClassicEditor;
+
     form: FormGroup;
 
     jawaban: any = [];
     jawabansDeleted = [];
     dlg: any;
     categories: any[] = [];
+
+    ckeditor5Config = {
+        placeholder: 'Type the content here!',
+        // plugins: [ SimpleUploadAdapter],
+        simpleUpload: {
+            // The URL that the images are uploaded to.
+            uploadUrl: `${environment.apiPtnUrl}/admin/soal/upload-media`,
+        }
+    }
+
+    ckeditorConfig = {
+        // ImageResize: true,
+        // toolbar: [
+        //     {
+        //         name: 'document',
+        //         items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'],
+        //     },
+        //     {
+        //         name: 'clipboard',
+        //         items: [
+        //             'Cut',
+        //             'Copy',
+        //             'Paste',
+        //             'PasteText',
+        //             'PasteFromWord',
+        //             '-',
+        //             'Undo',
+        //             'Redo',
+        //         ],
+        //     },
+        //     '/',
+        //     { name: 'basicstyles', items: ['Bold', 'Italic'] },
+        //     {
+        //         name:'paragraph', items:['NumberedList','BulletedList']
+        //     }
+        // ],
+    };
 
     // editor: Editor;
     // toolbar: Toolbar = [
@@ -68,7 +114,6 @@ export class FormSoalComponent implements OnInit {
     //   ['text_color', 'background_color'],
     //   ['align_left', 'align_center', 'align_right', 'align_justify'],
     // ];
-  
 
     modulesEditor = {
         // imageResize: true,
@@ -111,9 +156,9 @@ export class FormSoalComponent implements OnInit {
                             return this._soalService
                                 .uploadFile(uploadData)
                                 .then((result) => {
-                                    setTimeout(()=>{
-                                        resolve(result.imageUrl); 
-                                    },2000)
+                                    setTimeout(() => {
+                                        resolve(result.imageUrl);
+                                    }, 2000);
                                 })
                                 .catch((error) => {
                                     reject('Upload failed');
@@ -218,7 +263,15 @@ export class FormSoalComponent implements OnInit {
         toolbarHiddenButtons: [['bold', 'italic'], ['fontSize']],
     };
 
+    public onReady( editor ) {
+        editor.ui.getEditableElement().parentElement.insertBefore(
+            editor.ui.view.toolbar.element,
+            editor.ui.getEditableElement()
+        );
+    }
+
     ngOnInit(): void {
+
         this.modules$ = this._moduleService.modules$;
         this.tryoutTypes$ = this._tryoutTypeService.types$;
 

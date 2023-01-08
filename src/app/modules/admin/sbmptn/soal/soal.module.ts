@@ -21,6 +21,8 @@ import { TryoutTypeResolver } from '../tryout-type/tryout-type.resolver';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 // import { EditorModule } from '@tinymce/tinymce-angular';
 // import { NgxEditorModule } from "ngx-editor";
+// import { CKEditorModule } from 'ckeditor4-angular';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 const routes: Routes = [
   {
@@ -60,7 +62,8 @@ const routes: Routes = [
     QuillModule.forRoot(),
     MatListModule,
     AngularEditorModule,
-    // NgxEditorModule
+    // NgxEditorModule,
+    CKEditorModule
   ]
 })
 export class SoalModule { }
