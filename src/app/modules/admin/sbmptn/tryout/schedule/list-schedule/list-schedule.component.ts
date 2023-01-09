@@ -41,4 +41,18 @@ export class ListScheduleComponent implements OnInit {
             autoFocus: true,
         });
     }
+
+    edit(id): void {
+        this.dialog.open(FormScheduleComponent, {
+            id: 'formSchedule',
+            width: '90vw',
+            data: {
+                title: 'Edit Jadwal Try Out',
+                type: 'edit',
+                id: id,
+            },
+            disableClose: true,
+            autoFocus: true,
+        });
+    }
 }

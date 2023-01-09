@@ -20,7 +20,7 @@ import { ScheduleService } from '../schedule.service';
 import { SoalService } from '../../../soal/soal.service';
 import { TryoutTypeService } from '../../../tryout-type/tryout-type.service';
 import { Observable } from 'rxjs';
-import { uniqBy } from 'lodash';
+import { uniq, uniqBy } from 'lodash';
 
 @Component({
     selector: 'app-form-schedule',
@@ -88,6 +88,9 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
     inputTopicIds: any[] = [];
     inputSubtopicIds: any[] = [];
 
+    questionDelete: any[] = [];
+    typeDelete: any[] = [];
+
     constructor(
         private formBuilder: FormBuilder,
         @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -106,8 +109,39 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
             schedule_end: '',
             registration_start: '',
             registration_end: '',
-            description: ''
+            description: '',
         });
+
+        if (this.dialogData.type == 'edit') {
+            this._scheduleService
+                .getSchedule(this.dialogData.id)
+                .subscribe((res) => {
+                    this.form.patchValue(res);
+                    if (res.schedule_type) {
+                        this.inputTypeTryoutIds = res.schedule_type.map(
+                            (item) => item.id_type
+                        );
+                    }
+                    if (res.question_assign) {
+                        const topicIds = res.question_assign.map(
+                            (item) => item.id_topic
+                        );
+                        if (topicIds) {
+                            this.inputTopicIds = uniq(topicIds);
+                        }
+
+                        const subtopicIds = res.question_assign.map(
+                            (item) => item.id_subtopic
+                        );
+                        if (subtopicIds) {
+                            this.inputSubtopicIds = uniq(subtopicIds);
+                        }
+                        this.questionIds = res.question_assign.map(
+                            (item) => item.id_question
+                        );
+                    }
+                });
+        }
 
         this.tryoutTypes$ = this._tryoutTypeService.types$;
 
@@ -140,7 +174,9 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         this.inputTopicIds = this.tryoutTopics.map((topic) => topic.id);
-        this.inputSubtopicIds = this.tryoutSubtopics.map((subtopic) => subtopic.id);
+        this.inputSubtopicIds = this.tryoutSubtopics.map(
+            (subtopic) => subtopic.id
+        );
     }
 
     get tryoutModules() {
@@ -185,18 +221,18 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
      * @returns
      */
     inputCheckTypeTryout(id) {
-        return this.inputTypeTryoutIds.includes(id)??false;
+        return this.inputTypeTryoutIds.includes(id) ?? false;
     }
     /**
      * check topics
      * @param id
      */
     inputCheckTopics(id) {
-        return this.inputTopicIds.includes(id)??false;
+        return this.inputTopicIds.includes(id) ?? false;
     }
 
     inputCheckSubtopics(id) {
-        return this.inputSubtopicIds.includes(id)??false;
+        return this.inputSubtopicIds.includes(id) ?? false;
     }
     /**
      * Handle change tryout
@@ -205,9 +241,15 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
     handleChangeType(e) {
         if (e.checked == true) {
             this.inputTypeTryoutIds.push(e.value);
+            const checkType = this.typeDelete.find((item) => item === e.value);
+            if (checkType) {
+                const index = this.typeDelete.indexOf(e.value);
+                this.typeDelete.splice(index, 1);
+            }
         } else {
             const index = this.inputTypeTryoutIds.indexOf(e.value);
             this.inputTypeTryoutIds.splice(index, 1);
+            this.typeDelete.push(e.value);
         }
     }
 
@@ -233,11 +275,16 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
      * @param f
      */
     submitForm(f: NgForm) {
+        if (!f.valid) {
+            return;
+        }
         const form = f.value;
         const data = {
             data: form,
             questionIds: this.questionIds,
-            scheduleTypes: this.inputTypeTryoutIds
+            scheduleTypes: this.inputTypeTryoutIds,
+            deleteQuestion: this.questionDelete,
+            deleteType: this.typeDelete,
         };
         /**
          * Add new Destination
@@ -303,9 +350,9 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
         this.isPreview = status;
     }
     changeFilterVisible(): void {
-        if(this.isFilter==true){
+        if (this.isFilter == true) {
             this.isFilter = false;
-        }else{
+        } else {
             this.isFilter = true;
         }
     }
@@ -316,10 +363,20 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
     changeQuestion(e) {
         if (e.checked) {
             this.questionIds.push(e.value);
+            const checkQues = this.questionDelete.find(
+                (item) => item === e.value
+            );
+            if (checkQues) {
+                const index = this.questionDelete.indexOf(e.value);
+                this.questionDelete.splice(index, 1);
+            }
         } else {
             const index = this.questionIds.indexOf(e.value);
             this.questionIds.splice(index, 1);
+            this.questionDelete.push(e.value);
         }
+
+        console.log('abc', this.questionDelete);
     }
 
     isQuestionCheck(id) {
