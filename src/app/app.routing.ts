@@ -94,6 +94,7 @@ export const appRoutes: Route[] = [
 
 
             { path: 'zoom/virtual-background', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/zoom-vb/zoom-vb.module').then(m => m.ZoomVbModule) },
+            { path: 'zoom/end-meeting', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/zoom-end-meeting/zoom-end-meeting.module').then(m => m.ZoomEndMeetingModule) },
         ]
     }
 ];
