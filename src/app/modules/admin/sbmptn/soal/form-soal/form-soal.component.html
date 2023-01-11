@@ -30,7 +30,7 @@
                     </ng-container>
 
                     <ng-container *ngIf="form.value.category_id === 'tryout'">
-                        <ng-container *ngIf="tryoutTypes$ | async as modules">
+                        <!-- <ng-container *ngIf="tryoutTypes$ | async as modules">
                             <mat-form-field>
                                 <mat-label>Type</mat-label>
                                 <mat-select
@@ -49,7 +49,7 @@
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                        </ng-container>
+                        </ng-container> -->
 
                         <ng-container *ngIf="tryoutModules">
                             <mat-form-field>
@@ -72,7 +72,7 @@
                             </mat-form-field>
                         </ng-container>
 
-                        <ng-container *ngIf="tryoutTopics">
+                        <ng-container>
                             <mat-form-field>
                                 <mat-label>Topik</mat-label>
                                 <mat-select

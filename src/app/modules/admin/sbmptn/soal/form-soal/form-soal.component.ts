@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { identity, omit, omitBy, pick } from 'lodash';
+import { identity, omit, omitBy, pick, uniqBy } from 'lodash';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { MapelService } from '../../mapel/mapel.service';
@@ -53,6 +53,10 @@ export class FormSoalComponent implements OnInit {
     ngOnInit(): void {
         this.modules$ = this._moduleService.modules$;
         this.tryoutTypes$ = this._tryoutTypeService.types$;
+
+        this._tryoutTypeService.modules$.subscribe((res) => {
+            this.tryoutModules = uniqBy(res, 'code');
+        });
 
         this._tryoutTypeService.types$.subscribe((res) => {
             this.tryoutTypes = res;
