@@ -20,6 +20,7 @@ import { uniqBy } from 'lodash';
     styleUrls: ['./form-upload.component.scss'],
 })
 export class FormUploadComponent implements OnInit {
+    isLoading : boolean = false;
     categories: any[] = [];
     modules$: Observable<any[]>;
     modules: any[] = [];
@@ -214,6 +215,7 @@ export class FormUploadComponent implements OnInit {
     }
 
     submitForm(f: NgForm) {
+        this.isLoading = true;
         const data = {
             ...f.value,
         };
@@ -247,6 +249,7 @@ export class FormUploadComponent implements OnInit {
         this._soalService.createBulkSoal(fd).subscribe(() => {
             this._soalService.getSoals().subscribe();
             this.dialogRef.close();
+            this.isLoading = false;
         });
     }
 }

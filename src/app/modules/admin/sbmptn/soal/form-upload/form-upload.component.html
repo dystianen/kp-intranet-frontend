@@ -1,4 +1,7 @@
 <div class="w-200">
+    <ng-container *ngIf="isLoading==true">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </ng-container>
     <h1 mat-dialog-title>{{ dialogData.title }}</h1>
 
     <form
@@ -162,7 +165,7 @@
             <div>
                 <div mat-dialog-actions class="flex mt-2 gap-2">
                     <button-close></button-close>
-                    <button-submit></button-submit>
+                    <button [disabled]="isLoading" type="submit" class="bg-green-600 text-white" mat-button>Submit</button>
                 </div>
             </div>
         </div>
