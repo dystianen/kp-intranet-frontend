@@ -67,20 +67,8 @@ export class FormUploadComponent implements OnInit {
 
         this.tryoutTypes$ = this._tryoutTypeService.types$;
 
-        this._tryoutTypeService.types$.subscribe((res) => {
-            this.tryoutTypes = res;
-        });
-
         this._tryoutTypeService.modules$.subscribe((res) => {
-            this.tryoutModules$ = res;
-        });
-
-        this._tryoutTypeService.topics$.subscribe((res) => {
-            this.tryoutTopics$ = res;
-        });
-
-        this._tryoutTypeService.subtopics$.subscribe((res) => {
-            this.tryoutSubtopics$= res;
+            this.tryoutModules = res;
         });
 
         /**
@@ -132,13 +120,6 @@ export class FormUploadComponent implements OnInit {
 
     changeMapel() {
         this.isDisabled = false;
-    }
-
-    changeTryoutType(id_type) {
-        const module = this.tryoutTypes.find((item) => item.id === id_type);
-        if (module) {
-            this.tryoutModules = module.type_modul;
-        }
     }
 
     changeTryoutModule(id_module) {

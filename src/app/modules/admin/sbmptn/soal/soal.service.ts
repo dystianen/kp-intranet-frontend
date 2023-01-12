@@ -20,8 +20,7 @@ export class SoalService {
         'B',
         'C',
         'D',
-        'E',
-        'F',
+        'E'
     ]);
 
     get soals$(): Observable<any[]> {

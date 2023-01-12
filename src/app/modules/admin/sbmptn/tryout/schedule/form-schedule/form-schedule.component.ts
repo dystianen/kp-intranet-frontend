@@ -91,6 +91,8 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
     questionDelete: any[] = [];
     typeDelete: any[] = [];
 
+    isLoading : boolean = false;
+
     constructor(
         private formBuilder: FormBuilder,
         @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -145,17 +147,16 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
 
         this.tryoutTypes$ = this._tryoutTypeService.types$;
 
+        this._tryoutTypeService.types$.subscribe((res) => {
+            this.inputTypeTryoutIds = res.map((id) => id.id);
+        });
+
         this._packageService.tryoutPackages$.subscribe((item) => {
             this.packages = item;
         });
 
         this._soalService.soals$.subscribe((soals) => {
             this.soals$ = soals;
-        });
-
-        this._tryoutTypeService.types$.subscribe((res) => {
-            this.tryoutTypes = res;
-            this.inputTypeTryoutIds = res.map((id) => id.id);
         });
 
         this._tryoutTypeService.modules$.subscribe((res) => {
@@ -181,21 +182,14 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
 
     get tryoutModules() {
         let data = this.moduleTyouts$;
-        if (this.inputTypeTryoutIds.length >= 1) {
-            data = this.moduleTyouts$.filter((item) => {
-                return this.inputTypeTryoutIds.includes(item.id_type);
-            });
-        } else {
-            return [];
-        }
-        return uniqBy(data, 'code');
+        return data;
     }
 
     get tryoutTopics() {
         let data = this.topics$;
-        if (this.inputTypeTryoutIds.length >= 1) {
+        if (this.inputModuleIds.length >= 1) {
             data = this.topics$.filter((item) => {
-                return this.inputTypeTryoutIds.includes(item.id_type);
+                return this.inputModuleIds.includes(item.id_modul);
             });
         } else {
             return [];
@@ -222,6 +216,10 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
      */
     inputCheckTypeTryout(id) {
         return this.inputTypeTryoutIds.includes(id) ?? false;
+    }
+
+    inputCheckModule(id) {
+        return this.inputModuleIds.includes(id) ?? false;
     }
     /**
      * check topics
@@ -253,6 +251,15 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
         }
     }
 
+    handleChangeModule(e) {
+        if (e.checked == true) {
+            this.inputModuleIds.push(e.value);
+        } else {
+            const index = this.inputModuleIds.indexOf(e.value);
+            this.inputModuleIds.splice(index, 1);
+        }
+    }
+
     handleChangeTopic(e) {
         if (e.checked == true) {
             this.inputTopicIds.push(e.value);
@@ -275,6 +282,7 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
      * @param f
      */
     submitForm(f: NgForm) {
+        this.isLoading = true;
         if (!f.valid) {
             return;
         }
@@ -292,6 +300,7 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
         if (this.dialogData.type == 'add') {
             this._scheduleService.createSchedule(data).subscribe((res) => {
                 this.dialogRef.close();
+                this.isLoading = false;
             });
         }
 
