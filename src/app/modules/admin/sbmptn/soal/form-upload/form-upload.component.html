@@ -30,7 +30,7 @@
                     </ng-container>
 
                     <ng-container *ngIf="form.value.category_id === 'tryout'">
-                        <ng-container *ngIf="tryoutTypes$ | async as modules">
+                        <!-- <ng-container *ngIf="tryoutTypes$ | async as modules">
                             <mat-form-field>
                                 <mat-label>Type</mat-label>
                                 <mat-select
@@ -49,51 +49,45 @@
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                        </ng-container>
+                        </ng-container> -->
 
-                        <ng-container *ngIf="tryoutModules">
+                        <ng-container *ngIf="toModules">
                             <mat-form-field>
                                 <mat-label>Module</mat-label>
                                 <mat-select
                                     matInput
                                     [formControlName]="'tryout_module_id'"
                                     #md
-                                    (selectionChange)="
-                                        changeTryoutModule(md.value)
-                                    "
                                 >
                                     <mat-option
-                                        *ngFor="let mapel of tryoutModules"
-                                        [value]="mapel.id"
+                                        *ngFor="let mdl of toModules"
+                                        [value]="mdl.code"
                                     >
-                                        {{ mapel.name }}
+                                        {{ mdl.name }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </ng-container>
 
-                        <ng-container *ngIf="tryoutTopics">
+                        <ng-container *ngIf="toTopics">
                             <mat-form-field>
                                 <mat-label>Topik</mat-label>
                                 <mat-select
                                     matInput
                                     [formControlName]="'tryout_topic_id'"
                                     #tp
-                                    (selectionChange)="
-                                        changeTryoutTopic(tp.value)
-                                    "
                                 >
                                     <mat-option
-                                        *ngFor="let mapel of tryoutTopics"
-                                        [value]="mapel.id"
+                                        *ngFor="let item of toTopics"
+                                        [value]="item.code"
                                     >
-                                        {{ mapel.name }}
+                                        {{ item.name }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </ng-container>
 
-                        <ng-container *ngIf="tryoutSubtopics">
+                        <ng-container *ngIf="toSubTopics">
                             <mat-form-field>
                                 <mat-label>Sub Topik</mat-label>
                                 <mat-select
@@ -101,10 +95,10 @@
                                     [formControlName]="'tryout_subtopic_id'"
                                 >
                                     <mat-option
-                                        *ngFor="let mapel of tryoutSubtopics"
-                                        [value]="mapel.id"
+                                        *ngFor="let item of toSubTopics"
+                                        [value]="item.code"
                                     >
-                                        {{ mapel.name }}
+                                        {{ item.name }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>

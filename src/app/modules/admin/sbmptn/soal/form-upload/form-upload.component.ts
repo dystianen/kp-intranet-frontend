@@ -12,6 +12,7 @@ import { SoalPreviewComponent } from '../soal-preview/soal-preview.component';
 import { Observable } from 'rxjs';
 import { SoalService } from '../soal.service';
 import { TryoutTypeService } from '../../tryout-type/tryout-type.service';
+import { uniqBy } from 'lodash';
 
 @Component({
     selector: 'app-form-upload',
@@ -35,6 +36,11 @@ export class FormUploadComponent implements OnInit {
     tryoutModules: any[] = [];
     tryoutTopics: any[] = [];
     tryoutSubtopics: any[] = [];
+    
+    tryoutModules$: any[] = [];
+    tryoutTopics$: any[] = [];
+    tryoutSubtopics$: any[] = [];
+
 
     constructor(
         private formBuilder: FormBuilder,
@@ -64,6 +70,18 @@ export class FormUploadComponent implements OnInit {
             this.tryoutTypes = res;
         });
 
+        this._tryoutTypeService.modules$.subscribe((res) => {
+            this.tryoutModules$ = res;
+        });
+
+        this._tryoutTypeService.topics$.subscribe((res) => {
+            this.tryoutTopics$ = res;
+        });
+
+        this._tryoutTypeService.subtopics$.subscribe((res) => {
+            this.tryoutSubtopics$= res;
+        });
+
         /**
          * Initial form
          */
@@ -76,6 +94,30 @@ export class FormUploadComponent implements OnInit {
             tryout_topic_id: '',
             tryout_type_id: '',
         });
+    }
+
+    get toModules(){
+        return uniqBy(this.tryoutModules$,'code');
+    }
+
+    get toTopics(){
+        if(this.form.value.tryout_module_id){
+            const moduleIds = this.tryoutModules$.filter((item)=>item.code==this.form.value.tryout_module_id).map((item)=>item.id);
+            if(moduleIds){
+                return uniqBy(this.tryoutTopics$.filter((item)=>moduleIds.includes(item.id_modul)),'code');
+            }
+        }
+        return uniqBy(this.tryoutTopics$,'code');
+    }
+
+    get toSubTopics(){
+        if(this.form.value.tryout_topic_id){
+            const topicIds = this.tryoutTopics$.filter((item)=>item.code==this.form.value.tryout_topic_id).map((item)=>item.id);
+            if(topicIds){
+                return uniqBy(this.tryoutSubtopics$.filter((item)=>topicIds.includes(item.id_topic)),'code');
+            }
+        }
+        return uniqBy(this.tryoutSubtopics$,'code');
     }
 
     changeModule(module_id) {
@@ -175,6 +217,10 @@ export class FormUploadComponent implements OnInit {
         const data = {
             ...f.value,
         };
+
+        console.log(data);
+
+        return;
 
         const fd = new FormData();
         if (data.category_id) {
