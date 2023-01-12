@@ -217,11 +217,6 @@ export class FormUploadComponent implements OnInit {
         const data = {
             ...f.value,
         };
-
-        console.log(data);
-
-        return;
-
         const fd = new FormData();
         if (data.category_id) {
             fd.append('category_id', data.category_id);
