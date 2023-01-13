@@ -316,78 +316,103 @@
                                 <ng-container
                                     *ngFor="let item of soals; let i = index"
                                 >
-                                    <div class="my-2">
-                                        <mat-checkbox
-                                            #chk
-                                            (change)="changeQuestion(chk)"
-                                            [value]="item.id"
-                                            [checked]="isQuestionCheck(item.id)"
+                                    <div
+                                        class="my-2 bg-gray-100 py-2 rounded px-2 flex w-full"
+                                    >
+                                        <span class="font-bold mr-2"
+                                            ><b>{{ i + 1 }}</b
+                                            >.</span
                                         >
-                                            <div class="flex">
-                                                <span
-                                                    ><b>{{ i + 1 }}</b
-                                                    >.</span
-                                                >
-                                                <span
-                                                    class="ml-2"
-                                                    [innerHTML]="item.content"
-                                                ></span>
-                                            </div>
-                                        </mat-checkbox>
-                                        <div
-                                            class="flex flex-col pt-2 pl-10"
-                                            *ngIf="isPreview === true"
-                                        >
-                                            <ol class="">
-                                                <ng-container
-                                                    *ngFor="
-                                                        let jwb of item.jawaban
-                                                    "
-                                                >
+                                        <div  class="w-full">
+                                            <mat-checkbox
+                                                #chk
+                                                (change)="changeQuestion(chk)"
+                                                [value]="item.id"
+                                                [checked]="
+                                                    isQuestionCheck(item.id)
+                                                "
+                                            >
+                                                <div class="flex">
+                                                    <span
+                                                        class="ml-2"
+                                                        [innerHTML]="
+                                                            item.content
+                                                        "
+                                                    ></span>
+                                                </div>
+                                            </mat-checkbox>
+                                            <div
+                                                class="flex flex-col pt-2 pl-10"
+                                                *ngIf="isPreview === true"
+                                            >
+                                                <ol class="">
                                                     <ng-container
-                                                        *ngIf="
-                                                            jwb.is_true == true
+                                                        *ngFor="
+                                                            let jwb of item.jawaban
                                                         "
                                                     >
-                                                        <li
-                                                            class="flex text-red-700 font-bold"
+                                                        <ng-container
+                                                            *ngIf="
+                                                                jwb.is_true ==
+                                                                true
+                                                            "
                                                         >
-                                                            <span
-                                                                class="font-bold"
-                                                                >{{
-                                                                    jwb.key
-                                                                }}.</span
+                                                            <li
+                                                                class="flex text-red-700 font-bold"
                                                             >
-                                                            <span
-                                                                class="ml-2"
-                                                                [innerHTML]="
-                                                                    jwb.content
-                                                                "
-                                                            ></span>
-                                                        </li>
+                                                                <span
+                                                                    class="font-bold"
+                                                                    >{{
+                                                                        jwb.key
+                                                                    }}.</span
+                                                                >
+                                                                <span
+                                                                    class="ml-2"
+                                                                    [innerHTML]="
+                                                                        jwb.content
+                                                                    "
+                                                                ></span>
+                                                            </li>
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="
+                                                                jwb.is_true ==
+                                                                false
+                                                            "
+                                                        >
+                                                            <li class="flex">
+                                                                <span
+                                                                    class="font-bold"
+                                                                    >{{
+                                                                        jwb.key
+                                                                    }}.</span
+                                                                >
+                                                                <span
+                                                                    class="ml-2"
+                                                                    [innerHTML]="
+                                                                        jwb.content
+                                                                    "
+                                                                ></span>
+                                                            </li>
+                                                        </ng-container>
                                                     </ng-container>
-                                                    <ng-container
-                                                        *ngIf="
-                                                            jwb.is_true == false
-                                                        "
-                                                    >
-                                                        <li class="flex">
-                                                            <span
-                                                                class="font-bold"
-                                                                >{{
-                                                                    jwb.key
-                                                                }}.</span
-                                                            >
-                                                            <span
-                                                                class="ml-2"
-                                                                [innerHTML]="
-                                                                    jwb.content
-                                                                "
-                                                            ></span>
-                                                        </li>
-                                                    </ng-container>
-                                                </ng-container>
-                                            </ol>
+                                                </ol>
+                                            </div>
+                                            <div
+                                                class="bg-green-300 w-12/12 py-2 px-2 my-2 rounded-xl flex"
+                                            >
+                                                <span class="mx-2 font-bold">{{
+                                                    item?.tryout_module?.name
+                                                }}</span>
+                                                -
+                                                <span class="mx-2 font-bold">{{
+                                                    item?.tryout_topic?.name
+                                                }}</span>
+                                                -
+                                                <span class="mx-2 font-bold">{{
+                                                    item?.tryout_subtopic?.name
+                                                }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </ng-container>
