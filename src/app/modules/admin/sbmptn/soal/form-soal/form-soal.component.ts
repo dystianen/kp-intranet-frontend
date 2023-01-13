@@ -79,6 +79,7 @@ export class FormSoalComponent implements OnInit {
         this.form = this.formBuilder.group({
             // title: '',
             content: '',
+            instruction:'',
             value1: '',
             value2: '',
             value3: '',

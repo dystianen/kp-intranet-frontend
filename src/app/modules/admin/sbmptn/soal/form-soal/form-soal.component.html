@@ -145,8 +145,11 @@
                         <input matInput [formControlName]="'mark'" />
                     </mat-form-field>
                     <div>
+                        <mat-label>Instruksi</mat-label>
+                        <my-editor [formControlName]="'instruction'"></my-editor>
+                    </div>
+                    <div>
                         <mat-label>Konten</mat-label>
-                        <!-- <ckeditor formControlName="content" [editor]="Editor" [config]="ckeditor5Config" (ready)="onReady($event)"></ckeditor> -->
                         <my-editor [formControlName]="'content'"></my-editor>
                     </div>
                     <div class="my-2">
