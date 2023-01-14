@@ -35,7 +35,7 @@ export class ListSoalComponent implements OnInit {
 
     readMode: boolean = false;
 
-    categoryIds: any[]=[];
+    categoryIds: any[] = [];
 
     constructor(
         private dialog: MatDialog,
@@ -46,7 +46,7 @@ export class ListSoalComponent implements OnInit {
     ngOnInit(): void {
         this._categoryService.soal_categorys$.subscribe((item) => {
             this.categories = item;
-            this.categoryIds = item.map((item)=>item.id);
+            this.categoryIds = item.map((item) => item.id);
         });
 
         this._soalService.soals$.subscribe((data: any) => {
@@ -59,8 +59,8 @@ export class ListSoalComponent implements OnInit {
     }
 
     checkCategory(id) {
-      return this.categoryIds.includes(id) ?? false;
-  }
+        return this.categoryIds.includes(id) ?? false;
+    }
 
     /**
      * Show add modal
@@ -96,28 +96,30 @@ export class ListSoalComponent implements OnInit {
     }
 
     get soals() {
-      if(this.categoryIds.length>=1){
-        return this.dataSoals$.filter((item)=>this.categoryIds.includes(item.category_id)).map((item)=>{
-            if(item.instruction){
-                item.instruction.replaceAll('<p></p>','');
-            }
-            return item;
-        });
-      }
+        if (this.categoryIds.length >= 1) {
+            return this.dataSoals$
+                .filter((item) => this.categoryIds.includes(item.category_id))
+                .map((item) => {
+                    if (item.instruction) {
+                        item.instruction.replaceAll('<p></p>', '');
+                    }
+                    return item;
+                });
+        }
         return this.dataSoals$;
     }
 
     handleChangeCategory(e) {
-      if (e.checked == true) {
-          this.categoryIds.push(e.value);
-      } else {
-          const index = this.categoryIds.indexOf(e.value);
-          this.categoryIds.splice(index, 1);
-      }
-      
-      this.dataSource = new MatTableDataSource(this.soals);
-      this.dataSource.sort = this.sort;
-  }
+        if (e.checked == true) {
+            this.categoryIds.push(e.value);
+        } else {
+            const index = this.categoryIds.indexOf(e.value);
+            this.categoryIds.splice(index, 1);
+        }
+
+        this.dataSource = new MatTableDataSource(this.soals);
+        this.dataSource.sort = this.sort;
+    }
 
     /**
      * Show upload modal
@@ -134,4 +136,17 @@ export class ListSoalComponent implements OnInit {
             autoFocus: true,
         });
     }
+
+    checkHasJawabanSelected = (id) => {
+        const soal = this.dataSoals$.find((item) => item.id == id);
+        if (soal) {
+            const jawaban = soal.jawaban;
+            if (jawaban) {
+                if (jawaban.length > 1) {
+                    return jawaban.some((item) => item.is_true == true);
+                }
+            }
+        }
+        return false;
+    };
 }

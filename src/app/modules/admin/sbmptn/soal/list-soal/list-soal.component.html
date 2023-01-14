@@ -75,12 +75,12 @@
                                 ><b>{{ i + 1 }}</b
                                 >.</span
                             >
-                            <ng-container *ngIf="item.instruction?.length>10">
+                            <ng-container *ngIf="item.instruction?.length > 10">
                                 <span
-                                class="ml-2"
-                                [innerHTML]="item.instruction"
-                            ></span>
-                            <br>
+                                    class="ml-2"
+                                    [innerHTML]="item.instruction"
+                                ></span>
+                                <br />
                             </ng-container>
                             <span
                                 class="ml-2"
@@ -90,23 +90,28 @@
                         <div class="flex flex-col pt-2 pl-10">
                             <ol class="">
                                 <ng-container *ngFor="let jwb of item.jawaban">
-                                    <ng-container *ngIf="jwb.is_true==true">
+                                    <ng-container *ngIf="jwb.is_true == true">
                                         <li class="flex text-red-700 font-bold">
                                             <span class="font-bold"
                                                 >{{ jwb.key }}.</span
                                             >
-                                            <span class="ml-2" [innerHTML]="jwb.content"></span>
+                                            <span
+                                                class="ml-2"
+                                                [innerHTML]="jwb.content"
+                                            ></span>
                                         </li>
                                     </ng-container>
-                                    <ng-container *ngIf="jwb.is_true==false">
+                                    <ng-container *ngIf="jwb.is_true == false">
                                         <li class="flex">
                                             <span class="font-bold"
                                                 >{{ jwb.key }}.</span
                                             >
-                                            <span class="ml-2" [innerHTML]="jwb.content"></span>
+                                            <span
+                                                class="ml-2"
+                                                [innerHTML]="jwb.content"
+                                            ></span>
                                         </li>
                                     </ng-container>
-                                    
                                 </ng-container>
                             </ol>
                         </div>
@@ -121,7 +126,19 @@
                         No
                     </th>
                     <td mat-cell *matCellDef="let element; let i = index">
-                        {{ i + 1 }}
+                        <ng-container
+                            *ngIf="!checkHasJawabanSelected(element.id)"
+                        >
+                            <mat-icon
+                                class="text-red-600"
+                                [svgIcon]="'warning'"
+                            ></mat-icon>
+                        </ng-container>
+                        <ng-container
+                            *ngIf="checkHasJawabanSelected(element.id)"
+                        >
+                            {{ i + 1 }}
+                        </ng-container>
                     </td>
                 </ng-container>
 
@@ -148,30 +165,34 @@
                         Category
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        <ng-container
-                            *ngIf="element.category_id === 'latihan_soal'"
-                        >
-                            <span
-                                class="p-1 text-white"
-                                [style]="
-                                    'background-color:' +
-                                    element.category?.color +
-                                    ';'
-                                "
-                                >{{ element.category?.category }}</span
+                        <div class="flex items-center">
+                            <ng-container
+                                *ngIf="element.category_id === 'latihan_soal'"
                             >
-                        </ng-container>
-                        <ng-container *ngIf="element.category_id === 'tryout'">
-                            <span
-                                class="p-1 text-white"
-                                [style]="
-                                    'background-color:' +
-                                    element.category?.color +
-                                    ';'
-                                "
-                                >{{ element.category?.category }}</span
+                                <span
+                                    class="p-1 text-white"
+                                    [style]="
+                                        'background-color:' +
+                                        element.category?.color +
+                                        ';'
+                                    "
+                                    >{{ element.category?.category }}</span
+                                >
+                            </ng-container>
+                            <ng-container
+                                *ngIf="element.category_id === 'tryout'"
                             >
-                        </ng-container>
+                                <span
+                                    class="p-1 text-white"
+                                    [style]="
+                                        'background-color:' +
+                                        element.category?.color +
+                                        ';'
+                                    "
+                                    >{{ element.category?.category }}</span
+                                >
+                            </ng-container>
+                        </div>
                     </td>
                 </ng-container>
 
