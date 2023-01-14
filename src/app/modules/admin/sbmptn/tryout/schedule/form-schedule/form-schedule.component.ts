@@ -44,7 +44,7 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
     public color: ThemePalette = 'primary';
 
     isPreview: boolean = true;
-    isFilter: boolean = true;
+    isFilter: boolean = false;
 
     public formGroup = new FormGroup({
         date: new FormControl(null, [Validators.required]),
@@ -91,6 +91,8 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
     questionDelete: any[] = [];
     typeDelete: any[] = [];
 
+    isLoading: boolean = false;
+
     constructor(
         private formBuilder: FormBuilder,
         @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -110,6 +112,33 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
             registration_start: '',
             registration_end: '',
             description: '',
+        });
+
+        this.tryoutTypes$ = this._tryoutTypeService.types$;
+
+        this._tryoutTypeService.types$.subscribe((res) => {
+            this.inputTypeTryoutIds = res.map((id) => id.id);
+        });
+
+        this._packageService.tryoutPackages$.subscribe((item) => {
+            this.packages = item;
+        });
+
+        this._soalService.soals$.subscribe((soals) => {
+            this.soals$ = soals;
+        });
+
+        this._tryoutTypeService.modules$.subscribe((res) => {
+            this.moduleTyouts$ = res;
+            this.inputModuleIds = res.map((id) => id.id);
+        });
+
+        this._tryoutTypeService.topics$.subscribe((res) => {
+            this.topics$ = res;
+        });
+
+        this._tryoutTypeService.subtopics$.subscribe((res) => {
+            this.subtopics$ = res;
         });
 
         if (this.dialogData.type == 'edit') {
@@ -142,34 +171,6 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
                     }
                 });
         }
-
-        this.tryoutTypes$ = this._tryoutTypeService.types$;
-
-        this._packageService.tryoutPackages$.subscribe((item) => {
-            this.packages = item;
-        });
-
-        this._soalService.soals$.subscribe((soals) => {
-            this.soals$ = soals;
-        });
-
-        this._tryoutTypeService.types$.subscribe((res) => {
-            this.tryoutTypes = res;
-            this.inputTypeTryoutIds = res.map((id) => id.id);
-        });
-
-        this._tryoutTypeService.modules$.subscribe((res) => {
-            this.moduleTyouts$ = res;
-            this.inputModuleIds = res.map((id) => id.id);
-        });
-
-        this._tryoutTypeService.topics$.subscribe((res) => {
-            this.topics$ = res;
-        });
-
-        this._tryoutTypeService.subtopics$.subscribe((res) => {
-            this.subtopics$ = res;
-        });
     }
 
     ngAfterViewInit() {
@@ -181,21 +182,14 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
 
     get tryoutModules() {
         let data = this.moduleTyouts$;
-        if (this.inputTypeTryoutIds.length >= 1) {
-            data = this.moduleTyouts$.filter((item) => {
-                return this.inputTypeTryoutIds.includes(item.id_type);
-            });
-        } else {
-            return [];
-        }
-        return uniqBy(data, 'code');
+        return data;
     }
 
     get tryoutTopics() {
         let data = this.topics$;
-        if (this.inputTypeTryoutIds.length >= 1) {
+        if (this.inputModuleIds.length >= 1) {
             data = this.topics$.filter((item) => {
-                return this.inputTypeTryoutIds.includes(item.id_type);
+                return this.inputModuleIds.includes(item.id_modul);
             });
         } else {
             return [];
@@ -222,6 +216,10 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
      */
     inputCheckTypeTryout(id) {
         return this.inputTypeTryoutIds.includes(id) ?? false;
+    }
+
+    inputCheckModule(id) {
+        return this.inputModuleIds.includes(id) ?? false;
     }
     /**
      * check topics
@@ -253,6 +251,15 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
         }
     }
 
+    handleChangeModule(e) {
+        if (e.checked == true) {
+            this.inputModuleIds.push(e.value);
+        } else {
+            const index = this.inputModuleIds.indexOf(e.value);
+            this.inputModuleIds.splice(index, 1);
+        }
+    }
+
     handleChangeTopic(e) {
         if (e.checked == true) {
             this.inputTopicIds.push(e.value);
@@ -275,6 +282,7 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
      * @param f
      */
     submitForm(f: NgForm) {
+        this.isLoading = true;
         if (!f.valid) {
             return;
         }
@@ -292,6 +300,7 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
         if (this.dialogData.type == 'add') {
             this._scheduleService.createSchedule(data).subscribe((res) => {
                 this.dialogRef.close();
+                this.isLoading = false;
             });
         }
 
@@ -309,19 +318,35 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
 
     get soals() {
         return this.soals$.filter((item) => {
-            if (this.inputSubtopicIds.length >= 1) {
-                return (
-                    item.category_id === 'tryout' &&
-                    this.inputSubtopicIds.includes(item.tryout_subtopic_id)
-                );
+
+            if(this.soals$.some((item)=>item.tryout_subtopic_id)){
+                if (this.inputSubtopicIds.length >= 1) {
+                    return (
+                        item.category_id === 'tryout' &&
+                        this.inputSubtopicIds.includes(item.tryout_subtopic_id)
+                    );
+                }
             }
-            if (this.inputTypeTryoutIds.length >= 1) {
-                return (
-                    item.category_id === 'tryout' &&
-                    this.inputTypeTryoutIds.includes(item.tryout_type_id)
-                );
+
+            if(this.soals$.some((item)=>item.tryout_topic_id)){
+                if (this.inputTopicIds.length >= 1) {
+                    return (
+                        item.category_id === 'tryout' &&
+                        this.inputTopicIds.includes(item.tryout_topic_id)
+                    );
+                }
             }
-            return item.category_id === 'tryout';
+
+            if(this.soals$.some((item)=>item.tryout_module_id)){
+                if (this.inputModuleIds.length >= 1) {
+                    return (
+                        item.category_id === 'tryout' &&
+                        this.inputModuleIds.includes(item.tryout_module_id)
+                    );
+                }
+            }
+
+            return item.category_id == 'tryout';
         });
     }
 
@@ -375,8 +400,6 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
             this.questionIds.splice(index, 1);
             this.questionDelete.push(e.value);
         }
-
-        console.log('abc', this.questionDelete);
     }
 
     isQuestionCheck(id) {

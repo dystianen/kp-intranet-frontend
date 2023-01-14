@@ -20,6 +20,7 @@ import { uniqBy } from 'lodash';
     styleUrls: ['./form-upload.component.scss'],
 })
 export class FormUploadComponent implements OnInit {
+    isLoading : boolean = false;
     categories: any[] = [];
     modules$: Observable<any[]>;
     modules: any[] = [];
@@ -66,20 +67,8 @@ export class FormUploadComponent implements OnInit {
 
         this.tryoutTypes$ = this._tryoutTypeService.types$;
 
-        this._tryoutTypeService.types$.subscribe((res) => {
-            this.tryoutTypes = res;
-        });
-
         this._tryoutTypeService.modules$.subscribe((res) => {
-            this.tryoutModules$ = res;
-        });
-
-        this._tryoutTypeService.topics$.subscribe((res) => {
-            this.tryoutTopics$ = res;
-        });
-
-        this._tryoutTypeService.subtopics$.subscribe((res) => {
-            this.tryoutSubtopics$= res;
+            this.tryoutModules = res;
         });
 
         /**
@@ -131,13 +120,6 @@ export class FormUploadComponent implements OnInit {
 
     changeMapel() {
         this.isDisabled = false;
-    }
-
-    changeTryoutType(id_type) {
-        const module = this.tryoutTypes.find((item) => item.id === id_type);
-        if (module) {
-            this.tryoutModules = module.type_modul;
-        }
     }
 
     changeTryoutModule(id_module) {
@@ -214,14 +196,10 @@ export class FormUploadComponent implements OnInit {
     }
 
     submitForm(f: NgForm) {
+        this.isLoading = true;
         const data = {
             ...f.value,
         };
-
-        console.log(data);
-
-        return;
-
         const fd = new FormData();
         if (data.category_id) {
             fd.append('category_id', data.category_id);
@@ -252,6 +230,7 @@ export class FormUploadComponent implements OnInit {
         this._soalService.createBulkSoal(fd).subscribe(() => {
             this._soalService.getSoals().subscribe();
             this.dialogRef.close();
+            this.isLoading = false;
         });
     }
 }

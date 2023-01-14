@@ -1,4 +1,7 @@
 <div class="w-200">
+    <ng-container *ngIf="isLoading == true">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </ng-container>
     <h1 mat-dialog-title>{{ dialogData.title }}</h1>
 
     <form
@@ -30,56 +33,20 @@
                     </ng-container>
 
                     <ng-container *ngIf="form.value.category_id === 'tryout'">
-                        <!-- <ng-container *ngIf="tryoutTypes$ | async as modules">
-                            <mat-form-field>
-                                <mat-label>Type</mat-label>
-                                <mat-select
-                                    matInput
-                                    [formControlName]="'tryout_type_id'"
-                                    #mdl
-                                    (selectionChange)="
-                                        changeTryoutType(mdl.value)
-                                    "
-                                >
-                                    <mat-option
-                                        *ngFor="let module of modules"
-                                        [value]="module.id"
-                                    >
-                                        {{ module.title }}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </ng-container> -->
-
-                        <ng-container *ngIf="toModules">
+                        <ng-container *ngIf="tryoutModules">
                             <mat-form-field>
                                 <mat-label>Module</mat-label>
                                 <mat-select
                                     matInput
                                     [formControlName]="'tryout_module_id'"
                                     #md
+                                    (selectionChange)="
+                                        changeTryoutModule(md.value)
+                                    "
                                 >
                                     <mat-option
-                                        *ngFor="let mdl of toModules"
-                                        [value]="mdl.code"
-                                    >
-                                        {{ mdl.name }}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </ng-container>
-
-                        <ng-container *ngIf="toTopics">
-                            <mat-form-field>
-                                <mat-label>Topik</mat-label>
-                                <mat-select
-                                    matInput
-                                    [formControlName]="'tryout_topic_id'"
-                                    #tp
-                                >
-                                    <mat-option
-                                        *ngFor="let item of toTopics"
-                                        [value]="item.code"
+                                        *ngFor="let item of tryoutModules"
+                                        [value]="item.id"
                                     >
                                         {{ item.name }}
                                     </mat-option>
@@ -87,7 +54,28 @@
                             </mat-form-field>
                         </ng-container>
 
-                        <ng-container *ngIf="toSubTopics">
+                        <ng-container *ngIf="tryoutTopics.length>=1">
+                            <mat-form-field>
+                                <mat-label>Topik</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'tryout_topic_id'"
+                                    #tp
+                                    (selectionChange)="
+                                        changeTryoutTopic(tp.value)
+                                    "
+                                >
+                                    <mat-option
+                                        *ngFor="let mapel of tryoutTopics"
+                                        [value]="mapel.id"
+                                    >
+                                        {{ mapel.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="tryoutSubtopics.length>=1">
                             <mat-form-field>
                                 <mat-label>Sub Topik</mat-label>
                                 <mat-select
@@ -95,10 +83,10 @@
                                     [formControlName]="'tryout_subtopic_id'"
                                 >
                                     <mat-option
-                                        *ngFor="let item of toSubTopics"
-                                        [value]="item.code"
+                                        *ngFor="let mapel of tryoutSubtopics"
+                                        [value]="mapel.id"
                                     >
-                                        {{ item.name }}
+                                        {{ mapel.name }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -162,7 +150,14 @@
             <div>
                 <div mat-dialog-actions class="flex mt-2 gap-2">
                     <button-close></button-close>
-                    <button-submit></button-submit>
+                    <button
+                        [disabled]="isLoading"
+                        type="submit"
+                        class="bg-green-600 text-white"
+                        mat-button
+                    >
+                        Submit
+                    </button>
                 </div>
             </div>
         </div>

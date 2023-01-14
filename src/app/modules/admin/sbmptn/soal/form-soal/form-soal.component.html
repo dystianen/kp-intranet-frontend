@@ -1,4 +1,7 @@
 <div class="w-200">
+    <ng-container *ngIf="isLoading==true">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </ng-container>
     <h1 mat-dialog-title>{{ dialogData.title }}</h1>
 
     <form
@@ -30,27 +33,6 @@
                     </ng-container>
 
                     <ng-container *ngIf="form.value.category_id === 'tryout'">
-                        <!-- <ng-container *ngIf="tryoutTypes$ | async as modules">
-                            <mat-form-field>
-                                <mat-label>Type</mat-label>
-                                <mat-select
-                                    matInput
-                                    [formControlName]="'tryout_type_id'"
-                                    #mdl
-                                    (selectionChange)="
-                                        changeTryoutType(mdl.value)
-                                    "
-                                >
-                                    <mat-option
-                                        *ngFor="let module of modules"
-                                        [value]="module.id"
-                                    >
-                                        {{ module.title }}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </ng-container> -->
-
                         <ng-container *ngIf="tryoutModules">
                             <mat-form-field>
                                 <mat-label>Module</mat-label>
@@ -63,10 +45,10 @@
                                     "
                                 >
                                     <mat-option
-                                        *ngFor="let mapel of tryoutModules"
-                                        [value]="mapel.id"
+                                        *ngFor="let item of tryoutModules"
+                                        [value]="item.id"
                                     >
-                                        {{ mapel.name }}
+                                        {{ item.name }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -163,8 +145,11 @@
                         <input matInput [formControlName]="'mark'" />
                     </mat-form-field>
                     <div>
+                        <mat-label>Instruksi</mat-label>
+                        <my-editor [formControlName]="'instruction'"></my-editor>
+                    </div>
+                    <div>
                         <mat-label>Konten</mat-label>
-                        <!-- <ckeditor formControlName="content" [editor]="Editor" [config]="ckeditor5Config" (ready)="onReady($event)"></ckeditor> -->
                         <my-editor [formControlName]="'content'"></my-editor>
                     </div>
                     <div class="my-2">
@@ -231,7 +216,7 @@
             <div>
                 <div mat-dialog-actions class="flex">
                     <button-close></button-close>
-                    <button-submit></button-submit>
+                    <button [disabled]="isLoading" type="submit" class="bg-green-600 text-white" mat-button>Submit</button>
                 </div>
             </div>
         </div>

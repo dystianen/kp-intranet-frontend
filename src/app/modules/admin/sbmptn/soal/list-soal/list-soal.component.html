@@ -91,19 +91,19 @@
                             <ol class="">
                                 <ng-container *ngFor="let jwb of item.jawaban">
                                     <ng-container *ngIf="jwb.is_true==true">
-                                        <li class="flex items-center text-red-700 font-bold">
+                                        <li class="flex text-red-700 font-bold">
                                             <span class="font-bold"
                                                 >{{ jwb.key }}.</span
                                             >
-                                            <span [innerHTML]="jwb.content"></span>
+                                            <span class="ml-2" [innerHTML]="jwb.content"></span>
                                         </li>
                                     </ng-container>
                                     <ng-container *ngIf="jwb.is_true==false">
-                                        <li class="flex items-center">
+                                        <li class="flex">
                                             <span class="font-bold"
                                                 >{{ jwb.key }}.</span
                                             >
-                                            <span [innerHTML]="jwb.content"></span>
+                                            <span class="ml-2" [innerHTML]="jwb.content"></span>
                                         </li>
                                     </ng-container>
                                     

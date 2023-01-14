@@ -1,4 +1,7 @@
 <div class="w-full">
+    <ng-container *ngIf="isLoading == true">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </ng-container>
     <h1 mat-dialog-title>{{ dialogData.title }}</h1>
 
     <form
@@ -31,7 +34,8 @@
                                 class="w-full"
                                 [ngxMatDatetimePicker]="schedule_start"
                                 placeholder="Choose a date & time"
-                                [formControlName]="'schedule_start'" required
+                                [formControlName]="'schedule_start'"
+                                required
                             />
 
                             <mat-datepicker-toggle
@@ -50,7 +54,8 @@
                                 class="w-full"
                                 [ngxMatDatetimePicker]="schedule_end"
                                 placeholder="Choose a date & time"
-                                [formControlName]="'schedule_end'" required
+                                [formControlName]="'schedule_end'"
+                                required
                             />
 
                             <mat-datepicker-toggle
@@ -72,7 +77,8 @@
                                 class="w-full"
                                 [ngxMatDatetimePicker]="registration_start"
                                 placeholder="Choose a date & time"
-                                [formControlName]="'registration_start'" required
+                                [formControlName]="'registration_start'"
+                                required
                             />
 
                             <mat-datepicker-toggle
@@ -91,7 +97,8 @@
                                 class="w-full"
                                 [ngxMatDatetimePicker]="registration_end"
                                 placeholder="Choose a date & time"
-                                [formControlName]="'registration_end'" required
+                                [formControlName]="'registration_end'"
+                                required
                             />
 
                             <mat-datepicker-toggle
@@ -163,10 +170,49 @@
                         <ng-container *ngIf="isFilter">
                             <div class="grid grid-cols-1 gap-2">
                                 <ng-container>
+                                    <ng-container *ngIf="tryoutModules">
+                                        <div>
+                                            <mat-label>Module</mat-label>
+                                            <div class="grid grid-cols-3 gap-3">
+                                                <ng-container
+                                                    *ngFor="
+                                                        let item of tryoutModules
+                                                    "
+                                                >
+                                                    <div
+                                                        class="flex items-center justify-between border py-2 px-1 my-2 bg-white"
+                                                    >
+                                                        <label for="">{{
+                                                            item.name
+                                                        }}</label>
+                                                        <span>
+                                                            <mat-checkbox
+                                                                [value]="
+                                                                    item.id
+                                                                "
+                                                                [checked]="
+                                                                    inputCheckModule(
+                                                                        item.id
+                                                                    )
+                                                                "
+                                                                #chkm
+                                                                (change)="
+                                                                    handleChangeModule(
+                                                                        chkm
+                                                                    )
+                                                                "
+                                                            ></mat-checkbox>
+                                                        </span>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+
                                     <ng-container *ngIf="tryoutTopics">
                                         <div>
                                             <mat-label>Topik</mat-label>
-                                            <div class="grid grid-cols-4 gap-3">
+                                            <div class="grid grid-cols-3 gap-3">
                                                 <ng-container
                                                     *ngFor="
                                                         let item of tryoutTopics
@@ -205,7 +251,7 @@
                                     <ng-container *ngIf="tryoutSubtopics">
                                         <div>
                                             <mat-label>Sub Topik</mat-label>
-                                            <div class="grid grid-cols-4 gap-3">
+                                            <div class="grid grid-cols-3 gap-3">
                                                 <ng-container
                                                     *ngFor="
                                                         let item of tryoutSubtopics
@@ -270,50 +316,103 @@
                                 <ng-container
                                     *ngFor="let item of soals; let i = index"
                                 >
-                                    <div class="my-2">
-                                        <mat-checkbox
-                                            #chk
-                                            (change)="changeQuestion(chk)"
-                                            [value]="item.id"
-                                            [checked]="isQuestionCheck(item.id)"
+                                    <div
+                                        class="my-2 bg-gray-100 py-2 rounded px-2 flex w-full"
+                                    >
+                                        <span class="font-bold mr-2"
+                                            ><b>{{ i + 1 }}</b
+                                            >.</span
                                         >
-                                            <div class="flex">
-                                                <span
-                                                    ><b>{{ i + 1 }}</b
-                                                    >.</span
-                                                >
-                                                <span
-                                                    class="ml-2"
-                                                    [innerHTML]="item.content"
-                                                ></span>
-                                            </div>
-                                        </mat-checkbox>
-                                        <div
-                                            class="flex flex-col pt-2 pl-10"
-                                            *ngIf="isPreview === true"
-                                        >
-                                            <ol class="">
-                                                <ng-container
-                                                    *ngFor="
-                                                        let jwb of item.jawaban
-                                                    "
-                                                >
-                                                    <li>
-                                                        {{ jwb.key }}.
-                                                        <span
-                                                            [innerHTML]="
-                                                                jwb.content
-                                                            "
-                                                        ></span>
-                                                    </li>
-                                                </ng-container>
-                                            </ol>
-                                            <span class="font-bold pt-2"
-                                                >Jawaban Yang Benar:
-                                                {{
-                                                    checkKey(item.jawaban)
-                                                }}</span
+                                        <div  class="w-full">
+                                            <mat-checkbox
+                                                #chk
+                                                (change)="changeQuestion(chk)"
+                                                [value]="item.id"
+                                                [checked]="
+                                                    isQuestionCheck(item.id)
+                                                "
                                             >
+                                                <div class="flex">
+                                                    <span
+                                                        class="ml-2"
+                                                        [innerHTML]="
+                                                            item.content
+                                                        "
+                                                    ></span>
+                                                </div>
+                                            </mat-checkbox>
+                                            <div
+                                                class="flex flex-col pt-2 pl-10"
+                                                *ngIf="isPreview === true"
+                                            >
+                                                <ol class="">
+                                                    <ng-container
+                                                        *ngFor="
+                                                            let jwb of item.jawaban
+                                                        "
+                                                    >
+                                                        <ng-container
+                                                            *ngIf="
+                                                                jwb.is_true ==
+                                                                true
+                                                            "
+                                                        >
+                                                            <li
+                                                                class="flex text-red-700 font-bold"
+                                                            >
+                                                                <span
+                                                                    class="font-bold"
+                                                                    >{{
+                                                                        jwb.key
+                                                                    }}.</span
+                                                                >
+                                                                <span
+                                                                    class="ml-2"
+                                                                    [innerHTML]="
+                                                                        jwb.content
+                                                                    "
+                                                                ></span>
+                                                            </li>
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="
+                                                                jwb.is_true ==
+                                                                false
+                                                            "
+                                                        >
+                                                            <li class="flex">
+                                                                <span
+                                                                    class="font-bold"
+                                                                    >{{
+                                                                        jwb.key
+                                                                    }}.</span
+                                                                >
+                                                                <span
+                                                                    class="ml-2"
+                                                                    [innerHTML]="
+                                                                        jwb.content
+                                                                    "
+                                                                ></span>
+                                                            </li>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ol>
+                                            </div>
+                                            <div
+                                                class="bg-green-300 w-12/12 py-2 px-2 my-2 rounded-xl flex"
+                                            >
+                                                <span class="mx-2 font-bold">{{
+                                                    item?.tryout_module?.name
+                                                }}</span>
+                                                -
+                                                <span class="mx-2 font-bold">{{
+                                                    item?.tryout_topic?.name
+                                                }}</span>
+                                                -
+                                                <span class="mx-2 font-bold">{{
+                                                    item?.tryout_subtopic?.name
+                                                }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </ng-container>
@@ -326,7 +425,16 @@
             <div>
                 <div mat-dialog-actions class="flex">
                     <button-close></button-close>
-                    <button-submit></button-submit>
+                    <ng-container *ngIf="questionIds.length >= 1">
+                        <button
+                            [disabled]="isLoading == true"
+                            type="submit"
+                            class="bg-green-600 text-white"
+                            mat-button
+                        >
+                            Submit
+                        </button>
+                    </ng-container>
                 </div>
             </div>
         </div>

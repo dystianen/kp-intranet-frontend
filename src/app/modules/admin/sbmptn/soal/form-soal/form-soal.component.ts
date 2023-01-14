@@ -19,13 +19,14 @@ import { ckeditor5Conf } from 'app/shared/setting/ckeditor5';
     styleUrls: ['./form-soal.component.scss'],
 })
 export class FormSoalComponent implements OnInit {
+
+    isLoading : boolean = false;
     modules$: Observable<any[]>;
     moduleTyouts$: Observable<any[]>;
     tryoutTypes$: Observable<any[]>;
     modules: any[] = [];
     mapels: any[] = [];
 
-    tryoutTypes: any[] = [];
     tryoutModules: any[] = [];
     tryoutTopics: any[] = [];
     tryoutSubtopics: any[] = [];
@@ -55,12 +56,9 @@ export class FormSoalComponent implements OnInit {
         this.tryoutTypes$ = this._tryoutTypeService.types$;
 
         this._tryoutTypeService.modules$.subscribe((res) => {
-            this.tryoutModules = uniqBy(res, 'code');
+            this.tryoutModules = res;
         });
 
-        this._tryoutTypeService.types$.subscribe((res) => {
-            this.tryoutTypes = res;
-        });
         this._moduleService.modules$.subscribe((res) => {
             this.modules = res;
         });
@@ -81,6 +79,7 @@ export class FormSoalComponent implements OnInit {
         this.form = this.formBuilder.group({
             // title: '',
             content: '',
+            instruction:'',
             value1: '',
             value2: '',
             value3: '',
@@ -114,15 +113,6 @@ export class FormSoalComponent implements OnInit {
                         );
                     });
                 }
-                if (res.tryout_module_id) {
-                    this.changeTryoutModule(res.tryout_type_id);
-                }
-                if (res.tryout_type_id) {
-                    this.changeTryoutType(res.tryout_type_id);
-                }
-                if (res.tryout_topic_id) {
-                    this.changeTryoutTopic(res.tryout_type_id);
-                }
             });
         }
     }
@@ -131,6 +121,7 @@ export class FormSoalComponent implements OnInit {
      * @param f
      */
     submitForm(f: NgForm) {
+        this.isLoading = true;
         /**
          * Add new Destination
          */
@@ -147,6 +138,7 @@ export class FormSoalComponent implements OnInit {
             this._soalService.createSoal(filterData).subscribe((res) => {
                 this._soalService.getSoals().subscribe();
                 this.dialogRef.close();
+                this.isLoading = false;
             });
         }
 
@@ -175,13 +167,6 @@ export class FormSoalComponent implements OnInit {
         const module = this.modules.find((item) => item.id === module_id);
         if (module) {
             this.mapels = module.mapel;
-        }
-    }
-
-    changeTryoutType(id_type) {
-        const module = this.tryoutTypes.find((item) => item.id === id_type);
-        if (module) {
-            this.tryoutModules = module.type_modul;
         }
     }
 
