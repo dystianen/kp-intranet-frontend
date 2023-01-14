@@ -75,6 +75,13 @@
                                 ><b>{{ i + 1 }}</b
                                 >.</span
                             >
+                            <ng-container *ngIf="item.instruction?.length>10">
+                                <span
+                                class="ml-2"
+                                [innerHTML]="item.instruction"
+                            ></span>
+                            <br>
+                            </ng-container>
                             <span
                                 class="ml-2"
                                 [innerHTML]="item.content"

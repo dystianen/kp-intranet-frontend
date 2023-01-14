@@ -97,7 +97,12 @@ export class ListSoalComponent implements OnInit {
 
     get soals() {
       if(this.categoryIds.length>=1){
-        return this.dataSoals$.filter((item)=>this.categoryIds.includes(item.category_id));
+        return this.dataSoals$.filter((item)=>this.categoryIds.includes(item.category_id)).map((item)=>{
+            if(item.instruction){
+                item.instruction.replaceAll('<p></p>','');
+            }
+            return item;
+        });
       }
         return this.dataSoals$;
     }
