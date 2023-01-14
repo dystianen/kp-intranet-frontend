@@ -282,10 +282,11 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
      * @param f
      */
     submitForm(f: NgForm) {
-        this.isLoading = true;
+        
         if (!f.valid) {
             return;
         }
+        this.isLoading = true;
         const form = f.value;
         const data = {
             data: form,
