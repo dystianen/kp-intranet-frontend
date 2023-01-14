@@ -16,7 +16,6 @@ import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
 import { StoreModule } from './store/StoreModule';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 
 const routerConfig: ExtraOptions = {

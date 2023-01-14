@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SoalCategoryService } from '../../soal-category/soal-category.service';
+import { CheckSoalComponent } from '../check-soal/check-soal.component';
 import { FormSoalComponent } from '../form-soal/form-soal.component';
 import { FormUploadComponent } from '../form-upload/form-upload.component';
 import { SoalService } from '../soal.service';
@@ -22,7 +23,6 @@ export class ListSoalComponent implements OnInit {
     displayedColumns: string[] = [
         'no',
         'id',
-        'level',
         'category',
         'type',
         'module',
@@ -55,6 +55,26 @@ export class ListSoalComponent implements OnInit {
             // this.mapel = data.mapel;
             this.dataSource = new MatTableDataSource(this.soals);
             this.dataSource.sort = this.sort;
+
+            const soals = this.dataSoals$.filter((soal)=>{
+                if (soal.jawaban) {
+                    if (soal.jawaban.length > 1) {
+                        return !soal.jawaban.some((item) => item.is_true == true);
+                    }
+                }
+                return false;
+            })
+            if(soals.length>=1){
+                this.dialog.open(CheckSoalComponent, {
+                    width:'400px',
+                    disableClose: true,
+                    data:{
+                        soals: soals
+                    }
+                });
+            }
+            
+
         });
     }
 

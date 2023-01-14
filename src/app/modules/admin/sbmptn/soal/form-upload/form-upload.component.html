@@ -2,8 +2,13 @@
     <ng-container *ngIf="isLoading == true">
         <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
     </ng-container>
-    <h1 mat-dialog-title>{{ dialogData.title }}</h1>
 
+    
+    <h1 mat-dialog-title>{{ dialogData.title }}</h1>
+    <div class="flex items-center w-full mb-2">
+        <mat-icon class="text-red-600" [svgIcon]="'warning'"></mat-icon>
+        <span class="ml-1 text-red-600">Pastikan format template soal yang diupload sudah sesuai!</span>
+    </div>
     <form
         [formGroup]="form"
         id="form"

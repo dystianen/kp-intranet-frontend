@@ -20,6 +20,7 @@ import { TryoutModuleResolver } from '../tryout-module/tryout-module.resolver';
 import { TryoutTypeResolver } from '../tryout-type/tryout-type.resolver';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { MyEditorModule } from 'app/shared/my-editor/my-editor.module';
+import { CheckSoalComponent } from './check-soal/check-soal.component';
 
 const routes: Routes = [
   {
@@ -49,7 +50,8 @@ const routes: Routes = [
     FormJawabanComponent,
     ListJawabanComponent,
     SoalPreviewComponent,
-    FormUploadComponent
+    FormUploadComponent,
+    CheckSoalComponent
   ],
   imports: [
     CommonModule,
