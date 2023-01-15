@@ -1,5 +1,5 @@
 <div class="w-200">
-    <ng-container *ngIf="isLoading==true">
+    <ng-container *ngIf="isLoading == true">
         <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
     </ng-container>
     <h1 mat-dialog-title>{{ dialogData.title }}</h1>
@@ -20,7 +20,7 @@
                             <mat-select
                                 matInput
                                 [formControlName]="'category_id'"
-                                required
+                                required disabled
                             >
                                 <mat-option
                                     *ngFor="let category of categories"
@@ -54,7 +54,7 @@
                             </mat-form-field>
                         </ng-container>
 
-                        <ng-container>
+                        <ng-container *ngIf="tryoutTopics && form.value.tryout_module_id">
                             <mat-form-field>
                                 <mat-label>Topik</mat-label>
                                 <mat-select
@@ -66,7 +66,7 @@
                                     "
                                 >
                                     <mat-option
-                                        *ngFor="let mapel of tryoutTopics"
+                                        *ngFor="let mapel of topics"
                                         [value]="mapel.id"
                                     >
                                         {{ mapel.name }}
@@ -75,7 +75,8 @@
                             </mat-form-field>
                         </ng-container>
 
-                        <ng-container *ngIf="tryoutSubtopics">
+
+                        <ng-container *ngIf="tryoutSubtopics && form.value.tryout_topic_id">
                             <mat-form-field>
                                 <mat-label>Sub Topik</mat-label>
                                 <mat-select
@@ -83,7 +84,7 @@
                                     [formControlName]="'tryout_subtopic_id'"
                                 >
                                     <mat-option
-                                        *ngFor="let mapel of tryoutSubtopics"
+                                        *ngFor="let mapel of subtopics"
                                         [value]="mapel.id"
                                     >
                                         {{ mapel.name }}
@@ -133,7 +134,7 @@
                         </ng-container>
                     </ng-container>
                     <mat-form-field>
-                        <mat-label>Level</mat-label>
+                        <mat-label>Difficulty</mat-label>
                         <input
                             type="number"
                             matInput
@@ -146,7 +147,9 @@
                     </mat-form-field>
                     <div>
                         <mat-label>Instruksi</mat-label>
-                        <my-editor [formControlName]="'instruction'"></my-editor>
+                        <my-editor
+                            [formControlName]="'instruction'"
+                        ></my-editor>
                     </div>
                     <div>
                         <mat-label>Konten</mat-label>
@@ -179,44 +182,20 @@
                             <input matInput [formControlName]="'value4'" />
                         </mat-form-field>
                     </div>
-                    <!--                    <div>-->
-                    <!--                        <mat-label>Konten</mat-label>-->
-                    <!--                        <quill-editor matInput [formControlName]="'content'"></quill-editor>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="my-2">-->
-                    <!--                        <div class="mt-3">-->
-                    <!--                            <list-jawaban></list-jawaban>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <!--                    <div>-->
-                    <!--                        <mat-label>Pembahasan</mat-label>-->
-                    <!--                        <quill-editor matInput [formControlName]="'pembahasan'"></quill-editor>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="my-4 flex flex-col">-->
-                    <!--                        <mat-form-field>-->
-                    <!--                            <mat-label>Flag 1</mat-label>-->
-                    <!--                            <input matInput [formControlName]="'value1'" />-->
-                    <!--                        </mat-form-field>-->
-                    <!--                        <mat-form-field>-->
-                    <!--                            <mat-label>Flag 2</mat-label>-->
-                    <!--                            <input matInput [formControlName]="'value2'" />-->
-                    <!--                        </mat-form-field>-->
-                    <!--                        <mat-form-field>-->
-                    <!--                            <mat-label>Flag 3</mat-label>-->
-                    <!--                            <input matInput [formControlName]="'value3'" />-->
-                    <!--                        </mat-form-field>-->
-                    <!--                        <mat-form-field>-->
-                    <!--                            <mat-label>Flag 4</mat-label>-->
-                    <!--                            <input matInput [formControlName]="'value4'" />-->
-                    <!--                        </mat-form-field>-->
-                    <!--                    </div>-->
                 </div>
             </div>
 
             <div>
                 <div mat-dialog-actions class="flex">
                     <button-close></button-close>
-                    <button [disabled]="isLoading" type="submit" class="bg-green-600 text-white" mat-button>Submit</button>
+                    <button
+                        [disabled]="isLoading"
+                        type="submit"
+                        class="bg-green-600 text-white"
+                        mat-button
+                    >
+                        Submit
+                    </button>
                 </div>
             </div>
         </div>

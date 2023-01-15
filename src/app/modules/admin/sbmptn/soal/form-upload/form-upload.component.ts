@@ -75,7 +75,7 @@ export class FormUploadComponent implements OnInit {
          * Initial form
          */
         this.form = this.formBuilder.group({
-            category_id: '',
+            category_id: this._soalService.curentCategory,
             mapel_id: '',
             module_id: '',
             tryout_module_id: '',

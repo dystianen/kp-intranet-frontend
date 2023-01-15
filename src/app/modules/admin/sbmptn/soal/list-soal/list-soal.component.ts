@@ -7,6 +7,7 @@ import { CheckSoalComponent } from '../check-soal/check-soal.component';
 import { FormSoalComponent } from '../form-soal/form-soal.component';
 import { FormUploadComponent } from '../form-upload/form-upload.component';
 import { SoalService } from '../soal.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
     selector: 'app-list-soal',
@@ -15,6 +16,8 @@ import { SoalService } from '../soal.service';
 })
 export class ListSoalComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     modules: any[] = [];
     mapel: any = {};
@@ -56,26 +59,30 @@ export class ListSoalComponent implements OnInit {
             this.dataSource = new MatTableDataSource(this.soals);
             this.dataSource.sort = this.sort;
 
-            const soals = this.dataSoals$.filter((soal)=>{
+            const soals = this.dataSoals$.filter((soal) => {
                 if (soal.jawaban) {
                     if (soal.jawaban.length > 1) {
-                        return !soal.jawaban.some((item) => item.is_true == true);
+                        return !soal.jawaban.some(
+                            (item) => item.is_true == true
+                        );
                     }
                 }
                 return false;
-            })
-            if(soals.length>=1){
+            });
+            if (soals.length >= 1) {
                 this.dialog.open(CheckSoalComponent, {
-                    width:'400px',
+                    width: '400px',
                     disableClose: true,
-                    data:{
-                        soals: soals
-                    }
+                    data: {
+                        soals: soals,
+                    },
                 });
             }
-            
-
         });
+    }
+
+    ngAfterViewInit() {
+        this.dataSource.paginator = this.paginator;
     }
 
     checkCategory(id) {
@@ -118,7 +125,7 @@ export class ListSoalComponent implements OnInit {
     get soals() {
         if (this.categoryIds.length >= 1) {
             return this.dataSoals$
-                .filter((item) => this.categoryIds.includes(item.category_id))
+                // .filter((item) => this.categoryIds.includes(item.category_id))
                 .map((item) => {
                     if (item.instruction) {
                         item.instruction.replaceAll('<p></p>', '');

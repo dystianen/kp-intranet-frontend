@@ -28,7 +28,7 @@ const routes: Routes = [
     component: SoalComponent,
     children: [
       {
-        path: '',
+        path: ':category_id',
         component: ListSoalComponent,
         resolve: {
           soals: SoalResolver,

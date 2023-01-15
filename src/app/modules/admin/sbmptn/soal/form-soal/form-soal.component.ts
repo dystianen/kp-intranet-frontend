@@ -12,6 +12,7 @@ import { SoalService } from '../soal.service';
 import { environment } from 'environments/environment';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { ckeditor5Conf } from 'app/shared/setting/ckeditor5';
+import { ActivatedRoute, RouterStateSnapshot } from '@angular/router';
 
 @Component({
     selector: 'app-form-soal',
@@ -19,8 +20,7 @@ import { ckeditor5Conf } from 'app/shared/setting/ckeditor5';
     styleUrls: ['./form-soal.component.scss'],
 })
 export class FormSoalComponent implements OnInit {
-
-    isLoading : boolean = false;
+    isLoading: boolean = false;
     modules$: Observable<any[]>;
     moduleTyouts$: Observable<any[]>;
     tryoutTypes$: Observable<any[]>;
@@ -51,7 +51,12 @@ export class FormSoalComponent implements OnInit {
     dlg: any;
     categories: any[] = [];
 
+    topics$: any[] = [];
+    subtopics$: any[] = [];
+
     ngOnInit(): void {
+        const _this = this;
+
         this.modules$ = this._moduleService.modules$;
         this.tryoutTypes$ = this._tryoutTypeService.types$;
 
@@ -61,6 +66,13 @@ export class FormSoalComponent implements OnInit {
 
         this._moduleService.modules$.subscribe((res) => {
             this.modules = res;
+        });
+
+        this._tryoutTypeService.topics$.subscribe((topics) => {
+            this.topics$ = topics;
+        });
+        this._tryoutTypeService.subtopics$.subscribe((subtopics) => {
+            this.subtopics$ = subtopics;
         });
 
         this.dlg = { ...this.dialogData };
@@ -73,19 +85,24 @@ export class FormSoalComponent implements OnInit {
             this.categories = item;
         });
 
+        this.tryoutTopics = this.topics$;
+
+        
+
+
         /**
          * Initial form
          */
         this.form = this.formBuilder.group({
             // title: '',
             content: '',
-            instruction:'',
+            instruction: '',
             value1: '',
             value2: '',
             value3: '',
             value4: '',
             pembahasan: '',
-            category_id: '',
+            category_id: this._soalService.curentCategory,
             mapel_id: '',
             module_id: '',
             level: '',
@@ -112,6 +129,20 @@ export class FormSoalComponent implements OnInit {
                             (mapel) => mapel.module_id === res.module_id
                         );
                     });
+                }
+
+                if (res.tryout_module_id) {
+                    this.tryoutTopics = this.topics$;
+                }
+
+                if (res.tryout_topic_id) {
+                    this._tryoutTypeService.subtopics$.subscribe(
+                        (subtopics) => {
+                            this.tryoutTopics = subtopics.filter(
+                                (item) => item.id_topic == res.tryout_topic_id
+                            );
+                        }
+                    );
                 }
             });
         }
@@ -161,6 +192,14 @@ export class FormSoalComponent implements OnInit {
                     this.dialogRef.close();
                 });
         }
+    }
+
+    get topics(){
+        return this.topics$.filter((item)=>item.id_modul==this.form.value.tryout_module_id);
+    }
+
+    get subtopics(){
+        return this.subtopics$.filter((item)=>item.id_topic==this.form.value.tryout_topic_id);
     }
 
     changeModule(module_id) {

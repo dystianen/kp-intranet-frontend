@@ -23,6 +23,8 @@ export class SoalService {
         'E'
     ]);
 
+    public curentCategory: string;
+
     get soals$(): Observable<any[]> {
         return this._soals.asObservable();
     }
@@ -35,9 +37,9 @@ export class SoalService {
         return this._soal.asObservable();
     }
 
-    getSoals(soalUUID: string = ''): Observable<any[]> {
+    getSoals(category_id: string = ''): Observable<any[]> {
         return this._httpClient
-            .get<any[]>(`${environment.apiPtnUrl}/admin/soal`)
+            .get<any[]>(`${environment.apiPtnUrl}/admin/soal?category=${category_id}`)
             .pipe(
                 map((response: any) => {
                     if (response.statusCode == 200) {
