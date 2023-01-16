@@ -5,7 +5,7 @@
 export const environment = {
     production: true,
     apiUrl:'https://intranet-api.kelaspintar.co.id/api',
-    apiPtnUrl:'https://ptn-api.kelaspintar.id/api',
+    apiPtnUrl:'https://ptn-api.kelaspintar.co.id/api',
     apiWorker:'https://zoom-worker.kelaspintar.id'
 };
 
