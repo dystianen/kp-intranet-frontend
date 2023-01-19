@@ -31,12 +31,12 @@ export class FormTelesalesCodeComponent implements OnInit {
          * Initial form
          */
         this.form = this.formBuilder.group({
-            bab_codename: '',
+            code: '',
             package_category: '',
             // day: '',
             discount_amount: '',
             final_price: '',
-            // status: '',
+            status: true,
         });
 
         /**
