@@ -27,7 +27,6 @@ export class ListSoalComponent implements OnInit {
         'no',
         'id',
         'category',
-        'type',
         'module',
         'mapel',
         'subtopic',
