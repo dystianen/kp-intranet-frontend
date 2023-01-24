@@ -14,7 +14,8 @@ import { SoalService } from './soal.service';
 export class SoalResolver implements Resolve<any[]> {
   constructor(private _soalService: SoalService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any[]> {
-    // const {mapel_uuid} = route.params;
-    return this._soalService.getSoals();
+    const {category_id} = route.params;
+    this._soalService.curentCategory = category_id;
+    return this._soalService.getSoals(category_id);
   }
 }

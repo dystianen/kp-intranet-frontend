@@ -1,0 +1,170 @@
+<div class="w-200">
+    <ng-container *ngIf="isLoading == true">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </ng-container>
+
+    
+    <h1 mat-dialog-title>{{ dialogData.title }}</h1>
+    <div class="flex items-center w-full mb-2">
+        <mat-icon class="text-red-600" [svgIcon]="'warning'"></mat-icon>
+        <span class="ml-1 text-red-600">Pastikan format template soal yang diupload sudah sesuai!</span>
+    </div>
+    <form
+        [formGroup]="form"
+        id="form"
+        #f="ngForm"
+        (submit)="submitForm(f)"
+        novalidate
+    >
+        <div class="flex flex-col w-full">
+            <div mat-dialog-content>
+                <div class="flex flex-col w-full">
+                    <ng-container *ngIf="categories">
+                        <mat-form-field>
+                            <mat-label>Category</mat-label>
+                            <mat-select
+                                matInput
+                                [formControlName]="'category_id'"
+                                required disabled
+                            >
+                                <mat-option
+                                    *ngFor="let category of categories"
+                                    [value]="category.id"
+                                >
+                                    {{ category.category }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+
+                    <ng-container *ngIf="form.value.category_id === 'tryout'">
+                        <ng-container *ngIf="tryoutModules">
+                            <mat-form-field>
+                                <mat-label>Module</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'tryout_module_id'"
+                                    #md
+                                    (selectionChange)="
+                                        changeTryoutModule(md.value)
+                                    "
+                                >
+                                    <mat-option
+                                        *ngFor="let item of tryoutModules"
+                                        [value]="item.id"
+                                    >
+                                        {{ item.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="tryoutTopics.length>=1">
+                            <mat-form-field>
+                                <mat-label>Topik</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'tryout_topic_id'"
+                                    #tp
+                                    (selectionChange)="
+                                        changeTryoutTopic(tp.value)
+                                    "
+                                >
+                                    <mat-option
+                                        *ngFor="let mapel of tryoutTopics"
+                                        [value]="mapel.id"
+                                    >
+                                        {{ mapel.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="tryoutSubtopics.length>=1">
+                            <mat-form-field>
+                                <mat-label>Sub Topik</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'tryout_subtopic_id'"
+                                >
+                                    <mat-option
+                                        *ngFor="let mapel of tryoutSubtopics"
+                                        [value]="mapel.id"
+                                    >
+                                        {{ mapel.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container
+                        *ngIf="form.value.category_id === 'latihan_soal'"
+                    >
+                        <ng-container *ngIf="modules$ | async as modules">
+                            <mat-form-field>
+                                <mat-label>Module</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'module_id'"
+                                    #mdl
+                                    (selectionChange)="changeModule(mdl.value)"
+                                >
+                                    <mat-option
+                                        *ngFor="let module of modules"
+                                        [value]="module.id"
+                                    >
+                                        {{ module.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+
+                        <ng-container *ngIf="mapels">
+                            <mat-form-field>
+                                <mat-label>Mapel</mat-label>
+                                <mat-select
+                                    matInput
+                                    [formControlName]="'mapel_id'"
+                                    (selectionChange)="changeMapel()"
+                                >
+                                    <mat-option
+                                        *ngFor="let mapel of mapels"
+                                        [value]="mapel.id"
+                                    >
+                                        {{ mapel.mapel_name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+                    </ng-container>
+
+                    <div class="flex flex-col gap-2">
+                        <mat-label class="font-medium">Upload Soal</mat-label>
+                        <div class="flex flex-row gap-2">
+                            <button-upload
+                                (change)="selectFile($event)"
+                                [disabled]="isDisabled"
+                            ></button-upload>
+                            <span>{{ filename }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div mat-dialog-actions class="flex mt-2 gap-2">
+                    <button-close></button-close>
+                    <button
+                        [disabled]="isLoading"
+                        type="submit"
+                        class="bg-green-600 text-white"
+                        mat-button
+                    >
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

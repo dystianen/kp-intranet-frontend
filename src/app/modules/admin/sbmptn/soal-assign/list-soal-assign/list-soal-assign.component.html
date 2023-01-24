@@ -28,7 +28,7 @@
                     novalidate
                 >
                     <div class="flex flex-col w-full">
-                        <div>
+                        <!-- <div>
                             <div class="flex flex-col w-1/2 px-2">
                                 <ng-container *ngIf="(categories$ | async) as modules">
                                     <mat-form-field>
@@ -41,7 +41,7 @@
                                     </mat-form-field>
                                 </ng-container>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="flex">
                             <div class="flex flex-col w-1/2 px-2">
                                 <ng-container
@@ -100,9 +100,9 @@
                             class="p-4 bg-white my-2 flex items-center justify-between"
                         >
                             <div>
-                                <h2>
+                                <h2 class="flex items-center">
                                     #{{ soal.id }}
-                                    {{ soal.title | slice : 0 : 50 }}
+                                    <span class="ml-1" [innerHTML]="soal.content | slice:0:50"></span>...
                                 </h2>
                                 <span
                                     class="text-white p-1"
@@ -141,9 +141,9 @@
                                 ></mat-icon>
                             </button>
                             <div>
-                                <h2>
+                                <h2 class="flex items-center">
                                     #{{ soal.id }}
-                                    {{ soal.title | slice : 0 : 50 }}
+                                    <span class="ml-1" [innerHTML]="soal.content | slice:0:50"></span>...
                                 </h2>
                                 <span
                                     class="text-white p-1"

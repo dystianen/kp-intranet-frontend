@@ -8,6 +8,7 @@ import { CrudModule } from 'app/shared/crud/crud.module';
 import { MapelResolver } from './mapel.resolver';
 import { ModuleResolver } from '../module/module.resolver';
 import { ComponentsModule } from 'app/components/components.module';
+import { SoalCategoryResolver } from '../soal-category/soal-category.resolver';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
         component: ListMapelComponent,
         resolve:{
           mapels: MapelResolver,
-          modules: ModuleResolver
+          modules: ModuleResolver,
+          categories: SoalCategoryResolver
         }
       }
     ]

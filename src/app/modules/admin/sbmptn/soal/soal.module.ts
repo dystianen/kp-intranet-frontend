@@ -10,8 +10,17 @@ import { SoalResolver } from './soal.resolver';
 import { QuillModule } from 'ngx-quill';
 import { FormJawabanComponent } from './form-jawaban/form-jawaban.component';
 import { ListJawabanComponent } from './list-jawaban/list-jawaban.component';
-import {MatListModule} from '@angular/material/list'; 
+import {MatListModule} from '@angular/material/list';
 import { SoalCategoryResolver } from '../soal-category/soal-category.resolver';
+import { ModuleResolver } from '../module/module.resolver';
+import { MapelResolver } from '../mapel/mapel.resolver';
+import { SoalPreviewComponent } from './soal-preview/soal-preview.component';
+import { FormUploadComponent } from './form-upload/form-upload.component';
+import { TryoutModuleResolver } from '../tryout-module/tryout-module.resolver';
+import { TryoutTypeResolver } from '../tryout-type/tryout-type.resolver';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { MyEditorModule } from 'app/shared/my-editor/my-editor.module';
+import { CheckSoalComponent } from './check-soal/check-soal.component';
 
 const routes: Routes = [
   {
@@ -19,11 +28,14 @@ const routes: Routes = [
     component: SoalComponent,
     children: [
       {
-        path: '',
+        path: ':category_id',
         component: ListSoalComponent,
         resolve: {
           soals: SoalResolver,
-          category: SoalCategoryResolver
+          category: SoalCategoryResolver,
+          modules: ModuleResolver,
+          mapels: MapelResolver,
+          tryoutType: TryoutTypeResolver
         }
       }
     ]
@@ -36,7 +48,10 @@ const routes: Routes = [
     ListSoalComponent,
     FormSoalComponent,
     FormJawabanComponent,
-    ListJawabanComponent
+    ListJawabanComponent,
+    SoalPreviewComponent,
+    FormUploadComponent,
+    CheckSoalComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +59,9 @@ const routes: Routes = [
     CrudModule,
     ComponentsModule,
     QuillModule.forRoot(),
-    MatListModule
+    MatListModule,
+    CKEditorModule,
+    MyEditorModule
   ]
 })
 export class SoalModule { }

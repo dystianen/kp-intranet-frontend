@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { find, findIndex } from 'lodash';
+import { findIndex } from 'lodash';
 import { SoalService } from '../soal.service';
 
 @Component({

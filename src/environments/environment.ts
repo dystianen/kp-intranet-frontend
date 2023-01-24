@@ -4,8 +4,9 @@
 
 export const environment = {
     production: false,
-    apiUrl:'http://localhost/api',
+    apiUrl:'https://intranet-api.kelaspintar.co.id/api',
     apiPtnUrl:'http://localhost:81/api',
+    apiWorker:'https://zoom-worker.kelaspintar.id'
 };
 
 /*

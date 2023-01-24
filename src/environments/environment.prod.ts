@@ -3,9 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
-    apiUrl:'http://localhost/api',
-    apiPtnUrl:'http://localhost:81/api',
+    production: true,
+    apiUrl:'https://intranet-api.kelaspintar.co.id/api',
+    apiPtnUrl:'https://ptn-api.kelaspintar.id/api',
+    apiWorker:'https://zoom-worker.kelaspintar.id'
 };
 
 /*

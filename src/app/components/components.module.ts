@@ -4,18 +4,22 @@ import { UnauthorizedComponent } from './errors/unauthorized/unauthorized.compon
 import { MatIconModule } from '@angular/material/icon';
 import { BackButtonComponent } from './button/back-button/back-button.component';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MyCkEditorComponent } from './my-ck-editor/my-ck-editor.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 
 @NgModule({
   declarations: [
     UnauthorizedComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    MyCkEditorComponent
   ],
   imports: [
     CommonModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    CKEditorModule
   ],
   exports:[
     UnauthorizedComponent,

@@ -1,0 +1,67 @@
+<div class="w-100">
+    <h1 mat-dialog-title>{{ dialogData.title }}</h1>
+
+    <form
+        [formGroup]="form"
+        id="form"
+        #f="ngForm"
+        (ngSubmit)="submitForm(f)"
+        novalidate
+    >
+        <div class="flex flex-col w-full">
+            <div mat-dialog-content>
+                <div class="flex flex-col w-full">
+                    <mat-form-field>
+                        <mat-label>Category</mat-label>
+                        <mat-select matInput [formControlName]="'package_category'">
+                            <mat-option
+                                *ngFor="let category of categories"
+                                [value]="category.code"
+                            >
+                                {{ category.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Code</mat-label>
+                        <input
+                            matInput
+                            [formControlName]="'code'"
+                            required
+                        />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Discount</mat-label>
+                        <input
+                            type="number"
+                            matInput
+                            [formControlName]="'discount_amount'"
+                            required
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Final Price</mat-label>
+                        <input
+                            type="number"
+                            matInput
+                            [formControlName]="'final_price'"
+                            required
+                        />
+                    </mat-form-field>
+                    <!-- <mat-label>Status</mat-label> -->
+                    <mat-checkbox [formControlName]="'status'"
+                        >Status Active</mat-checkbox
+                    >
+                </div>
+            </div>
+
+            <div>
+                <div mat-dialog-actions class="flex justify-center">
+                    <button-close></button-close>
+                    <button-submit></button-submit>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

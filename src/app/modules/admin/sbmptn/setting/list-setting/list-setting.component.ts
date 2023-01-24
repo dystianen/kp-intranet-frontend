@@ -13,7 +13,7 @@ export class ListSettingComponent implements OnInit {
 
   settings: any[] = [];
   dataSource: MatTableDataSource<any>
-  displayedColumns: string[] = ["key","value","description", "options"];
+  displayedColumns: string[] = ["key","value","value2","value3","value4","value5","description", "options"];
 
   constructor(private dialog: MatDialog, private _settingService: SettingService) { }
 

@@ -21,6 +21,10 @@ export class FormSettingComponent implements OnInit {
     this.form = this.formBuilder.group({
       key: '',
       value: '',
+      value2: '',
+      value3: '',
+      value4: '',
+      value5: '',
       description: '',
     })
 
