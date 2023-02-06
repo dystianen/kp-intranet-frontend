@@ -42,7 +42,7 @@ pipeline {
     stage('Copy Config to production') {
       when {
         expression {
-          return ((env.GIT_BRANCH == 'origin/production') || (env.GIT_BRANCH =~ /origin\/release\/.*$/) || (env.GIT_BRANCH == 'origin/master'))
+          return ((env.GIT_BRANCH == 'origin/main') || (env.GIT_BRANCH =~ /origin\/release\/.*$/) || (env.GIT_BRANCH == 'origin/master'))
         }
       }
       steps {
@@ -70,7 +70,7 @@ pipeline {
     stage('Docker Image push Production') {
       when {
         expression {
-          return ((env.GIT_BRANCH == 'origin/production') || (env.GIT_BRANCH =~ /origin\/release\/.*$/) || (env.GIT_BRANCH == 'origin/master'))
+          return ((env.GIT_BRANCH == 'origin/main') || (env.GIT_BRANCH =~ /origin\/release\/.*$/) || (env.GIT_BRANCH == 'origin/master'))
         }
       }
       steps {
@@ -96,7 +96,7 @@ pipeline {
     stage('Deploy to production') {
       when {
         expression {
-          return ((env.GIT_BRANCH == 'origin/production') || (env.GIT_BRANCH =~ /origin\/release\/.*$/) || (env.GIT_BRANCH == 'origin/master'))
+          return ((env.GIT_BRANCH == 'origin/main') || (env.GIT_BRANCH =~ /origin\/release\/.*$/) || (env.GIT_BRANCH == 'origin/master'))
         }
       }
       steps {
@@ -153,7 +153,7 @@ def get_commit_hash() {
 
 def dockerfilename() {
   String name=''
-  if ((env.GIT_BRANCH == 'origin/production') || (env.GIT_BRANCH == 'origin/master') || (env.GIT_BRANCH =~ /origin\/release\/.*$/)){
+  if ((env.GIT_BRANCH == 'origin/main') || (env.GIT_BRANCH == 'origin/master') || (env.GIT_BRANCH =~ /origin\/release\/.*$/)){
     name = 'Dockerfile.production'
     } else if ((env.GIT_BRANCH == 'origin/infra_staging') || (env.GIT_BRANCH =~ /origin\/staging\/.*$/)){
       name = 'Dockerfile.staging'
