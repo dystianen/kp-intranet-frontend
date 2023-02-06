@@ -100,7 +100,7 @@ pipeline {
         }
       }
       steps {
-        sh "docker -H tcp://:2376 stack deploy kp-intranet-fe-production -c docker-compose.yml --prune --with-registry-auth --resolve-image=always"
+        sh "docker -H tcp://172.30.2.2:2376 stack deploy kp-intranet-fe-production -c docker-compose.yml --prune --with-registry-auth --resolve-image=always"
       }
     }
   }
