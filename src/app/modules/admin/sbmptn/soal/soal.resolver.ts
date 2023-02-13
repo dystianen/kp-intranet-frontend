@@ -15,7 +15,7 @@ export class SoalResolver implements Resolve<any[]> {
   constructor(private _soalService: SoalService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any[]> {
     const {category_id} = route.params;
-    this._soalService.curentCategory = category_id;
-    return this._soalService.getSoals(category_id);
+    this._soalService.curentCategory = category_id??'latihan_soal';
+    return this._soalService.getSoals(category_id??'latihan_soal');
   }
 }
