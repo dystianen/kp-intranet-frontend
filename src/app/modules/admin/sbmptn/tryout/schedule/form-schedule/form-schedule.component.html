@@ -209,7 +209,7 @@
                                         </div>
                                     </ng-container>
 
-                                    <ng-container *ngIf="tryoutTopics">
+                                    <!-- <ng-container *ngIf="tryoutTopics">
                                         <div>
                                             <mat-label>Topik</mat-label>
                                             <div class="grid grid-cols-3 gap-3">
@@ -246,9 +246,9 @@
                                                 </ng-container>
                                             </div>
                                         </div>
-                                    </ng-container>
+                                    </ng-container> -->
 
-                                    <ng-container *ngIf="tryoutSubtopics">
+                                    <!-- <ng-container *ngIf="tryoutSubtopics">
                                         <div>
                                             <mat-label>Sub Topik</mat-label>
                                             <div class="grid grid-cols-3 gap-3">
@@ -285,7 +285,7 @@
                                                 </ng-container>
                                             </div>
                                         </div>
-                                    </ng-container>
+                                    </ng-container> -->
                                 </ng-container>
                             </div>
                         </ng-container>
@@ -321,7 +321,7 @@
                                     >
                                         <span class="font-bold mr-2"
                                             ><b>{{ i + 1 }}</b
-                                            >.</span
+                                            >.#<span class="text-red-600">{{item.id}}</span></span
                                         >
                                         <div  class="w-full">
                                             <mat-checkbox

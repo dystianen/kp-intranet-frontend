@@ -16,6 +16,7 @@ import { PackageResolver } from '../package/package.resolver';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { TryoutTypeResolver } from '../../tryout-type/tryout-type.resolver';
 import { SoalResolver } from '../../soal/soal.resolver';
+import { SoalTryoutResolver } from './soal-tryout.resolver';
 
 const routes: Routes = [
     {
@@ -29,7 +30,7 @@ const routes: Routes = [
                     schedules: ScheduleResolver,
                     packages: PackageResolver,
                     tryoutTypes: TryoutTypeResolver,
-                    soals: SoalResolver,
+                    soals: SoalTryoutResolver,
                 }
             }
         ]

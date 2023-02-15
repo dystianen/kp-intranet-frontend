@@ -282,7 +282,6 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
      * @param f
      */
     submitForm(f: NgForm) {
-        
         if (!f.valid) {
             return;
         }
@@ -319,35 +318,38 @@ export class FormScheduleComponent implements OnInit, AfterViewInit {
 
     get soals() {
         return this.soals$.filter((item) => {
+            return (
+                this.inputSubtopicIds.includes(item.tryout_subtopic_id) ||
+                this.inputTopicIds.includes(item.tryout_topic_id) ||
+                this.inputModuleIds.includes(item.tryout_module_id)
+            );
+            // if (this.soals$.some((item) => item.tryout_subtopic_id)) {
+            //     if (this.inputSubtopicIds.length >= 1) {
+            //         return this.inputSubtopicIds.includes(
+            //             item.tryout_subtopic_id
+            //         );
+            //     }
+            // }
 
-            if(this.soals$.some((item)=>item.tryout_subtopic_id)){
-                if (this.inputSubtopicIds.length >= 1) {
-                    return (
-                        item.category_id === 'tryout' &&
-                        this.inputSubtopicIds.includes(item.tryout_subtopic_id)
-                    );
-                }
-            }
+            // if(this.soals$.some((item)=>item.tryout_topic_id)){
+            //     if (this.inputTopicIds.length >= 1) {
+            //         return (
+            //             item.category_id === 'tryout' &&
+            //             this.inputTopicIds.includes(item.tryout_topic_id)
+            //         );
+            //     }
+            // }
 
-            if(this.soals$.some((item)=>item.tryout_topic_id)){
-                if (this.inputTopicIds.length >= 1) {
-                    return (
-                        item.category_id === 'tryout' &&
-                        this.inputTopicIds.includes(item.tryout_topic_id)
-                    );
-                }
-            }
+            // if(this.soals$.some((item)=>item.tryout_module_id)){
+            //     if (this.inputModuleIds.length >= 1) {
+            //         return (
+            //             item.category_id === 'tryout' &&
+            //             this.inputModuleIds.includes(item.tryout_module_id)
+            //         );
+            //     }
+            // }
 
-            if(this.soals$.some((item)=>item.tryout_module_id)){
-                if (this.inputModuleIds.length >= 1) {
-                    return (
-                        item.category_id === 'tryout' &&
-                        this.inputModuleIds.includes(item.tryout_module_id)
-                    );
-                }
-            }
-
-            return item.category_id == 'tryout';
+            return true;
         });
     }
 
