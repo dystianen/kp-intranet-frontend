@@ -6,6 +6,7 @@ export const environment = {
     production: false,
     apiUrl:'https://intranet-api.kelaspintar.co.id/api',
     apiPtnUrl:'http://10.40.1.234:81/api',
+    apiOtp:'http://localhost:3000',
 };
 
 /*
