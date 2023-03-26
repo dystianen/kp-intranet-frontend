@@ -6,8 +6,8 @@ export const environment = {
     production: false,
     apiUrl:'https://intranet-api.kelaspintar.co.id/api',
     apiPtnUrl:'https://ptn-api.kelaspintar.co.id/api',
-    apiWorker:'https://zoom-worker.kelaspintar.id',
-    apiOtp:'http://localhost:3000',
+    apiWorker:'https://zoom-worker.kelaspintar.co.id',
+    apiOtp:'https://api-otp.kelaspintar.co.id',
 };
 
 /*

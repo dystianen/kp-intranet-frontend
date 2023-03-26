@@ -1,0 +1,121 @@
+<div
+    class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent"
+>
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+    >
+        <!-- Loader -->
+        <!-- <div class="absolute inset-x-0 bottom-0">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div> -->
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            OTP Kelas Pintar - Logs
+        </div>
+        <!-- Actions -->
+    </div>
+
+    <div class="m-4">
+        <form
+            [formGroup]="form"
+            id="form"
+            #f="ngForm"
+            (ngSubmit)="submitForm(f)"
+            novalidate
+        >
+            <div class="flex flex-col w-full">
+                <div>
+                    <div class="grid grid-cols-4 gap-3">
+                        <mat-form-field>
+                            <mat-label>OTP</mat-label>
+                            <input matInput [formControlName]="'otp'" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Phone</mat-label>
+                            <input matInput [formControlName]="'phone'" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Tag</mat-label>
+                            <input matInput [formControlName]="'tag'" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Message ID</mat-label>
+                            <input matInput [formControlName]="'message_id'" />
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="logs.length > 0">
+                    <div class="grid">
+                        <!-- Header -->
+                        <div
+                            class="grid-cols-6 z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
+                            matSort
+                            matSortDisableClear
+                        >
+                            <div
+                                class="hidden md:block"
+                                [mat-sort-header]="'otp'"
+                            >
+                                OTP
+                            </div>
+                            <div>Status</div>
+                            <div>Phone</div>
+                            <div
+                                class="hidden sm:block"
+                                [mat-sort-header]="'tag'"
+                            >
+                                Tag
+                            </div>
+                            <div class="hidden sm:block">Message</div>
+                        </div>
+                        <!-- Rows -->
+
+                        <ng-container *ngFor="let log of logs">
+                            <div
+                                class="grid-cols-6 grid items-center gap-4 py-3 px-6 md:px-8 border-b"
+                            >
+                                <!-- Image -->
+
+                                <!-- SKU -->
+                                <div class="hidden md:block truncate">
+                                    {{ log.otp }}
+                                </div>
+
+                                <!-- Name -->
+                                <div>
+                                    {{ log.status }}
+                                </div>
+
+                                <div>
+                                    {{ log.phone }}
+                                </div>
+
+                                <!-- Price -->
+                                <div>
+                                    {{ log.tag }}
+                                </div>
+
+                                <div>
+                                    {{ log.message }}
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </ng-container>
+                <div class="mt-10">
+                    <div>
+                        <button
+                            type="submit"
+                            class="bg-green-600 text-white"
+                            mat-button
+                        >
+                            Find Logs
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
