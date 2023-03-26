@@ -97,6 +97,9 @@ export const appRoutes: Route[] = [
 
             { path: 'zoom/virtual-background', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/zoom-vb/zoom-vb.module').then(m => m.ZoomVbModule) },
             { path: 'zoom/end-meeting', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/zoom-end-meeting/zoom-end-meeting.module').then(m => m.ZoomEndMeetingModule) },
+
+            { path: 'otp/setting', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/otp/otp.module').then(m => m.OtpModule) },
+            { path: 'otp/logs', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/otp-log/otp-log.module').then(m => m.OtpLogModule) },
         ]
     }
 ];
