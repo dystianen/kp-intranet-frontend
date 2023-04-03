@@ -167,7 +167,7 @@ export class FormSoalComponent implements OnInit {
             };
             const filterData = omitBy(data, (v) => v === '' || v === null);
             this._soalService.createSoal(filterData).subscribe((res) => {
-                this._soalService.getSoals().subscribe();
+                this._soalService.getSoals(this.dialogData.category).subscribe();
                 this.dialogRef.close();
                 this.isLoading = false;
             });
@@ -188,7 +188,7 @@ export class FormSoalComponent implements OnInit {
             this._soalService
                 .updateSoal(this.dialogData.id, data)
                 .subscribe((res) => {
-                    this._soalService.getSoals().subscribe();
+                    this._soalService.getSoals(this.dialogData.category).subscribe();
                     this.dialogRef.close();
                 });
         }
