@@ -65,4 +65,17 @@ export class OtpService {
                 })
             );
     }
+
+    deleteLogs(data): Observable<any> {
+        return this._httpClient
+            .post(`${environment.apiOtp}/otp/delete-log`, data)
+            .pipe(
+                map((role: any) => {
+                    if (role.statusCode == 200) {
+                        return role.data;
+                    }
+                    return [];
+                })
+            );
+    }
 }
