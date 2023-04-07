@@ -11,6 +11,7 @@ import { OtpService } from '../otp/otp.service';
 })
 export class OtpLogComponent implements OnInit {
     form: FormGroup;
+    isLoading: boolean = false;
 
     logs: [] = [];
 
@@ -28,10 +29,21 @@ export class OtpLogComponent implements OnInit {
         });
     }
 
+    deleteLogs(f: NgForm) {
+        this.isLoading = true;
+        const data = pickBy(f.value, identity);
+        this._otpService.deleteLogs(data).subscribe((res) => {
+            this.logs = [];
+            this.isLoading = false;
+        });
+    }
+
     submitForm(f: NgForm) {
+        this.isLoading = true;
         const data = pickBy(f.value, identity);
         this._otpService.fingLogs(data).subscribe((res) => {
             this.logs = res;
+            this.isLoading = false;
         });
     }
 }
