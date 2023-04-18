@@ -1,4 +1,4 @@
-<div class="w-full">
+<div class="w-full" id="jadwal_to">
     <ng-container *ngIf="isLoading == true">
         <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
     </ng-container>
@@ -348,7 +348,7 @@
                                                 <ol class="">
                                                     <ng-container
                                                         *ngFor="
-                                                            let jwb of item.jawaban
+                                                            let jwb of item.jawaban | sortBy: 'key'
                                                         "
                                                     >
                                                         <ng-container

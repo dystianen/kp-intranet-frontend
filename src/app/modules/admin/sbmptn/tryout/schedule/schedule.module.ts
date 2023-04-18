@@ -17,6 +17,7 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerMod
 import { TryoutTypeResolver } from '../../tryout-type/tryout-type.resolver';
 import { SoalResolver } from '../../soal/soal.resolver';
 import { SoalTryoutResolver } from './soal-tryout.resolver';
+import { PipesModule } from 'app/shared/pipes/pipes.module';
 
 const routes: Routes = [
     {
@@ -52,7 +53,8 @@ const routes: Routes = [
         MatDatepickerModule,
         NgxMatNativeDateModule,
         NgxMatDatetimePickerModule,
-        NgxMatTimepickerModule
+        NgxMatTimepickerModule,
+        PipesModule.forRoot()
     ]
 })
 export class ScheduleModule {

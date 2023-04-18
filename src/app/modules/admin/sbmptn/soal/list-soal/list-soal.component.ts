@@ -8,6 +8,7 @@ import { FormSoalComponent } from '../form-soal/form-soal.component';
 import { FormUploadComponent } from '../form-upload/form-upload.component';
 import { SoalService } from '../soal.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-list-soal',
@@ -42,7 +43,8 @@ export class ListSoalComponent implements OnInit {
     constructor(
         private dialog: MatDialog,
         private _soalService: SoalService,
-        private _categoryService: SoalCategoryService
+        private _categoryService: SoalCategoryService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
@@ -99,6 +101,7 @@ export class ListSoalComponent implements OnInit {
                 title: 'Buat Soal',
                 type: 'addSoal',
                 mapel: this.mapel,
+                category: this.route.snapshot.params['category_id']
             },
             autoFocus: true,
         });
@@ -111,11 +114,13 @@ export class ListSoalComponent implements OnInit {
     edit(id) {
         this.dialog.open(FormSoalComponent, {
             id: 'formEditSoal',
+            panelClass:'w-10/12',
             data: {
                 title: 'Edit Soal',
                 type: 'editSoal',
                 id: id,
                 mapel: this.mapel,
+                category: this.route.snapshot.params['category_id']
             },
             autoFocus: true,
         });

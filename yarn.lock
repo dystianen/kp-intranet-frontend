@@ -1831,13 +1831,12 @@
     lodash.merge "^4.6.2"
     lodash.uniq "^4.5.0"
 
-"@tinymce/tinymce-angular@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-angular/-/tinymce-angular-7.0.0.tgz#010de497d5774a8bdc5d5936bf4fb976adf05f56"
-  integrity sha512-IKNaG/ihlxE1XCfq6lzULbnsqZO9KNJtlpu5jo6JDJDL9zcFzj/N2A16Kk7rTj1yfmDoB1IXAk/BpMOvgDY8cg==
+"@tinymce/tinymce-angular@^4.0.0":
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-angular/-/tinymce-angular-4.2.4.tgz#45974f39fcdb1af6f30dba6405bfb0b8a3db748f"
+  integrity sha512-A+FIvhTahHaqDuvcXovuhzvpCR2yjUbPuF+Z/t/MnNaCv/9Y0w7W5Qgmo5wARIW+NM7o8msWcMSxOMK4xkv10Q==
   dependencies:
-    tinymce "^6.0.0 || ^5.5.0"
-    tslib "^2.3.0"
+    tslib "^1.10.0"
 
 "@tootallnate/once@1":
   version "1.1.2"
@@ -2471,12 +2470,12 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.12.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-angular-froala-wysiwyg@^4.0.16:
-  version "4.0.16"
-  resolved "https://registry.yarnpkg.com/angular-froala-wysiwyg/-/angular-froala-wysiwyg-4.0.16.tgz#d10aa6e4f55020e974a35bcc8343e5ee5c980b21"
-  integrity sha512-JG0gS/NGqMHh9RWhX4NvL10Zw7HUfNtCxi4BJTzfYkXXbR7gnKUtX3edrkrPRLbqePSCOh4TQpfDarx7LM/B6g==
+angular-froala-wysiwyg@^4.0.18:
+  version "4.0.18"
+  resolved "https://registry.yarnpkg.com/angular-froala-wysiwyg/-/angular-froala-wysiwyg-4.0.18.tgz#bde610c27691d1efae977c48b2a569fae553321a"
+  integrity sha512-clEAH3Y6zhFj/k1IJ8AZRhNzTvMHPjTrg0y6B1xBk8n/+KwCPbS0+BjxE4mf/ERbnyheKDFZCtnP41dRAuzYwg==
   dependencies:
-    froala-editor "4.0.16"
+    froala-editor "4.0.18"
     tslib "^2.0.0"
 
 angularx-qrcode@^11.0.0:
@@ -3165,7 +3164,7 @@ ckeditor4-integrations-common@^1.0.0:
   resolved "https://registry.yarnpkg.com/ckeditor4-integrations-common/-/ckeditor4-integrations-common-1.0.0.tgz#a8afc33b94877b4d01362c7c73aa9eec162b2d20"
   integrity sha512-OAoQT/gYrHkg0qgzf6MS/rndYhq3SScLVQ3rtXQeuCE8ju7nFHg3qZ7WGA2XpFxcZzsMP6hhugXqdel5vbcC3g==
 
-"ckeditor5-custom-build@file:./plugins/ckeditor5":
+"ckeditor5-custom-build@file:./plugins/cke5":
   version "0.0.1"
 
 ckeditor5@^35.4.0:
@@ -4925,10 +4924,10 @@ fresh@0.5.2:
   resolved "https://registry.npmjs.org/fresh/-/fresh-0.5.2.tgz"
   integrity sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==
 
-froala-editor@4.0.16:
-  version "4.0.16"
-  resolved "https://registry.yarnpkg.com/froala-editor/-/froala-editor-4.0.16.tgz#4ca4eb9e06fcdd09015a8c761e932b0f3d2a7b10"
-  integrity sha512-n1hXfgD/sWCdTVKJW9SPupeW6oQ25TO3hQuDaktdgPszyywe5Vpbxw0k+ffRs5pWSt/aHRiDaQnaxyb9YRA9Sg==
+froala-editor@4.0.18:
+  version "4.0.18"
+  resolved "https://registry.yarnpkg.com/froala-editor/-/froala-editor-4.0.18.tgz#ee0990972a02c4f3a5f73e05babff12013b3673a"
+  integrity sha512-FLTe9OrgFgEe1x+lOwl2tmJxPPyW6HgMLh5A0C/x6TQlziixjp6P8kMLjyG3wv4ve8hgWm+iCxfAbnd1KxvDZA==
 
 fs-extra@^10.0.0:
   version "10.1.0"
@@ -9823,11 +9822,6 @@ thunky@^1.0.2:
   version "1.1.0"
   resolved "https://registry.npmjs.org/thunky/-/thunky-1.1.0.tgz"
   integrity sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==
-
-"tinymce@^6.0.0 || ^5.5.0":
-  version "6.3.1"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-6.3.1.tgz#cc5cf2b9f702d429cf5d1d21ed62245d768bfc4f"
-  integrity sha512-+oCwXuTxAdJXVJ0130OxQz0JDNsqg3deuzgeUo8X5Vb27EzCJgXwO5eWvCxvkxpQo4oiHMVlM4tUIpTUHufHGQ==
 
 tmp@0.2.1, tmp@^0.2.1:
   version "0.2.1"
