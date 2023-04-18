@@ -6,6 +6,7 @@ import { ToastModule } from './toast/toast.module';
 
 
 
+
 @NgModule({
     imports: [
         CommonModule,
@@ -23,7 +24,6 @@ import { ToastModule } from './toast/toast.module';
     ],
     declarations: [
       
-
   ]
 })
 export class SharedModule
