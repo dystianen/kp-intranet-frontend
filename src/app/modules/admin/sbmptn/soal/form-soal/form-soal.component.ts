@@ -87,9 +87,6 @@ export class FormSoalComponent implements OnInit {
 
         this.tryoutTopics = this.topics$;
 
-        
-
-
         /**
          * Initial form
          */
@@ -153,6 +150,9 @@ export class FormSoalComponent implements OnInit {
      */
     submitForm(f: NgForm) {
         this.isLoading = true;
+        // const subtopic = document.getElementById("subtopic");
+        // console.log('abc',f.value.tryout_subtopic_id);
+        // return;
         /**
          * Add new Destination
          */
@@ -167,7 +167,9 @@ export class FormSoalComponent implements OnInit {
             };
             const filterData = omitBy(data, (v) => v === '' || v === null);
             this._soalService.createSoal(filterData).subscribe((res) => {
-                this._soalService.getSoals(this.dialogData.category).subscribe();
+                this._soalService
+                    .getSoals(this.dialogData.category)
+                    .subscribe();
                 this.dialogRef.close();
                 this.isLoading = false;
             });
@@ -181,25 +183,31 @@ export class FormSoalComponent implements OnInit {
                 return item.key;
             });
             const data = {
-                soal: f.value,
+                soal: { ...f.value },
                 jawaban: this.jawaban,
                 delete_jawaban: delete_jawaban ?? [],
             };
             this._soalService
                 .updateSoal(this.dialogData.id, data)
                 .subscribe((res) => {
-                    this._soalService.getSoals(this.dialogData.category).subscribe();
+                    this._soalService
+                        .getSoals(this.dialogData.category)
+                        .subscribe();
                     this.dialogRef.close();
                 });
         }
     }
 
-    get topics(){
-        return this.topics$.filter((item)=>item.id_modul==this.form.value.tryout_module_id);
+    get topics() {
+        return this.topics$.filter(
+            (item) => item.id_modul == this.form.value.tryout_module_id
+        );
     }
 
-    get subtopics(){
-        return this.subtopics$.filter((item)=>item.id_topic==this.form.value.tryout_topic_id);
+    get subtopics() {
+        return this.subtopics$.filter(
+            (item) => item.id_topic == this.form.value.tryout_topic_id
+        );
     }
 
     changeModule(module_id) {
@@ -220,6 +228,11 @@ export class FormSoalComponent implements OnInit {
         const module = this.tryoutTopics.find((item) => item.id === id);
         if (module) {
             this.tryoutSubtopics = module.subtopic;
+        }
+        if (this.subtopics.length==0) {
+            this.form.patchValue({
+                tryout_subtopic_id: null,
+            });
         }
     }
 }
