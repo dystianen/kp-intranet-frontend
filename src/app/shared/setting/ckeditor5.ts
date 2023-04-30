@@ -30,6 +30,8 @@ export const ckeditor5Conf = {
                 'numberedList',
                 'todoList',
                 '|',
+                'mathType',
+                '|',
                 'code',
                 'codeBlock',
                 '|',
