@@ -100,6 +100,8 @@ export const appRoutes: Route[] = [
 
             { path: 'otp/setting', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/otp/otp.module').then(m => m.OtpModule) },
             { path: 'otp/logs', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/otp-log/otp-log.module').then(m => m.OtpLogModule) },
+
+            { path: 'ujian/reset-ujian', canActivate: [AuthorizedGuard], loadChildren: () => import('app/modules/admin/ujian/reset-ujian/reset-ujian.module').then(m => m.ResetUjianModule) },
         ]
     }
 ];
