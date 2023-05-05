@@ -8,6 +8,7 @@ export const environment = {
     apiPtnUrl:'https://ptn-api.kelaspintar.id/api',
     apiWorker:'https://zoom-worker.kelaspintar.id',
     apiOtp:'https://api-otp.kelaspintar.id',
+    apiExam:'https://middleware-exam.kelaspintar.id',
 };
 
 /*
