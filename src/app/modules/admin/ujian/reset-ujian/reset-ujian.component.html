@@ -7,9 +7,9 @@
     >
         <!-- Loader -->
         <!-- Title -->
-        <!-- <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
             <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
-        </div> -->
+        </div>
         <div class="text-4xl font-extrabold tracking-tight">
             Ujian - Reset Ujian
         </div>
@@ -17,16 +17,150 @@
     </div>
 
     <div class="m-4">
-        <form id="form" novalidate>
+        <form
+            id="form"
+            [formGroup]="form"
+            id="form"
+            #f="ngForm"
+            (ngSubmit)="findData(f)"
+        >
             <div class="flex flex-col w-full">
                 <div>
                     <div class="grid grid-cols-4 gap-3">
                         <mat-form-field>
                             <mat-label>Email</mat-label>
-                            <input matInput />
+                            <input
+                                matInput
+                                required
+                                [formControlName]="'email'"
+                            />
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>From</mat-label>
+                            <input
+                                matInput
+                                class="w-full"
+                                [ngxMatDatetimePicker]="start_date"
+                                placeholder="Choose a date & time"
+                                [formControlName]="'start_date'"
+                                required
+                            />
+
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="start_date"
+                            ></mat-datepicker-toggle>
+
+                            <ngx-mat-datetime-picker
+                                #start_date
+                            ></ngx-mat-datetime-picker>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>To</mat-label>
+                            <input
+                                matInput
+                                class="w-full"
+                                [ngxMatDatetimePicker]="end_date"
+                                placeholder="Choose a date & time"
+                                [formControlName]="'end_date'"
+                                required
+                            />
+
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="end_date"
+                            ></mat-datepicker-toggle>
+
+                            <ngx-mat-datetime-picker
+                                #end_date
+                            ></ngx-mat-datetime-picker>
                         </mat-form-field>
                     </div>
                 </div>
+
+                <ng-container *ngIf="ujians.length > 0">
+                    <div class="grid">
+                        <!-- Header -->
+                        <div
+                            class="grid-cols-7 z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
+                            matSort
+                            matSortDisableClear
+                        >
+                            <div
+                                class="hidden md:block"
+                                [mat-sort-header]="'otp'"
+                            >
+                                Id Student
+                            </div>
+                            <div>Student Name</div>
+                            <div>Assign ID</div>
+                            <div class="hidden sm:block">Papper Name</div>
+                            <div class="hidden sm:block">Start</div>
+                            <div class="hidden sm:block">End</div>
+                            <div>#</div>
+                        </div>
+                        <!-- Rows -->
+
+                        <ng-container *ngFor="let ujian of ujians">
+                            <div
+                                class="grid-cols-7 grid items-center gap-4 py-3 px-6 md:px-8 border-b"
+                            >
+                                <!-- Image -->
+
+                                <!-- SKU -->
+                                <div class="hidden md:block truncate">
+                                    {{ ujian.student_id }}
+                                </div>
+
+                                <!-- Name -->
+                                <div>
+                                    {{ ujian.student_name }}
+                                </div>
+
+                                <div>
+                                    {{ ujian.assign_auto_id }}
+                                </div>
+
+                                <!-- Price -->
+                                <div>
+                                    {{ ujian.paper_name }}
+                                </div>
+
+                                <div>
+                                    {{
+                                        ujian.start_date
+                                            | date : "d/Y/yy, h:mm a"
+                                    }}
+                                </div>
+                                <div>
+                                    {{
+                                        ujian.end_date | date : "d/Y/yy, h:mm a"
+                                    }}
+                                </div>
+                                <div>
+                                    <button
+                                        (click)="
+                                            resetData(
+                                                ujian.student_id,
+                                                ujian.assign_auto_id
+                                            )
+                                        "
+                                        type="button"
+                                        class="bg-yellow-600 text-white"
+                                        mat-button
+                                    >
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="mt-10">
+                        <div></div>
+                    </div>
+                </ng-container>
 
                 <div class="mt-10">
                     <div>
