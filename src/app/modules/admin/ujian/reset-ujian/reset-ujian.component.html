@@ -38,7 +38,7 @@
                     </div>
                 </div>
 
-                <ng-container *ngIf="ujians.length > 0">
+                <ng-container *ngIf="ujians.length > 0 else notFound">
                     <div class="grid">
                         <!-- Header -->
                         <div
@@ -89,12 +89,12 @@
                                 <div>
                                     {{
                                         ujian.start_date
-                                            | date : "d dd M yy, h:mm a"
+                                            | date : "dd/MM/yy, h:mm a"
                                     }}
                                 </div>
                                 <div>
                                     {{
-                                        ujian.end_date | date : "d dd M yy, h:mm a"
+                                        ujian.end_date | date : "dd/MM/yy, h:mm a"
                                     }}
                                 </div>
                                 <div>
@@ -119,6 +119,10 @@
                         <div></div>
                     </div>
                 </ng-container>
+
+                <ng-template #notFound>
+                    <h2>Data tidak ditemukan</h2>
+                </ng-template>
 
                 <div class="mt-10">
                     <div>
