@@ -16,14 +16,12 @@ export class ResetUjianComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private resetUjianService: ResetUjianService
+        private _resetUjianService: ResetUjianService
     ) {}
 
     ngOnInit(): void {
         this.form = this.formBuilder.group({
-            email: '',
-            start_date: '',
-            end_date: '',
+            email: ''
         });
     }
 
@@ -33,7 +31,7 @@ export class ResetUjianComponent implements OnInit {
         }
         this.isLoading = true;
         const data = pickBy(f.value, identity);
-        this.resetUjianService.findUjian(data).subscribe((res) => {
+        this._resetUjianService.findUjian(data).subscribe((res) => {
             console.log('abc', res);
             this.ujians = res;
             this.isLoading = false;
@@ -42,7 +40,7 @@ export class ResetUjianComponent implements OnInit {
 
     resetData(student_id: number, assign_auto_id: number) {
         this.isLoading = true;
-        this.resetUjianService
+        this._resetUjianService
             .resetUjian({ student_id, assign_auto_id })
             .subscribe((res) => {
                 const form: any = this.form;
