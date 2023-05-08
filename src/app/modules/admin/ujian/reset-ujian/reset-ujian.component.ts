@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { identity, pickBy } from 'lodash';
 import { ResetUjianService } from './reset-ujian.service';
+import * as moment from 'moment-timezone';
 
 @Component({
     selector: 'app-reset-ujian',
@@ -21,7 +22,7 @@ export class ResetUjianComponent implements OnInit {
 
     ngOnInit(): void {
         this.form = this.formBuilder.group({
-            email: ''
+            email: '',
         });
     }
 
@@ -48,5 +49,12 @@ export class ResetUjianComponent implements OnInit {
                 this.ujians = res;
                 this.isLoading = false;
             });
+    }
+
+    formatDate(d) {
+        const dd = new Date(d);
+        const day = dd.getDate()<10?'0'+(dd.getDate()-1):(dd.getDate()-1);
+        const month = dd.getMonth()<10?'0'+(dd.getMonth()+1):(dd.getMonth()+1);
+        return `${day}/${month}/${ moment(d).tz('Asia/Jakarta').format('Y H:s')}`;
     }
 }

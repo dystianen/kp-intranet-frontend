@@ -38,20 +38,20 @@
                     </div>
                 </div>
 
-                <ng-container *ngIf="ujians.length > 0 else notFound">
+                <ng-container *ngIf="ujians.length > 0; else notFound">
                     <div class="grid">
                         <!-- Header -->
                         <div
-                            class="grid-cols-7 z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
+                            class="grid-cols-6 z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
                             matSort
                             matSortDisableClear
                         >
-                            <div
+                            <!-- <div
                                 class="hidden md:block"
                                 [mat-sort-header]="'otp'"
                             >
                                 Id Student
-                            </div>
+                            </div> -->
                             <div>Student Name</div>
                             <div>Assign ID</div>
                             <div class="hidden sm:block">Papper Name</div>
@@ -63,14 +63,14 @@
 
                         <ng-container *ngFor="let ujian of ujians">
                             <div
-                                class="grid-cols-7 grid items-center gap-4 py-3 px-6 md:px-8 border-b"
+                                class="grid-cols-6 grid items-center gap-4 py-3 px-6 md:px-8 border-b"
                             >
                                 <!-- Image -->
 
                                 <!-- SKU -->
-                                <div class="hidden md:block truncate">
+                                <!-- <div class="hidden md:block truncate">
                                     {{ ujian.student_id }}
-                                </div>
+                                </div> -->
 
                                 <!-- Name -->
                                 <div>
@@ -87,15 +87,10 @@
                                 </div>
 
                                 <div>
-                                    {{
-                                        ujian.start_date
-                                            | date : "dd/MM/yy, h:mm a"
-                                    }}
+                                    {{ formatDate(ujian.start_date) }}
                                 </div>
                                 <div>
-                                    {{
-                                        ujian.end_date | date : "dd/MM/yy, h:mm a"
-                                    }}
+                                    {{ formatDate(ujian.end_date) }}
                                 </div>
                                 <div>
                                     <button
