@@ -35,48 +35,6 @@
                                 [formControlName]="'email'"
                             />
                         </mat-form-field>
-
-                        <mat-form-field>
-                            <mat-label>From</mat-label>
-                            <input
-                                matInput
-                                class="w-full"
-                                [ngxMatDatetimePicker]="start_date"
-                                placeholder="Choose a date & time"
-                                [formControlName]="'start_date'"
-                                required
-                            />
-
-                            <mat-datepicker-toggle
-                                matSuffix
-                                [for]="start_date"
-                            ></mat-datepicker-toggle>
-
-                            <ngx-mat-datetime-picker
-                                #start_date
-                            ></ngx-mat-datetime-picker>
-                        </mat-form-field>
-
-                        <mat-form-field>
-                            <mat-label>To</mat-label>
-                            <input
-                                matInput
-                                class="w-full"
-                                [ngxMatDatetimePicker]="end_date"
-                                placeholder="Choose a date & time"
-                                [formControlName]="'end_date'"
-                                required
-                            />
-
-                            <mat-datepicker-toggle
-                                matSuffix
-                                [for]="end_date"
-                            ></mat-datepicker-toggle>
-
-                            <ngx-mat-datetime-picker
-                                #end_date
-                            ></ngx-mat-datetime-picker>
-                        </mat-form-field>
                     </div>
                 </div>
 
@@ -131,12 +89,12 @@
                                 <div>
                                     {{
                                         ujian.start_date
-                                            | date : "d/Y/yy, h:mm a"
+                                            | date : "d dd M yy, h:mm a"
                                     }}
                                 </div>
                                 <div>
                                     {{
-                                        ujian.end_date | date : "d/Y/yy, h:mm a"
+                                        ujian.end_date | date : "d dd M yy, h:mm a"
                                     }}
                                 </div>
                                 <div>
