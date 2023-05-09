@@ -53,7 +53,7 @@ export class ResetUjianComponent implements OnInit {
 
     formatDate(d:string) {
         if(d){
-            return new Date(d).toLocaleString('id-ID');
+            return new Date(d).toLocaleString('id-ID',{ timeZone: 'UTC' });
         }
         return "-";
         // const dd = new Date(d);
