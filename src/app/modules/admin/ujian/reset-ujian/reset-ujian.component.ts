@@ -51,10 +51,14 @@ export class ResetUjianComponent implements OnInit {
             });
     }
 
-    formatDate(d) {
-        const dd = new Date(d);
-        const day = dd.getDate()<10?'0'+(dd.getDate()-1):(dd.getDate()-1);
-        const month = dd.getMonth()<10?'0'+(dd.getMonth()+1):(dd.getMonth()+1);
-        return `${day}/${month}/${ moment(d).tz('Asia/Jakarta').format('Y H:s')}`;
+    formatDate(d:string) {
+        if(d){
+            return new Date(d).toLocaleString('id-ID');
+        }
+        return "-";
+        // const dd = new Date(d);
+        // const day = dd.getDate()<10?'0'+(dd.getDate()-1):(dd.getDate()-1);
+        // const month = dd.getMonth()<10?'0'+(dd.getMonth()+1):(dd.getMonth()+1);
+        // return `${day}/${month}/${ moment(d).tz('Asia/Jakarta').format('Y H:s')}`;
     }
 }
