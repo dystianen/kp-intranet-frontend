@@ -163,6 +163,7 @@ export class ListSoalComponent implements OnInit {
                 title: 'Buat Soal dengan Template',
                 type: 'upload',
                 mapel: this.mapel,
+                category_id: this.route.snapshot.params['category_id']
             },
             autoFocus: true,
         });

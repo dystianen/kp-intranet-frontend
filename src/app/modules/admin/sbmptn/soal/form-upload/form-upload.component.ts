@@ -230,7 +230,7 @@ export class FormUploadComponent implements OnInit {
         this._soalService.createBulkSoal(fd).subscribe(() => {
             setTimeout(()=>{
                 this.isLoading = false;
-                this._soalService.getSoals().subscribe();
+                this._soalService.getSoals(this.dialogData.category_id).subscribe();
                 this.dialogRef.close();
             },4000);
         });
